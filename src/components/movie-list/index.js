@@ -16,13 +16,8 @@ export default class MovieList extends React.Component {
 
     fetchMovies() {
         fetch(PATH)
-            .then((res) => {
-                return res.json();
-            })
-            .then((movies) => {
-                this.setState({ movies: movies });
-                console.log(movies);
-            });
+            .then((res) => res.json())
+            .then((movies) => this.setState({ movies: movies }));
     }
 
     componentDidMount() {
