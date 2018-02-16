@@ -11,6 +11,7 @@ import {
 import Home from "./presentations/home";
 import Header from './presentations/header'
 import MovieDetail from './containers/movie-detail';
+import Footer from './presentations/footer'
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                     <Route exact path="/" component={Home}/>
                     <Route path="/movies/:id" component={MovieDetail}/>
                 </div>
+                 <Footer/>
             </div>
         </Router>
     )

@@ -2,11 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app';
 import { AppContainer } from 'react-hot-loader';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk'
+import rootReducer from './reducers';
+import { fetchMovies, fetchCinemas } from './actions'
+
+let store = createStore(
+    rootReducer,
+    applyMiddleware(thunkMiddleware)
+    );
 
 const render = (Component) =>
     ReactDOM.render(
         <AppContainer>
-            <Component/>
+            <Provider store={store}>
+                <Component/>
+            </Provider>
         </AppContainer>,
         document.getElementById("app")
     );
@@ -18,3 +30,8 @@ if (module.hot) {
         render(App);
     })
 }
+
+store.dispatch(fetchMovies())
+    .then(() => console.log(store.getState()));
+store.dispatch(fetchCinemas())
+    .then(() => console.log(store.getState()));

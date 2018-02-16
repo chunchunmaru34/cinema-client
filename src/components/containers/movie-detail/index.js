@@ -18,6 +18,7 @@ export default class MovieDetailContainer extends React.Component {
         fetch(MOVIES_PATH + "/" + this.props.match.params.id)
             .then(res => res.json())
             .then(res => this.setState({ movie: res }))
+            .catch(err => console.error(err))
     };
     render() {
         return React.createElement(MovieDetail, { movie: this.state.movie })

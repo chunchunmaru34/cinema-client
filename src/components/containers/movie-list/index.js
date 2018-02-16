@@ -13,7 +13,8 @@ export default class MovieListContainer extends React.Component {
     fetchMovies = () => {
         fetch(MOVIES_PATH)
             .then(res => res.json())
-            .then(movies => this.setState({ movies: movies }));
+            .then(movies => this.setState({ movies: movies }))
+            .catch(err => console.error(err));
     };
 
     componentDidMount() {
