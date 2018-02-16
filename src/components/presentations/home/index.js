@@ -1,5 +1,5 @@
 import React from 'react';
-import MovieList from '../../containers/movie-list/index';
+import MovieList from '../../containers/movie-list';
 import styles from './styles.css'
 
 const Home = () => {

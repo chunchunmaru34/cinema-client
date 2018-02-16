@@ -1,28 +1,24 @@
 import React from 'react';
 import MovieList from '../../presentations/movie-list'
-import { MOVIES_PATH } from '../../../../conf/api-paths'
+import { connect } from 'react-redux';
+import { fetchMovies } from '../../../actions'
 
-export default class MovieListContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            movies: [],
-        };
-    }
-
-    fetchMovies = () => {
-        fetch(MOVIES_PATH)
-            .then(res => res.json())
-            .then(movies => this.setState({ movies: movies }))
-            .catch(err => console.error(err));
-    };
-
+class MovieListContainer extends React.Component {
     componentDidMount() {
-        this.fetchMovies();
+        const { dispatch } = this.props;
+        dispatch(fetchMovies());
     }
 
     render() {
-        return React.createElement(MovieList, { movies: this.state.movies });
+        return React.createElement(MovieList, { movies: this.props.movies });
     }
-
 }
+
+const mapStateToProps = state => {
+    return {
+        movies: state.movies.data
+    }
+};
+
+export default connect(mapStateToProps)(MovieListContainer);
+

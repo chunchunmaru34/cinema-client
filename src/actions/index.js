@@ -31,6 +31,38 @@ export function fetchMovies() {
     }
 }
 
+export const REQUEST_MOVIE_DETAILS = 'REQUEST_MOVIE_DETAILS';
+export function requestMovieDetails() {
+    return {
+        type: REQUEST_MOVIE_DETAILS,
+    }
+}
+
+export const RECEIVE_MOVIE_DETAILS = 'RECEIVE_MOVIE_DETAILS';
+export function receiveMovieDetails(json) {
+    return {
+        type: RECEIVE_MOVIE_DETAILS,
+        movieDetails: json,
+    }
+}
+
+export const FETCH_MOVIE_DETAILS = 'FETCH_MOVIE_DETAILS';
+export function fetchMovieDetails(id) {
+    return function (dispatch) {
+        dispatch(requestMovieDetails());
+        return fetch(MOVIES_PATH + "/" + id)
+            .then(
+                res => res.json(),
+                err => console.log(err)
+            )
+            .then(
+                json => {
+                    dispatch(receiveMovieDetails(json));
+                }
+            )
+    }
+}
+
 export const REQUEST_CINEMAS = 'REQUEST_CINEMAS';
 export function requestCinemas() {
     return {

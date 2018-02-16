@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk'
 import rootReducer from './reducers';
-import { fetchMovies, fetchCinemas } from './actions'
+import { fetchMovies, fetchCinemas, fetchMovieDetails } from './actions'
 
 let store = createStore(
     rootReducer,
@@ -31,7 +31,9 @@ if (module.hot) {
     })
 }
 
-store.dispatch(fetchMovies())
-    .then(() => console.log(store.getState()));
-store.dispatch(fetchCinemas())
-    .then(() => console.log(store.getState()));
+// store.dispatch(fetchMovies())
+//     .then(() => console.log(store.getState()));
+// store.dispatch(fetchCinemas())
+//     .then(() => console.log(store.getState()));
+// store.dispatch(fetchMovieDetails("5a7b03652642df33c81081d6"))
+//     .then(() => console.log(store.getState()));

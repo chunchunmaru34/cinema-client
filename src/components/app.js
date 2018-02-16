@@ -10,7 +10,7 @@ import {
 
 import Home from "./presentations/home";
 import Header from './presentations/header'
-import MovieDetail from './containers/movie-detail';
+import MovieDetail from './containers/movie-details';
 import Footer from './presentations/footer'
 
 const App = () => {

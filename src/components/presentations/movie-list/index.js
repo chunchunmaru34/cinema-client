@@ -4,7 +4,7 @@ import styles from './styles.css';
 
 const MovieList = ({ movies }) => {
     let movieList;
-    if (movies.length) {
+    if (movies && movies.length) {
         movieList = movies.map(item => {
             return <Movie data={item} key={item._id} />
         })
