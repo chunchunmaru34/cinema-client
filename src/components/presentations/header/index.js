@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import styles from './styles.css';
 
 const Header = () => {
     return (
         <div className={styles.header}>
-            <div className={styles.logo}>Cinema tickets</div>
+            <Link to='/' className={styles.logo}>Cinema</Link>
         </div>)
 };
 

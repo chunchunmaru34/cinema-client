@@ -13,7 +13,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
     },
     module: {
         rules: [{
-            test: /\.css$/,
+            test: /\.(scss|css)$/,
             use: [
                 {
                     loader: 'style-loader'
@@ -30,8 +30,12 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
                 {
                     loader: 'postcss-loader'
                 },
-            ]
-        }]
+                {
+                    loader: 'sass-loader'
+                },
+            ],
+        },
+        ]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()

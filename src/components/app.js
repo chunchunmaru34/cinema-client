@@ -1,21 +1,28 @@
-import styles from './global.css'
-import Header from './header'
+import './global.css';
+import 'normalize.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
 import React from 'react';
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
-    Link
 } from 'react-router-dom';
-import Home from "./home";
+
+import Home from "./presentations/home";
+import Header from './presentations/header'
+import MovieDetail from './containers/movie-detail';
 
 const App = () => {
     return (
-        <div>
-            <Header/>
-            <Router>
-                <Route path="/" component={Home}/>
-            </Router>
-        </div>
+        <Router>
+             <div>
+                <Header/>
+                <div>
+                    <Route exact path="/" component={Home}/>
+                    <Route path="/movies/:id" component={MovieDetail}/>
+                </div>
+            </div>
+        </Router>
     )
 };
 

@@ -2,11 +2,13 @@
     background-color: #222222;
     color: whitesmoke;
     height: 300px;
+    text-align: center;
 }
 
 .logo {
-    text-align: center;
+    Color: #e8e8e8;
     line-height: 300px;
+    text-decoration: none;
     margin: 0 auto;
     font-size: 80px;
 }

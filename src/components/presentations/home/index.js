@@ -1,12 +1,12 @@
 import React from 'react';
-import MovieSessionsList from '../movie-list';
+import MovieList from '../../containers/movie-list/index';
 import styles from './styles.css'
 
 const Home = () => {
     return (
         <div className={styles.container}>
             <h1>Current movie sessions</h1>
-            <MovieSessionsList/>
+            <MovieList/>
         </div>
     )
 };
