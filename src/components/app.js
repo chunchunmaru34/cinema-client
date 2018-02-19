@@ -1,19 +1,16 @@
-import './global.css';
-import 'normalize.css';
-import 'bootstrap/dist/css/bootstrap.css';
-
 import React from 'react';
 import {
-    HashRouter as Router,
-    Route,
+  HashRouter as Router,
+  Route,
 } from 'react-router-dom';
+import 'normalize.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import './global.scss';
+import Home from './home';
+import Header from './header';
+import MovieDetail from './movie/movie-detail/movie-detail-container';
 
-import Home from "./home";
-import Header from './header'
-import MovieDetail from './movie-detail-container';
-
-const App = () => {
-    return (
+const App = () => (
         <Router>
              <div>
                 <Header/>
@@ -23,7 +20,6 @@ const App = () => {
                 </div>
             </div>
         </Router>
-    )
-};
+);
 
 export default App;
