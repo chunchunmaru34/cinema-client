@@ -1,10 +1,19 @@
 import React from 'react';
-import styles from './styles.css'
-import MovieSessions from '../../movie-sessions-list'
+import styles from './styles.css';
+import MovieSessions from '../../movie-session/movie-sessions-list';
+
+function getActors(actors) {
+  if (!actors) return '';
+  return actors.join(', ');
+}
+
+function parseDate(JSONString) {
+  return new Date(JSONString).toDateString();
+}
 
 const MovieDetail = ({ movie }) => {
-    if (movie) {
-        return (
+  if (movie) {
+    return (
             <div className={styles.container}>
                 <div>
                     <div className={styles.title}><h2>{movie.title}</h2></div>
@@ -24,16 +33,8 @@ const MovieDetail = ({ movie }) => {
                 </div>
                 <MovieSessions data={movie.movieSessions}/>
             </div>
-        )} else return "Loading"
+    );
+  } return 'Loading';
 };
-
-function getActors(actors) {
-    if (!actors) return "";
-    return actors.join(", ");
-}
-
-function parseDate(JSONString) {
-    return new Date(JSONString).toDateString();
-}
 
 export default MovieDetail;

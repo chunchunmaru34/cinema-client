@@ -1,0 +1,16 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["react"],
+  "rules": {
+    "no-undef": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "no-underscore-dangle":"off",
+    "global-require": "off",
+    "import/no-extraneous-dependencies":  [
+      "error",
+      {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}
+    ]
+  },
+  "extends": ["airbnb-base"]
+}

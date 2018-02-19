@@ -1,20 +1,18 @@
-import './global.css';
 import 'normalize.css';
 import 'bootstrap/dist/css/bootstrap.css';
-
 import React from 'react';
 import {
-    HashRouter as Router,
-    Route,
+  HashRouter as Router,
+  Route,
 } from 'react-router-dom';
 
-import Home from "./presentations/home";
-import Header from './presentations/header'
-import MovieDetail from './containers/movie-details';
-import Footer from './presentations/footer'
+import './global.css';
+import Home from './home';
+import Header from './header';
+import MovieDetail from './movie/movie-details/movie-details-container';
+import Footer from './footer';
 
-const App = () => {
-    return (
+const App = () => (
         <Router>
              <div>
                 <Header/>
@@ -25,7 +23,6 @@ const App = () => {
                  <Footer/>
             </div>
         </Router>
-    )
-};
+);
 
 export default App;
