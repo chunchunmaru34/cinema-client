@@ -1,11 +1,7 @@
 import express from 'express';
 const app = express();
-
-
-const PORT = 3000;
+import { PORT, isDev } from './conf/server-config';
 const PUBLIC_PATH = __dirname + '/public';
-
-const isDev = process.env.NODE_ENV === 'development';
 
 if (isDev) {
     const webpack = require('webpack');

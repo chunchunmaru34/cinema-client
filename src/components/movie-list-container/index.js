@@ -1,6 +1,6 @@
 import React from 'react';
-import MovieList from '../../presentations/movie-list'
-import { MOVIES_PATH } from '../../../../conf/api-paths'
+import MovieList from '../movie-list/index'
+import { MOVIES_PATH } from '../../../conf/api-paths'
 
 export default class MovieListContainer extends React.Component {
     constructor(props) {
@@ -21,7 +21,7 @@ export default class MovieListContainer extends React.Component {
     }
 
     render() {
-        return React.createElement(MovieList, { movies: this.state.movies });
+        return <MovieList movies={this.state.movies}/>
     }
 
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import MovieDetail from '../../presentations/movie-detail/index';
-import { MOVIES_PATH } from '../../../../conf/api-paths';
+import MovieDetail from '../movie-detail/index';
+import { MOVIES_PATH } from '../../../conf/api-paths';
 
 export default class MovieDetailContainer extends React.Component {
     constructor(props) {
@@ -19,8 +19,9 @@ export default class MovieDetailContainer extends React.Component {
             .then(res => res.json())
             .then(res => this.setState({ movie: res }))
     };
+
     render() {
-        return React.createElement(MovieDetail, { movie: this.state.movie })
+        return <MovieDetail movie={this.state.movie}/>
     }
 }
 

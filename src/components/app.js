@@ -8,9 +8,9 @@ import {
     Route,
 } from 'react-router-dom';
 
-import Home from "./presentations/home";
-import Header from './presentations/header'
-import MovieDetail from './containers/movie-detail';
+import Home from "./home";
+import Header from './header'
+import MovieDetail from './movie-detail-container';
 
 const App = () => {
     return (

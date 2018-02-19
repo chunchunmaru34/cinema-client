@@ -1,6 +1,7 @@
 import React from 'react';
-import styles from './styles.css'
-import MovieSessions from '../../movie-sessions-list'
+import PropTypes from 'prop-types';
+import styles from './styles.css';
+import MovieSessions from '../movie-sessions-list/index';
 
 const MovieDetail = ({ movie }) => {
     return (
@@ -34,5 +35,20 @@ function getActors(actors) {
 function parseDate(JSONString) {
     return new Date(JSONString).toDateString();
 }
+
+MovieDetail.propTypes = {
+    movie: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        actors: PropTypes.arrayOf(PropTypes.string),
+        director: PropTypes.string,
+        startShowDate: PropTypes.string,
+        endShowDate: PropTypes.string,
+        posterUrl: PropTypes.string,
+        rating: PropTypes.number,
+        year: PropTypes.number,
+        movieSessions: PropTypes.array
+    })
+};
 
 export default MovieDetail;
