@@ -1,12 +1,14 @@
+@import "../global";
+
 .header {
-    background-color: #222222;
+    background-color: $dark;
     color: whitesmoke;
     height: 300px;
     text-align: center;
 }
 
 .logo {
-    Color: #e8e8e8;
+    color: $light;
     line-height: 300px;
     text-decoration: none;
     margin: 0 auto;

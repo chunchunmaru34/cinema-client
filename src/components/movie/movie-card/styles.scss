@@ -1,16 +1,17 @@
+@import '../../global.scss';
+
 .container {
     display: inline-block;
     margin: 10px;
     border: rgba(34,34,34, 0.5) 1px solid;
-
 }
 
 .title {
     font-size: 1.2em;
     line-height: 50px;
     text-decoration: none;
-    background-color: #222222;
-    color: #D4D4D4;
+    background-color: $primary;
+    color: $light;
     text-align: center;
 }
 

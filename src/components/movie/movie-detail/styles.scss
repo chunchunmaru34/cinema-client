@@ -1,3 +1,5 @@
+@import "../../global.scss";
+
 .container {
     padding: 15px;
     text-align: center;
@@ -12,7 +14,7 @@
 }
 
 .poster {
-    border: 2px solid #222222;
+    border: 2px solid $dark;
 }
 
 .poster img {
@@ -26,8 +28,8 @@
 
 .info > div {
     margin: 10px;
-    background-color: #222222;
-    color: #e8e8e8;
+    background-color: $dark;
+    color: $light;
     padding: 10px
 }
 
