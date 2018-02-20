@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Movie from '../movie-card/movie-card';
-import styles from './styles.css';
+import styles from './styles.scss';
 
 const MovieList = ({ movies }) => (
         <div className={styles.container}>

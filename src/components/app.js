@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import 'normalize.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import './global.scss';
+import styles from './global.scss';
 import Home from './home';
 import Header from './header';
 import MovieDetail from './movie/movie-detail/movie-detail-container';
@@ -14,7 +14,7 @@ const App = () => (
         <Router>
              <div>
                 <Header/>
-                <div>
+                <div className={styles.container}>
                     <Route exact path="/" component={Home}/>
                     <Route path="/movies/:id" component={MovieDetail}/>
                 </div>

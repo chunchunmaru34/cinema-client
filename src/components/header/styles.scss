@@ -2,13 +2,12 @@
 
 .header {
     background-color: $dark;
-    color: whitesmoke;
     height: 300px;
     text-align: center;
 }
 
 .logo {
-    color: $light;
+    color: $text-color-light;
     line-height: 300px;
     text-decoration: none;
     margin: 0 auto;
