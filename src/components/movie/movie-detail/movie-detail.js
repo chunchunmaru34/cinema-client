@@ -37,7 +37,7 @@ const MovieDetail = ({ movie }) => (
 
 MovieDetail.propTypes = {
   movie: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     actors: PropTypes.arrayOf(PropTypes.string),
     director: PropTypes.string,

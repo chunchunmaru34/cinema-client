@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.scss';
 
 
-const Movie = ({ id, posterUrl, title }) => (
+const MovieCard = ({ id, posterUrl, title }) => (
         // TODO push to history on click instead of Link
         <Link to={`/movies/${id}`} className={styles.container}>
             <div className={styles.poster}>
@@ -16,10 +16,10 @@ const Movie = ({ id, posterUrl, title }) => (
         </Link>
 );
 
-Movie.propTypes = {
+MovieCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   posterUrl: PropTypes.string,
 };
 
-export default Movie;
+export default MovieCard;

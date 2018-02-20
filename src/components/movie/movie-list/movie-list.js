@@ -6,16 +6,16 @@ import styles from './styles.scss';
 const MovieList = ({ movies }) => (
         <div className={styles.container}>
             {movies.map(item => <Movie
-                    id={item._id}
+                    id={item.id}
                     posterUrl={item.posterUrl}
                     title={item.title}
-                    key={item._id} />)}
+                    key={item.id} />)}
         </div>
 );
 
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     posterUrl: PropTypes.string,
     title: PropTypes.string.isRequired,
   })),
