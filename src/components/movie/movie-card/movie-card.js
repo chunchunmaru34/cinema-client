@@ -7,7 +7,9 @@ import styles from './styles.scss';
 const MovieCard = ({ id, posterUrl, title }) => (
         // TODO push to history on click instead of Link
         <Link to={`/movies/${id}`} className={styles.container}>
-            <img src={posterUrl} className={styles.poster}/>
+            <div className={styles.poster}>
+                <img src={posterUrl}/>
+            </div>
             <div className={styles.title}>
                 {title}
             </div>

@@ -6,31 +6,32 @@
 }
 
 .details {
-    margin: 20px;
-}
-
-.details > div {
-    display: inline-block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 800px;
+    margin: 20px auto;
+    & > div {
+        display: inline-block;
+    }
 }
 
 .poster {
     border: 2px solid $dark;
-}
-
-.poster img {
-    width: 320px;
+    max-width: 320px;
+    img {
+        width: 100%;
+    }
 }
 
 .info {
-    vertical-align: top;
-    margin-left: 15px ;
-}
-
-.info > div {
-    margin: 10px;
-    background-color: $dark;
-    color: $light;
-    padding: 10px
+    & > div {
+        max-width: 300px;
+        margin: 10px auto;
+        background-color: $dark;
+        color: $text-color-light;
+        padding: 10px
+    }
 }
 
 .title {
