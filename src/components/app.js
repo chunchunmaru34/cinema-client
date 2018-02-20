@@ -1,16 +1,14 @@
-import 'normalize.css';
-import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import {
   HashRouter as Router,
   Route,
 } from 'react-router-dom';
-
-import './global.css';
+import 'normalize.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import './global.scss';
 import Home from './home';
 import Header from './header';
-import MovieDetail from './movie/movie-details/movie-details-container';
-import Footer from './footer';
+import MovieDetails from './movie/movie-details/movie-details-container';
 
 const App = () => (
         <Router>
@@ -18,9 +16,8 @@ const App = () => (
                 <Header/>
                 <div>
                     <Route exact path="/" component={Home}/>
-                    <Route path="/movies/:id" component={MovieDetail}/>
+                    <Route path="/movies/:id" component={MovieDetails}/>
                 </div>
-                 <Footer/>
             </div>
         </Router>
 );

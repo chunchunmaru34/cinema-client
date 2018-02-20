@@ -1,0 +1,16 @@
+@import "../global";
+
+.header {
+    background-color: $dark;
+    color: whitesmoke;
+    height: 300px;
+    text-align: center;
+}
+
+.logo {
+    color: $light;
+    line-height: 300px;
+    text-decoration: none;
+    margin: 0 auto;
+    font-size: 80px;
+}

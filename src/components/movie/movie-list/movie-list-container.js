@@ -10,7 +10,7 @@ class MovieListContainer extends React.Component {
   }
 
   render() {
-    return React.createElement(MovieList, { movies: this.props.movies });
+    return this.props.movies ? <MovieList movies={this.props.movies}/> : '';
   }
 }
 

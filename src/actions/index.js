@@ -52,9 +52,7 @@ export function fetchMovieDetails(id) {
         res => res.json(),
         err => console.log(err),
       )
-      .then((json) => {
-        dispatch(receiveMovieDetails(json));
-      });
+      .then(json => dispatch(receiveMovieDetails(json)));
   };
 }
 

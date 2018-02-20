@@ -13,7 +13,15 @@ export default new Config().merge({
     rules: [
       {
         test: /\.(js|jsx?)$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(js|jsx?)$/,
+        use: [
+          'babel-loader',
+          'eslint-loader',
+        ],
         exclude: /node_modules/,
       },
     ],
