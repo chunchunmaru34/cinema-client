@@ -1,0 +1,40 @@
+@import "../../global.scss";
+
+.container {
+    padding: 15px;
+    text-align: center;
+}
+
+.details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 800px;
+    margin: 20px auto;
+    & > div {
+        display: inline-block;
+    }
+}
+
+.poster {
+    border: 2px solid $dark;
+    max-width: 320px;
+    img {
+        width: 100%;
+    }
+}
+
+.info {
+    & > div {
+        max-width: 300px;
+        margin: 10px auto;
+        background-color: $dark;
+        color: $text-color-light;
+        padding: 10px
+    }
+}
+
+.title {
+    text-align: center;
+    margin: 10px;
+}

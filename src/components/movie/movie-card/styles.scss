@@ -1,0 +1,24 @@
+@import '../../global.scss';
+
+.container {
+    display: inline-block;
+    margin: 10px;
+    border: transparentize($dark, 0.3) 1px solid;
+}
+
+.title {
+    font-size: 1.2em;
+    line-height: 50px;
+    text-decoration: none;
+    background-color: $primary;
+    color: $light;
+    text-align: center;
+}
+
+.poster {
+    max-width: 320px;
+    img {
+      width: 100%;
+    }
+}
+
