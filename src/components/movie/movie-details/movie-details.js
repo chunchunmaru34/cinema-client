@@ -1,12 +1,9 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
-import MovieSessions from '../../movie-session/movie-sessions-list/index';
-import SeatsArrangement from '../../movie-session/seats-arrangement';
 
 function getActors(actors) {
-  if (!actors) return '';
+  if (!actors.length) return '';
   return actors.join(', ');
 }
 
@@ -14,34 +11,24 @@ function parseDate(JSONString) {
   return new Date(JSONString).toDateString();
 }
 
-const MovieDetail = ({ movie, match }) => (
-        <div className={styles.container}>
-            <div>
-                <div className={styles.title}><h2>{movie.title}</h2></div>
-                <div className={styles.details}>
-                    <div className={styles.poster}><img src={movie.posterUrl}/></div>
-                    <div className={styles.info}>
-                        <div>Year: {movie.year}</div>
-                        <div>Director: {movie.director}</div>
-                        <div>Actors: {getActors(movie.actors)}</div>
-                        <div>Rating: {movie.rating}</div>
-                        <div>Show starting: {parseDate(movie.startShowDate)}
-                        </div>
-                        <div>Show ending: {parseDate(movie.endShowDate)}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <MovieSessions data={movie.movieSessions} match={match}/>
-            {/* Rewrite this */}
-            <Route path={`${match.url}/movieSessions/:id`}
-                   component={props => <SeatsArrangement data={movie.movieSessions}
-                                                         match={props.match}/>
-                   }
-            />
-        </div>
+const MovieDetail = ({ movie }) => (
+  <div className={styles.container}>
+      <div>
+          <div className={styles.title}><h2>{movie.title}</h2></div>
+          <div className={styles.details}>
+              <div className={styles.poster}><img src={movie.posterUrl}/></div>
+              <div className={styles.info}>
+                {movie.year && <div>Year: {movie.year}</div> }
+                {movie.director && <div>Director: {movie.director}</div> }
+                {movie.actors && <div>Actors: {getActors(movie.actors)}</div> }
+                {movie.rating && <div>Rating: {movie.rating}</div> }
+                <div>Show starting: {parseDate(movie.startShowDate)}</div>
+                <div>Show ending: {parseDate(movie.endShowDate)}</div>
+              </div>
+          </div>
+      </div>
+  </div>
 );
-
 
 MovieDetail.propTypes = {
   movie: PropTypes.shape({

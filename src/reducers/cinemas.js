@@ -1,7 +1,7 @@
 import {
   REQUEST_CINEMAS,
   RECEIVE_CINEMAS,
-} from '../actions';
+} from '../actions/cinema-actions';
 
 const cinemas = (state = [], action) => {
   switch (action.type) {
