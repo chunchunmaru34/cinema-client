@@ -17,7 +17,7 @@ export function receiveMovies(json) {
 
 export const FETCH_MOVIES = 'FETCH_MOVIES';
 export function fetchMovies() {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(requestMovies());
     return fetch(MOVIES_PATH)
       .then(
@@ -45,7 +45,7 @@ export function receiveMovieDetails(json) {
 
 export const FETCH_MOVIE_DETAILS = 'FETCH_MOVIE_DETAILS';
 export function fetchMovieDetails(id) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(requestMovieDetails());
     return fetch(`${MOVIES_PATH}/${id}`)
       .then(
@@ -73,7 +73,7 @@ export function receiveCinemas(json) {
 
 export const FETCH_CINEMAS = 'FETCH_CINEMAS';
 export function fetchCinemas() {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(requestCinemas());
     return fetch(CINEMAS_PATH)
       .then(
@@ -81,5 +81,13 @@ export function fetchCinemas() {
         err => console.log(err),
       )
       .then(json => dispatch(receiveCinemas(json)));
+  };
+}
+
+export const MOVIE_SESSION_SELECT = 'MOVIE_SESSION_SELECT';
+export function movieSessionSelect(id) {
+  return {
+    type: MOVIE_SESSION_SELECT,
+    id,
   };
 }

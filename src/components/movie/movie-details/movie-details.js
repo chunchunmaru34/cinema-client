@@ -1,7 +1,9 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
 import MovieSessions from '../../movie-session/movie-sessions-list/index';
+import SeatsArrangement from '../../movie-session/seats-arrangement';
 
 function getActors(actors) {
   if (!actors) return '';
@@ -12,7 +14,7 @@ function parseDate(JSONString) {
   return new Date(JSONString).toDateString();
 }
 
-const MovieDetail = ({ movie }) => (
+const MovieDetail = ({ movie, match }) => (
         <div className={styles.container}>
             <div>
                 <div className={styles.title}><h2>{movie.title}</h2></div>
@@ -30,7 +32,13 @@ const MovieDetail = ({ movie }) => (
                     </div>
                 </div>
             </div>
-            <MovieSessions data={movie.movieSessions}/>
+            <MovieSessions data={movie.movieSessions} match={match}/>
+            {/* Rewrite this */}
+            <Route path={`${match.url}/movieSessions/:id`}
+                   component={props => <SeatsArrangement data={movie.movieSessions}
+                                                         match={props.match}/>
+                   }
+            />
         </div>
 );
 

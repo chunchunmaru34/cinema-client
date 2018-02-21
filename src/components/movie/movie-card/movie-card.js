@@ -1,20 +1,27 @@
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
 
+class MovieCard extends React.Component {
+    handleClick = () => {
+      this.props.history.push(`movies/${this.props.id}`);
+    };
 
-const MovieCard = ({ id, posterUrl, title }) => (
-        // TODO push to history on click instead of Link
-        <Link to={`/movies/${id}`} className={styles.container}>
-            <div className={styles.poster}>
-                <img src={posterUrl}/>
+    render() {
+      const { posterUrl, title } = this.props;
+      return (
+            <div onClick={this.handleClick} className={styles.container}>
+                <div className={styles.poster}>
+                    <img src={posterUrl}/>
+                </div>
+                <div className={styles.title}>
+                    {title}
+                </div>
             </div>
-            <div className={styles.title}>
-                {title}
-            </div>
-        </Link>
-);
+      );
+    }
+}
 
 MovieCard.propTypes = {
   id: PropTypes.string.isRequired,
@@ -22,4 +29,5 @@ MovieCard.propTypes = {
   posterUrl: PropTypes.string,
 };
 
-export default MovieCard;
+const MovieCardWithRouter = withRouter(MovieCard);
+export default MovieCardWithRouter;

@@ -10,12 +10,16 @@ class MovieDetailsContainer extends React.Component {
   }
 
   render() {
-    return this.props.movieDetails ? <MovieDetails movie={this.props.movieDetails}/> : '';
+    return this.props.movieDetails ?
+        <MovieDetails movie={this.props.movieDetails}
+                      match={this.props.match}/>
+      : '';
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   id: ownProps.match.params.id,
+  match: ownProps.match,
   movieDetails: state.movieDetails.data,
 });
 
