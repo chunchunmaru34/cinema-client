@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
-import MovieSessions from '../../movie-session/movie-sessions-list/index';
 
 function getActors(actors) {
-  if (!actors) return '';
+  if (!actors.length) return '';
   return actors.join(', ');
 }
 
@@ -13,27 +12,23 @@ function parseDate(JSONString) {
 }
 
 const MovieDetail = ({ movie }) => (
-        <div className={styles.container}>
-            <div>
-                <div className={styles.title}><h2>{movie.title}</h2></div>
-                <div className={styles.details}>
-                    <div className={styles.poster}><img src={movie.posterUrl}/></div>
-                    <div className={styles.info}>
-                        <div>Year: {movie.year}</div>
-                        <div>Director: {movie.director}</div>
-                        <div>Actors: {getActors(movie.actors)}</div>
-                        <div>Rating: {movie.rating}</div>
-                        <div>Show starting: {parseDate(movie.startShowDate)}
-                        </div>
-                        <div>Show ending: {parseDate(movie.endShowDate)}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <MovieSessions data={movie.movieSessions}/>
-        </div>
+  <div className={styles.container}>
+      <div>
+          <div className={styles.title}><h2>{movie.title}</h2></div>
+          <div className={styles.details}>
+              <div className={styles.poster}><img src={movie.posterUrl}/></div>
+              <div className={styles.info}>
+                {movie.year && <div>Year: {movie.year}</div> }
+                {movie.director && <div>Director: {movie.director}</div> }
+                {movie.actors && <div>Actors: {getActors(movie.actors)}</div> }
+                {movie.rating && <div>Rating: {movie.rating}</div> }
+                <div>Show starting: {parseDate(movie.startShowDate)}</div>
+                <div>Show ending: {parseDate(movie.endShowDate)}</div>
+              </div>
+          </div>
+      </div>
+  </div>
 );
-
 
 MovieDetail.propTypes = {
   movie: PropTypes.shape({

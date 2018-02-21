@@ -1,4 +1,4 @@
-import { CINEMAS_PATH, MOVIES_PATH } from '../../conf/api-paths';
+import { MOVIES_PATH } from '../../conf/api-paths';
 
 export const REQUEST_MOVIES = 'REQUEST_MOVIES';
 export function requestMovies() {
@@ -17,7 +17,7 @@ export function receiveMovies(json) {
 
 export const FETCH_MOVIES = 'FETCH_MOVIES';
 export function fetchMovies() {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(requestMovies());
     return fetch(MOVIES_PATH)
       .then(
@@ -25,6 +25,14 @@ export function fetchMovies() {
         err => console.log(err),
       )
       .then(json => dispatch(receiveMovies(json)));
+  };
+}
+
+export const SELECT_MOVIE = 'SELECT_MOVIE';
+export function selectMovie(movie) {
+  return {
+    type: SELECT_MOVIE,
+    movie,
   };
 }
 
@@ -45,7 +53,7 @@ export function receiveMovieDetails(json) {
 
 export const FETCH_MOVIE_DETAILS = 'FETCH_MOVIE_DETAILS';
 export function fetchMovieDetails(id) {
-  return function (dispatch) {
+  return (dispatch) => {
     dispatch(requestMovieDetails());
     return fetch(`${MOVIES_PATH}/${id}`)
       .then(
@@ -53,33 +61,5 @@ export function fetchMovieDetails(id) {
         err => console.log(err),
       )
       .then(json => dispatch(receiveMovieDetails(json)));
-  };
-}
-
-export const REQUEST_CINEMAS = 'REQUEST_CINEMAS';
-export function requestCinemas() {
-  return {
-    type: REQUEST_CINEMAS,
-  };
-}
-
-export const RECEIVE_CINEMAS = 'RECEIVE_CINEMAS';
-export function receiveCinemas(json) {
-  return {
-    type: RECEIVE_CINEMAS,
-    cinemas: json,
-  };
-}
-
-export const FETCH_CINEMAS = 'FETCH_CINEMAS';
-export function fetchCinemas() {
-  return function (dispatch) {
-    dispatch(requestCinemas());
-    return fetch(CINEMAS_PATH)
-      .then(
-        res => res.json(),
-        err => console.log(err),
-      )
-      .then(json => dispatch(receiveCinemas(json)));
   };
 }
