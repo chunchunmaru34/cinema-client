@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
+import MovieSessions from '../../movie-session/movie-sessions';
 
 function getActors(actors) {
   if (!actors.length) return '';
@@ -27,6 +28,7 @@ const MovieDetail = ({ movie }) => (
               </div>
           </div>
       </div>
+      <MovieSessions/>
   </div>
 );
 

@@ -1,4 +1,5 @@
 import { CINEMAS_PATH } from '../../conf/api-paths';
+import { fetchMovieSessionsForCinemas } from './movie-session-actions';
 
 export const REQUEST_CINEMAS = 'REQUEST_CINEMAS';
 export function requestCinemas() {
@@ -25,5 +26,16 @@ export function fetchCinemas() {
         err => console.log(err),
       )
       .then(json => dispatch(receiveCinemas(json)));
+  };
+}
+
+export const SELECT_CINEMA = 'SELECT_CINEMA';
+export function selectCinema(cinema) {
+  return (dispatch) => {
+    dispatch(fetchMovieSessionsForCinemas(cinema.id));
+    return {
+      type: SELECT_CINEMA,
+      cinema,
+    };
   };
 }

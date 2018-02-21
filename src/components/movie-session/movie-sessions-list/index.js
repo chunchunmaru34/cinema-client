@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MovieSession from '../movie-session-card/index';
 
-const MovieSessions = ({ data, match }) => (
+const MovieSessionsList = ({ data, match }) => (
   <div>
       <h3>Sessions:</h3>
       {data.map(item => <MovieSession data={item} key={item.id} match={match}/>)}
@@ -17,4 +17,4 @@ MovieSessions.propTypes = {
   })),
 };
 
-export default MovieSessions;
+export default MovieSessionsList;

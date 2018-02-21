@@ -1,6 +1,6 @@
 import {
   REQUEST_CINEMAS,
-  RECEIVE_CINEMAS,
+  RECEIVE_CINEMAS, SELECT_CINEMA,
 } from '../actions/cinema-actions';
 
 const cinemas = (state = [], action) => {
@@ -11,6 +11,10 @@ const cinemas = (state = [], action) => {
       return Object.assign({}, state, {
         data: action.cinemas,
         isLoading: false,
+      });
+    case SELECT_CINEMA:
+      return Object.assign({}, state, {
+        selectedCinema: action.cinema,
       });
     default:
       return state;
