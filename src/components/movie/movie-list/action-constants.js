@@ -1,0 +1,4 @@
+export const REQUEST_MOVIES = 'REQUEST_MOVIES';
+export const RECEIVE_MOVIES = 'RECEIVE_MOVIES';
+export const FETCH_MOVIES = 'FETCH_MOVIES';
+export const SELECT_MOVIE = 'SELECT_MOVIE';

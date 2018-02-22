@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fetchMovieDetails } from '../../../actions/movie-actions';
+import { fetchMovieDetails } from './actions';
 import MovieDetails from './movie-details';
 
 class MovieDetailsContainer extends React.Component {

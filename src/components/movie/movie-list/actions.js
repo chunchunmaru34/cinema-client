@@ -1,4 +1,5 @@
-import { MOVIES_PATH } from '../../conf/api-paths';
+import { MOVIES_PATH } from '../../../../conf/api-paths';
+import { REQUEST_MOVIES, RECEIVE_MOVIES, SELECT_MOVIE } from './action-constants';
 
 export function requestMovies() {
   return {
