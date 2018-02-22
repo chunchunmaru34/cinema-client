@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import MovieList from './movie-list';
-import { fetchMovies } from '../../../actions/movie-actions';
+import { fetchMovies } from './actions';
 
 class MovieListContainer extends React.Component {
   componentDidMount() {

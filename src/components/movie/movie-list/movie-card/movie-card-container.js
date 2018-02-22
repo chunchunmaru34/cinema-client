@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { selectMovie } from '../../../actions/movie-actions';
+import { selectMovie } from '../actions';
 import MovieCard from './movie-card';
 
 class MovieCardContainer extends React.Component {
