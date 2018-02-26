@@ -1,20 +1,26 @@
 import {
-  REQUEST_MOVIES,
-  RECEIVE_MOVIES,
-  SELECT_MOVIE,
-} from './action-constants';
+  MOVIES_REQUESTED,
+  MOVIES_RECEIVED,
+} from './action-types';
 
-const movieList = (state = {}, action) => {
+const initialState = {
+  data: null,
+  isLoading: false,
+};
+
+const movieList = (state = initialState, action) => {
   switch (action.type) {
-    case REQUEST_MOVIES:
-      return Object.assign({}, state, { isLoading: true });
-    case RECEIVE_MOVIES:
-      return Object.assign({}, state, {
+    case MOVIES_REQUESTED:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case MOVIES_RECEIVED:
+      return {
+        ...state,
         data: action.movies,
         isLoading: false,
-      });
-    case SELECT_MOVIE:
-      return Object.assign({}, state, { selectedMovie: action.movie });
+      };
     default:
       return state;
   }

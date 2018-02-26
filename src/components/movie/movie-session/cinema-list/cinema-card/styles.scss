@@ -1,0 +1,14 @@
+@import '../../../../../css/variables.global.';
+
+.container {
+  min-height: 30px;
+  margin: 10px;
+  background-color: $primary;
+  color: $text-color-light;
+}
+
+.header {
+  composes: button from global;
+  padding: 15px;
+  background-color: lighten($primary, 5);
+}

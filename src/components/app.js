@@ -4,8 +4,7 @@ import {
   Route,
 } from 'react-router-dom';
 import 'normalize.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from './global.scss';
+import styles from '../css/.global.scss';
 import Home from './home';
 import Header from './header';
 import Footer from './footer';

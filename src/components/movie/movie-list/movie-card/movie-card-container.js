@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { selectMovie } from '../actions';
+import { selectMovie } from '../../movie-details/actions';
 import MovieCard from './movie-card';
 
 class MovieCardContainer extends React.Component {
@@ -39,14 +39,12 @@ MovieCard.propTypes = {
     year: PropTypes.number,
     movieSessions: PropTypes.array,
   }),
-  history: PropTypes.object,
 };
 
 
 const mapStateToProps = (state, ownProps) => ({
   movie: ownProps.movie,
-  history: ownProps.history,
 });
 
 
-export default connect(mapStateToProps)(withRouter(MovieCardContainer));
+export default withRouter(connect(mapStateToProps)(MovieCardContainer));

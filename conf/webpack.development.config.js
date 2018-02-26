@@ -12,29 +12,45 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
     filename: 'bundle.js',
   },
   module: {
-    rules: [{
-      test: /\.(scss|css)$/,
-      use: [
-        {
-          loader: 'style-loader',
-        },
-        {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            importLoaders: 2,
-            localIdentName: '[local]__[hash:base64:5]',
-            minimize: false,
+    rules: [
+      {
+        test: /\.?global.(css|scss)$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+      },
+      {
+        test: /^((?!\.?global).)*(css|scss)$/,
+        use: [
+          {
+            loader: 'style-loader',
           },
-        },
-        {
-          loader: 'postcss-loader',
-        },
-        {
-          loader: 'sass-loader',
-        },
-      ],
-    },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 2,
+              localIdentName: '[local]__[hash:base64:5]',
+              minimize: false,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [

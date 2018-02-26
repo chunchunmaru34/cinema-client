@@ -6,7 +6,8 @@ import MovieDetails from './movie-details';
 
 class MovieDetailsContainer extends React.Component {
   componentDidMount() {
-    // If movie list was not loaded (e.g. open page from direct link), load movie manually
+    /* If movie list was not passed from movie-list (e.g. open page from direct link),
+    load movie manually */
     if (!this.props.movie) {
       const { dispatch, id } = this.props;
       dispatch(fetchMovieDetails(id));
@@ -20,8 +21,7 @@ class MovieDetailsContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   id: ownProps.match.params.id,
-  movie: state.movies.selectedMovie ||
-  (state.movies.movieDetails && state.movies.movieDetails.data),
+  movie: state.selectedMovie.movieDetails.data,
 });
 
 

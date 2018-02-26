@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from './movie-card/movie-card-container';
 import styles from './styles.scss';
+import icon from './_media/icons/refresh.svg';
 
-const MovieList = ({ movies }) => (
+const MovieList = ({ movies, refreshMovies }) => (
   <div className={styles.container}>
-      {movies.map(item => <MovieCard movie={item} key={item.id} />)}
+    <div className={styles.title}>
+      <h1>Current movie sessions</h1>
+      <div onClick={refreshMovies} className={styles.refreshIcon}>
+        <img src={icon}/>
+      </div>
+    </div>
+    {movies.map(item => <MovieCard movie={item} key={item.id} />)}
   </div>
 );
 

@@ -1,4 +1,4 @@
-@import "../../global";
+@import "../../../css/variables.global.";
 
 .container {
     padding: 15px;
@@ -27,7 +27,7 @@
     & > div {
         max-width: 300px;
         margin: 10px auto;
-        background-color: $dark;
+        background-color: lighten($primary, 5);
         color: $text-color-light;
         padding: 10px
     }
