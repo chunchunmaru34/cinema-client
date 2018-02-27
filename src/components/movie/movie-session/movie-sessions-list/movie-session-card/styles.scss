@@ -1,0 +1,11 @@
+@import '../../../../../css/variables.global.';
+
+.container {
+  margin: 10px 0 10px;
+}
+
+.header {
+  composes: button from global;
+  padding: 10px;
+  background-color: $dark;
+}

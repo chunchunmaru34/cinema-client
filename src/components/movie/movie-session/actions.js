@@ -20,10 +20,10 @@ export function receiveMovieSessions(json) {
   };
 }
 
-export function fetchMovieSessionsForCinema(id) {
+export function fetchMovieSessionsForCinema(cinemaId, movieId) {
   return (dispatch) => {
     dispatch(requestMovieSessions());
-    return fetch(`${CINEMAS_PATH}/${id}/movie-sessions/`)
+    return fetch(`${CINEMAS_PATH}/${cinemaId}/movie-sessions?movie-id=${movieId}`)
       .then(
         res => res.json(),
         err => console.log(err),
