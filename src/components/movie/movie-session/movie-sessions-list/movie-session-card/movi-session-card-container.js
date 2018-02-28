@@ -7,15 +7,14 @@ import MovieSessionCard from './movie-session-card';
 class MovieSessionCardContainer extends React.Component {
   onClick = () => {
     const {
-      history, url, data,
+      history, match, data,
     } = this.props;
-
-    history.push(`${url}/movie-sessions/${data.id}`);
+    history.push(`${match.url}/movie-sessions/${data.id}`);
   };
 
   render() {
     return <MovieSessionCard data={this.props.data}
-                             url={this.props.url}
+                             match={this.props.match}
                              clickHandler={this.onClick}
     />;
   }
@@ -23,7 +22,7 @@ class MovieSessionCardContainer extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   data: ownProps.data,
-  url: ownProps.match.url,
+  match: ownProps.match,
 });
 
 

@@ -6,21 +6,18 @@ import { fetchMovieSessionsForCinema } from '../actions';
 class MovieSessionsListContainer extends React.Component {
   componentDidMount() {
     const { dispatch, cinema, movie } = this.props;
-    if (movie && cinema) dispatch(fetchMovieSessionsForCinema(cinema.id, movie.id));
+    dispatch(fetchMovieSessionsForCinema(cinema.id, movie.id));
   }
 
   render() {
-    console.log(this.props.movieSessions);
     return this.props.movieSessions ?
-      <MovieSessionList data={this.props.movieSessions}
-                        clickHandler={this.clickHandler}
-      /> : '';
+      <MovieSessionList data={this.props.movieSessions}/> : 'Loading';
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   movie: state.selectedMovie.movieDetails.data,
-  cinema: state.selectedMovie.movieSessions.selectedCinema,
+  cinema: ownProps.cinema,
   movieSessions: state.selectedMovie.movieSessions.data,
 });
 

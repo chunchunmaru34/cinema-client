@@ -9,6 +9,8 @@ import {
 const initialState = {
   data: null,
   isLoading: false,
+  cinemas: null,
+  selectedCinema: null,
 };
 
 const movieSessions = (state = initialState, action) => {
@@ -25,9 +27,14 @@ const movieSessions = (state = initialState, action) => {
         isLoading: false,
       };
     case CINEMA_SELECTED:
+      // in case when same card was clicked twice
+      if (state.selectedCinema && state.selectedCinema.id === action.cinema.id) {
+        return state;
+      }
       return {
         ...state,
         selectedCinema: action.cinema,
+        data: null,
       };
     case MOVIE_SESSIONS_REQUESTED:
       return {

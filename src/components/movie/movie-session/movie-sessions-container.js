@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MovieSessions from './movie-sessions';
-import { fetchCinemasForMovie } from './actions';
 
 class MovieSessionsContainer extends React.Component {
   constructor(props) {
@@ -12,12 +11,10 @@ class MovieSessionsContainer extends React.Component {
 
   toggleVisibility() {
     const {
-      history, match, location, dispatch, movie,
+      history, match, location,
     } = this.props;
     if (this.state.closed && location.pathname === match.url) {
       history.push(`${match.url}/cinemas`);
-      console.log(movie);
-      dispatch(fetchCinemasForMovie(movie.id));
       this.setState({ closed: false });
     } else {
       history.push(match.url);

@@ -7,9 +7,8 @@ import CinemaList from './cinema-list';
 
 class CinemaListContainer extends React.Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchCinemasForMovie());
-    // dispatch('fetch sessions for all cinemas or not');
+    const { dispatch, movieId } = this.props;
+    dispatch(fetchCinemasForMovie(movieId));
   }
   render() {
     return this.props.cinemas ? <CinemaList cinemas={this.props.cinemas}/> : '';
@@ -18,6 +17,7 @@ class CinemaListContainer extends React.Component {
 
 const mapStateToProps = state => ({
   cinemas: state.selectedMovie.movieSessions.cinemas,
+  movieId: state.selectedMovie.movieDetails.data.id,
 });
 
 CinemaListContainer.propTypes = {
@@ -28,6 +28,7 @@ CinemaListContainer.propTypes = {
     rooms: PropTypes.array,
     roomsCount: PropTypes.number,
   })),
+  movie: PropTypes.string.isRequired,
 };
 
 export default withRouter(connect(mapStateToProps)(CinemaListContainer));
