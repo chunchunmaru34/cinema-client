@@ -1,23 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Movie from '../movie-card/movie-card';
+import MovieCard from './movie-card/movie-card-container';
 import styles from './styles.scss';
 
 const MovieList = ({ movies }) => (
-        <div className={styles.container}>
-            {movies.map(item => <Movie
-                    id={item.id}
-                    posterUrl={item.posterUrl}
-                    title={item.title}
-                    key={item.id} />)}
-        </div>
+  <div className={styles.container}>
+      {movies.map(item => <MovieCard movie={item} key={item.id} />)}
+  </div>
 );
 
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
-    posterUrl: PropTypes.string,
     title: PropTypes.string.isRequired,
+    actors: PropTypes.arrayOf(PropTypes.string),
+    director: PropTypes.string,
+    startShowDate: PropTypes.string,
+    endShowDate: PropTypes.string,
+    posterUrl: PropTypes.string,
+    rating: PropTypes.number,
+    year: PropTypes.number,
+    movieSessions: PropTypes.array,
   })),
 };
 

@@ -13,7 +13,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
   },
   module: {
     rules: [{
-      test: /\.(scss|css?)$/,
+      test: /\.(scss|css)$/,
       use: [
         {
           loader: 'style-loader',
@@ -22,7 +22,7 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
           loader: 'css-loader',
           options: {
             modules: true,
-            importLoaders: 1,
+            importLoaders: 2,
             localIdentName: '[local]__[hash:base64:5]',
             minimize: false,
           },
