@@ -24,11 +24,9 @@ export function fetchMovieSessionsForCinema(cinemaId, movieId) {
   return (dispatch) => {
     dispatch(requestMovieSessions());
     return fetch(`${CINEMAS_PATH}/${cinemaId}/movie-sessions?movie-id=${movieId}`)
-      .then(
-        res => res.json(),
-        err => console.log(err),
-      )
-      .then(json => dispatch(receiveMovieSessions(json)));
+      .then(res => res.json())
+      .then(json => dispatch(receiveMovieSessions(json)))
+      .catch(err => console.log(err));
   };
 }
 
@@ -49,11 +47,9 @@ export function fetchCinemasForMovie(id) {
   return (dispatch) => {
     dispatch(requestCinemas());
     return fetch(`${MOVIES_PATH}/${id}/cinemas`)
-      .then(
-        res => res.json(),
-        err => console.log(err),
-      )
-      .then(json => dispatch(receiveCinemas(json)));
+      .then(res => res.json())
+      .then(json => dispatch(receiveCinemas(json)))
+      .catch(err => console.log(err));
   };
 }
 

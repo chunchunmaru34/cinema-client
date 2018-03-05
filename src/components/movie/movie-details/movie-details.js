@@ -15,9 +15,13 @@ function parseDate(JSONString) {
 const MovieDetail = ({ movie }) => (
   <div className={styles.container}>
       <div>
-          <div className={styles.title}><h2>{movie.title}</h2></div>
+          <div className={styles.title}>
+            <h2>{movie.title}</h2>
+          </div>
           <div className={styles.details}>
-              <div className={styles.poster}><img src={movie.posterUrl}/></div>
+              <div className={styles.poster}>
+                <img src={movie.posterUrl}/>
+              </div>
               <div className={styles.info}>
                 {movie.year && <div>Year: {movie.year}</div> }
                 {movie.director && <div>Director: {movie.director}</div> }

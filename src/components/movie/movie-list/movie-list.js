@@ -8,11 +8,13 @@ const MovieList = ({ movies, refreshMovies }) => (
   <div className={styles.container}>
     <div className={styles.title}>
       <h1>Current movie sessions</h1>
-      <div onClick={refreshMovies} className={styles.refreshIcon}>
+      <div onClick={refreshMovies}
+           className={styles.refreshIcon}>
         <img src={icon}/>
       </div>
     </div>
-    {movies.map(item => <MovieCard movie={item} key={item.id} />)}
+    {movies.map(item => <MovieCard movie={item}
+                                   key={item.id} />)}
   </div>
 );
 

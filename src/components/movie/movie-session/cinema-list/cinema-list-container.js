@@ -11,7 +11,9 @@ class CinemaListContainer extends React.Component {
     dispatch(fetchCinemasForMovie(movieId));
   }
   render() {
-    return this.props.cinemas ? <CinemaList cinemas={this.props.cinemas}/> : '';
+    const component = <CinemaList cinemas={this.props.cinemas}/>;
+    const loadingMessage = 'Loading';
+    return this.props.cinemas ? component : loadingMessage;
   }
 }
 

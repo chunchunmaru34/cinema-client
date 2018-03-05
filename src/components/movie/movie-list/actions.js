@@ -18,11 +18,9 @@ export function fetchMovies() {
   return (dispatch) => {
     dispatch(requestMovies());
     return fetch(MOVIES_PATH)
-      .then(
-        res => res.json(),
-        err => console.log(err),
-      )
-      .then(json => dispatch(receiveMovies(json)));
+      .then(res => res.json())
+      .then(json => dispatch(receiveMovies(json)))
+      .catch(err => console.log(err));
   };
 }
 

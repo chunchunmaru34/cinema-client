@@ -5,7 +5,8 @@ import CinemaCard from './cinema-card/cinema-card-container';
 const CinemaList = ({ cinemas }) => (
   <div>
     Choose cinema
-    {cinemas.map(item => <CinemaCard data={item} key={item.id}/>)}
+    {cinemas.map(item => <CinemaCard data={item}
+                                     key={item.id}/>)}
   </div>
 );
 

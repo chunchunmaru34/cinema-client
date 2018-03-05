@@ -10,8 +10,10 @@ function getDate(data) {
 
 const MovieSessionCard = ({ data, clickHandler, match }) => (
   <div className={styles.container}>
-    <div onClick={clickHandler} className={styles.header}>{getDate(data.date)}</div>
-    <Route path={`${match.url}/movie-sessions/${data.id}`} component={SeatsArrangement}/>
+    <div onClick={clickHandler}
+         className={styles.header}>{getDate(data.date)}</div>
+    <Route path={`${match.url}/movie-sessions/${data.id}`}
+           component={SeatsArrangement}/>
   </div>
 );
 

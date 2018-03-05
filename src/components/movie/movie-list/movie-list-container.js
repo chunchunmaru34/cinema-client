@@ -14,8 +14,10 @@ class MovieListContainer extends React.Component {
   };
 
   render() {
-    return this.props.movies ? <MovieList refreshMovies={this.refreshMovies}
-                                          movies={this.props.movies}/> : '';
+    const component = <MovieList refreshMovies={this.refreshMovies}
+                                 movies={this.props.movies}/>;
+    const loadingMessage = 'Loading';
+    return this.props.movies ? component : loadingMessage;
   }
 }
 

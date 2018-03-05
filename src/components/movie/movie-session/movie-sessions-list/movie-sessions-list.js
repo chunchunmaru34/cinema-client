@@ -6,7 +6,8 @@ import styles from './styles.scss';
 const MovieSessionsList = ({ data }) => (
   <div className={styles.container}>
       Sessions:
-      {data.map(item => <MovieSession data={item} key={item.id}/>)}
+      {data.map(item => <MovieSession data={item}
+                                      key={item.id}/>)}
   </div>
 );
 
