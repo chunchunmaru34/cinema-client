@@ -1,15 +1,15 @@
-import { MOVIES_PATH } from '../../../../conf/api-paths';
-import { REQUEST_MOVIES, RECEIVE_MOVIES, SELECT_MOVIE } from './action-constants';
+import { MOVIES_PATH } from '../../../../conf/api-endpoints';
+import { MOVIES_REQUESTED, MOVIES_RECEIVED } from './action-types';
 
 export function requestMovies() {
   return {
-    type: REQUEST_MOVIES,
+    type: MOVIES_REQUESTED,
   };
 }
 
 export function receiveMovies(json) {
   return {
-    type: RECEIVE_MOVIES,
+    type: MOVIES_RECEIVED,
     movies: json,
   };
 }
@@ -18,17 +18,9 @@ export function fetchMovies() {
   return (dispatch) => {
     dispatch(requestMovies());
     return fetch(MOVIES_PATH)
-      .then(
-        res => res.json(),
-        err => console.log(err),
-      )
-      .then(json => dispatch(receiveMovies(json)));
+      .then(res => res.json())
+      .then(json => dispatch(receiveMovies(json)))
+      .catch(err => console.log(err));
   };
 }
 
-export function selectMovie(movie) {
-  return {
-    type: SELECT_MOVIE,
-    movie,
-  };
-}
