@@ -3,6 +3,7 @@
   "plugins": ["react"],
   "rules": {
     "linebreak-style": "off",
+    "no-prototype-builtins": "off",
     "no-undef": "off",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",

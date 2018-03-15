@@ -1,14 +1,14 @@
 import {
-  CINEMAS_PATH,
-  MOVIE_SESSIONS_PATH,
-} from '../../../../conf/api-endpoints';
-import {
   MOVIE_SESSIONS_REQUESTED,
   MOVIE_SESSIONS_RECEIVED,
   CINEMA_SELECTED,
   CINEMAS_REQUESTED,
   CINEMAS_RECEIVED,
 } from './action-types';
+import {
+  movieSessionService,
+  cinemaService,
+} from '../../../services';
 
 export function requestMovieSessions() {
   return {
@@ -26,9 +26,12 @@ export function receiveMovieSessions(json) {
 export function fetchMovieSessionsForCinema(cinemaId, movieId) {
   return (dispatch) => {
     dispatch(requestMovieSessions());
-    return fetch(`${MOVIE_SESSIONS_PATH}?cinema=${cinemaId}&movie-id=${movieId}`)
-      .then(res => res.json())
-      .then(json => dispatch(receiveMovieSessions(json)))
+    const params = {
+      cinema: cinemaId,
+      movie: movieId,
+    };
+    return movieSessionService.getAllMovieSessionsFor(params)
+      .then(res => dispatch(receiveMovieSessions(res.data)))
       .catch(err => console.log(err));
   };
 }
@@ -49,9 +52,9 @@ export function receiveCinemas(json) {
 export function fetchCinemasForMovie(id) {
   return (dispatch) => {
     dispatch(requestCinemas());
-    return fetch(`${CINEMAS_PATH}?movie=${id}`)
-      .then(res => res.json())
-      .then(json => dispatch(receiveCinemas(json)))
+    const params = { movie: id };
+    cinemaService.getAllCinemasFor(params)
+      .then(res => dispatch(receiveCinemas(res.data)))
       .catch(err => console.log(err));
   };
 }
