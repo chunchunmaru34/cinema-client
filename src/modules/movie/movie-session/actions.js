@@ -1,4 +1,7 @@
-import { CINEMAS_PATH, MOVIES_PATH } from '../../../../conf/api-endpoints';
+import {
+  CINEMAS_PATH,
+  MOVIE_SESSIONS_PATH,
+} from '../../../../conf/api-endpoints';
 import {
   MOVIE_SESSIONS_REQUESTED,
   MOVIE_SESSIONS_RECEIVED,
@@ -23,7 +26,7 @@ export function receiveMovieSessions(json) {
 export function fetchMovieSessionsForCinema(cinemaId, movieId) {
   return (dispatch) => {
     dispatch(requestMovieSessions());
-    return fetch(`${CINEMAS_PATH}/${cinemaId}/movie-sessions?movie-id=${movieId}`)
+    return fetch(`${MOVIE_SESSIONS_PATH}?cinema=${cinemaId}&movie-id=${movieId}`)
       .then(res => res.json())
       .then(json => dispatch(receiveMovieSessions(json)))
       .catch(err => console.log(err));
@@ -46,7 +49,7 @@ export function receiveCinemas(json) {
 export function fetchCinemasForMovie(id) {
   return (dispatch) => {
     dispatch(requestCinemas());
-    return fetch(`${MOVIES_PATH}/${id}/cinemas`)
+    return fetch(`${CINEMAS_PATH}?movie=${id}`)
       .then(res => res.json())
       .then(json => dispatch(receiveCinemas(json)))
       .catch(err => console.log(err));
