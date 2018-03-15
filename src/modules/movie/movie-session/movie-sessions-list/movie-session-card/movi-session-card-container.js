@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import MovieSessionCard from './movie-session-card';
 
-
 class MovieSessionCardContainer extends React.Component {
   onClick = () => {
     const {
@@ -24,6 +23,5 @@ const mapStateToProps = (state, ownProps) => ({
   data: ownProps.data,
   match: ownProps.match,
 });
-
 
 export default withRouter(connect(mapStateToProps)(MovieSessionCardContainer));

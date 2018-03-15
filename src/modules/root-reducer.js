@@ -1,6 +1,7 @@
 import movieDetails from './movie/movie-details/reducer';
 import movieList from './movie/movie-list/reducer';
 import movieSessions from './movie/movie-session/reducer';
+import auth from './auth/reducer';
 
 const initialState = {
   movieList: {},
@@ -8,6 +9,7 @@ const initialState = {
     movieDetails: {},
     movieSessions: {},
   },
+  auth: {},
 };
 
 const rootReducer = (state = initialState, action) => ({
@@ -16,6 +18,7 @@ const rootReducer = (state = initialState, action) => ({
     movieDetails: movieDetails(state.selectedMovie.movieDetails, action),
     movieSessions: movieSessions(state.selectedMovie.movieSessions, action),
   },
+  auth: auth(state.auth, action),
 });
 
 export default rootReducer;
