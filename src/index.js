@@ -5,7 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './modules/app-container';
+import App from './modules/app';
 import rootReducer from './modules/root-reducer';
 
 const store = createStore(
@@ -25,8 +25,8 @@ const render = Component =>
 
 render(App);
 if (module.hot) {
-  module.hot.accept('./modules/app-container', () => {
-    require('./modules/app-container');
+  module.hot.accept('./modules/app', () => {
+    require('./modules/app');
     render(App);
   });
 }

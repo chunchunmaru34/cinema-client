@@ -5,9 +5,10 @@ import {
   LOGOUT,
   CHECK_FOR_AUTHENTICATED_USER,
 } from './actions-types';
+import { authService } from '../../services';
 
 const initialState = {
-  user: null,
+  user: authService.getUserFromToken() || null,
   error: null,
 };
 

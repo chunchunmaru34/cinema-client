@@ -32,23 +32,18 @@ export function login(credentials) {
     dispatch(loginRequested());
     return authService.login(credentials)
       .then(data => dispatch(loginReceived(data)))
-      .catch((err) => {
-        console.log(err);
-        dispatch(loginFailed(err.response.data));
-      });
+      .catch(err => dispatch(loginFailed(err.response.data)));
   };
 }
 
-export function checkForAuthenticatedUser() {
-  const user = authService.getUserFromToken();
+export function checkedForAuthenticatedUser(user) {
   return {
     type: CHECK_FOR_AUTHENTICATED_USER,
     data: user,
   };
 }
 
-export function logout() {
-  authService.logout();
+export function loggedOut() {
   return {
     type: LOGOUT,
   };

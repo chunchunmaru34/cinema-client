@@ -4,12 +4,7 @@ import movieSessions from './movie/movie-session/reducer';
 import auth from './auth/reducer';
 
 const initialState = {
-  movieList: {},
-  selectedMovie: {
-    movieDetails: {},
-    movieSessions: {},
-  },
-  auth: {},
+  selectedMovie: {},
 };
 
 const rootReducer = (state = initialState, action) => ({

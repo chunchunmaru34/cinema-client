@@ -1,25 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import styles from './styles.scss';
-import { login } from '../actions';
 
-class LoginPage extends React.Component {
+export default class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.user) {
-      this.onSuccessfulLogin();
-      return;
-    }
-    if (nextProps.error) {
-      this.onFailedLogin(nextProps.error);
-    }
   }
 
   handleChange = (e) => {
@@ -33,16 +22,8 @@ class LoginPage extends React.Component {
       email: this.state.email,
       password: this.state.password,
     };
-    this.props.dispatch(login(credentials));
+    this.props.login(credentials);
   };
-
-  onSuccessfulLogin() {
-    this.props.history.push('/');
-  }
-
-  onFailedLogin(error) {
-    this.setState({ error });
-  }
 
   render() {
     return (
@@ -68,9 +49,9 @@ class LoginPage extends React.Component {
           <div>
             {this.state.name}
           </div>
-          { this.state.error &&
+          { this.props.error &&
           <div className="alert alert-danger mt-3">
-            <span>{this.state.error.message}</span>
+            <span>{this.props.error.message}</span>
           </div>
           }
         </form>
@@ -79,10 +60,10 @@ class LoginPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  history: ownProps.history,
-  user: state.auth.user,
-  error: state.auth.error,
-});
+LoginPage.propTypes = {
+  login: PropTypes.func,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+};
 
-export default connect(mapStateToProps)(LoginPage);
