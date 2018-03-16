@@ -3,6 +3,7 @@ import {
   LOGIN_REQUESTED,
   LOGIN_FAILED,
   LOGOUT,
+  CHECK_FOR_AUTHENTICATED_USER,
 } from './actions-types';
 import { authService } from '../../services';
 
@@ -31,8 +32,18 @@ export function login(credentials) {
     dispatch(loginRequested());
     return authService.login(credentials)
       .then(data => dispatch(loginReceived(data)))
-      // todo : make a proper alert
-      .catch(err => dispatch(loginFailed(err)));
+      .catch((err) => {
+        console.log(err);
+        dispatch(loginFailed(err.response.data));
+      });
+  };
+}
+
+export function checkForAuthenticatedUser() {
+  const user = authService.getUserFromToken();
+  return {
+    type: CHECK_FOR_AUTHENTICATED_USER,
+    data: user,
   };
 }
 

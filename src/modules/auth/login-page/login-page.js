@@ -6,7 +6,20 @@ import { login } from '../actions';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { email: '', password: '' };
+    this.state = {
+      email: '',
+      password: '',
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user) {
+      this.onSuccessfulLogin();
+      return;
+    }
+    if (nextProps.error) {
+      this.onFailedLogin(nextProps.error);
+    }
   }
 
   handleChange = (e) => {
@@ -22,6 +35,14 @@ class LoginPage extends React.Component {
     };
     this.props.dispatch(login(credentials));
   };
+
+  onSuccessfulLogin() {
+    this.props.history.push('/');
+  }
+
+  onFailedLogin(error) {
+    this.setState({ error });
+  }
 
   render() {
     return (
@@ -47,6 +68,11 @@ class LoginPage extends React.Component {
           <div>
             {this.state.name}
           </div>
+          { this.state.error &&
+          <div className="alert alert-danger mt-3">
+            <span>{this.state.error.message}</span>
+          </div>
+          }
         </form>
       </div>
     );
@@ -54,8 +80,9 @@ class LoginPage extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  data: ownProps.data,
-  match: ownProps.match,
+  history: ownProps.history,
+  user: state.auth.user,
+  error: state.auth.error,
 });
 
 export default connect(mapStateToProps)(LoginPage);

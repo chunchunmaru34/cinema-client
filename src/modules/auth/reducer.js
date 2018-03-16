@@ -2,6 +2,8 @@ import {
   LOGIN_RECEIVED,
   LOGIN_REQUESTED,
   LOGIN_FAILED,
+  LOGOUT,
+  CHECK_FOR_AUTHENTICATED_USER,
 } from './actions-types';
 
 const initialState = {
@@ -24,6 +26,16 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         error: action.data,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
+      };
+    case CHECK_FOR_AUTHENTICATED_USER:
+      return {
+        ...state,
+        user: action.data,
       };
     default:
       return state;
