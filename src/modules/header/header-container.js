@@ -5,7 +5,6 @@ import { loggedOut } from '../auth/actions';
 import { authService } from '../../services';
 import Header from './header';
 
-
 class HeaderContainer extends React.Component {
   onLogout = () => {
     authService.logout();
