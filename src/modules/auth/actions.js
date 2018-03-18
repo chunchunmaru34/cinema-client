@@ -35,6 +35,15 @@ export function login(credentials) {
   };
 }
 
+export function signUp(credentials) {
+  return (dispatch) => {
+    dispatch(loginRequested());
+    return authService.signUp(credentials)
+      .then(data => dispatch(loginReceived(data)))
+      .catch(err => dispatch(loginFailed(err.response.data)));
+  };
+}
+
 export function loggedOut() {
   return {
     type: LOGGED_OUT,

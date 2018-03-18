@@ -11,6 +11,8 @@ import LoginPage from './auth/login-page/login-page-container';
 import Header from './header/header-container';
 import Footer from './footer';
 import MovieDetails from './movie/movie-details/movie-details-container';
+import SignUpPage from './auth/signup-page/signup-page-container';
+import UserProfile from './user-profile/user-profile-container';
 
 import styles from '../css/.global.scss';
 
@@ -21,6 +23,8 @@ const App = () => (
         <div className={styles.container}>
           <Route exact path="/" component={Home}/>
           <Route path="/login" component={LoginPage}/>
+          <Route path="/signup" component={SignUpPage}/>
+          <Route path="/user/:id" component={UserProfile}/>
           <Route path="/movies/:id"
                  component={UserIsAuthenticated(MovieDetails)}/>
         </div>
