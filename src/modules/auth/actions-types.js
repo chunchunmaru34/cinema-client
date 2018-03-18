@@ -1,6 +1,4 @@
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const LOGGED_OUT = 'LOGGED_OUT';
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const LOGIN_RECEIVED = 'LOGIN_RECEIVED';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
-export const CHECK_FOR_AUTHENTICATED_USER = 'CHECK_FOR_AUTHENTICATED_USER';

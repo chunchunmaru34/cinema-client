@@ -1,6 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 import { AUTH_URL } from '../constants/api-endpoints';
+import history from '../utils/history/index';
 import {
   AUTH_TOKEN_NAME,
   PERMITTED_ROLE,
@@ -29,14 +30,24 @@ export function login(credentials) {
 
 export function logout() {
   localStorage.removeItem(AUTH_TOKEN_NAME);
+  history.push('/login');
 }
 
 export function getToken() {
   return localStorage.getItem(AUTH_TOKEN_NAME);
 }
 
+export function isTokenExpired(token) {
+  const currentTime = Date.now().valueOf() / 1000;
+  const payload = jwtDecode(token);
+  return payload.exp < currentTime;
+}
+
 export function getUserFromToken() {
-  const token = localStorage.getItem(AUTH_TOKEN_NAME);
-  return (token && jwtDecode(token)) || null;
+  const token = getToken();
+  if (token && !isTokenExpired(token)) {
+    return jwtDecode(token);
+  }
+  return null;
 }
 

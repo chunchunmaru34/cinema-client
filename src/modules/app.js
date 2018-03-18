@@ -1,9 +1,10 @@
 import React from 'react';
 import {
-  HashRouter as Router,
+  Router,
   Route,
 } from 'react-router-dom';
 import 'normalize.css';
+import history from '../utils/history/index';
 import Home from './home';
 import UserIsAuthenticated from './auth/auth-hoc/user-is-authenticated';
 import LoginPage from './auth/login-page/login-page-container';
@@ -14,7 +15,7 @@ import MovieDetails from './movie/movie-details/movie-details-container';
 import styles from '../css/.global.scss';
 
 const App = () => (
-  <Router>
+  <Router history={history}>
     <div>
       <Header/>
         <div className={styles.container}>

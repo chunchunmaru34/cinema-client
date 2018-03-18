@@ -1,17 +1,12 @@
 import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import configureAxios from './utils/axios/axios-config';
 import App from './modules/app';
-import rootReducer from './modules/root-reducer';
+import store from './redux/store';
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunkMiddleware)),
-);
+configureAxios();
 
 const render = Component =>
   ReactDOM.render(

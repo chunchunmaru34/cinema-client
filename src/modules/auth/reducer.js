@@ -2,8 +2,7 @@ import {
   LOGIN_RECEIVED,
   LOGIN_REQUESTED,
   LOGIN_FAILED,
-  LOGOUT,
-  CHECK_FOR_AUTHENTICATED_USER,
+  LOGGED_OUT,
 } from './actions-types';
 import { authService } from '../../services';
 
@@ -28,15 +27,10 @@ const auth = (state = initialState, action) => {
         ...state,
         error: action.data,
       };
-    case LOGOUT:
+    case LOGGED_OUT:
       return {
         ...state,
         user: null,
-      };
-    case CHECK_FOR_AUTHENTICATED_USER:
-      return {
-        ...state,
-        user: action.data,
       };
     default:
       return state;

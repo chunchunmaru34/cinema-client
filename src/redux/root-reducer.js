@@ -1,7 +1,7 @@
-import movieDetails from './movie/movie-details/reducer';
-import movieList from './movie/movie-list/reducer';
-import movieSessions from './movie/movie-session/reducer';
-import auth from './auth/reducer';
+import movieDetails from '../modules/movie/movie-details/reducer';
+import movieList from '../modules/movie/movie-list/reducer';
+import movieSessions from '../modules/movie/movie-session/reducer';
+import auth from '../modules/auth/reducer';
 
 const initialState = {
   selectedMovie: {},

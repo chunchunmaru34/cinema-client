@@ -2,8 +2,7 @@ import {
   LOGIN_RECEIVED,
   LOGIN_REQUESTED,
   LOGIN_FAILED,
-  LOGOUT,
-  CHECK_FOR_AUTHENTICATED_USER,
+  LOGGED_OUT,
 } from './actions-types';
 import { authService } from '../../services';
 
@@ -36,15 +35,8 @@ export function login(credentials) {
   };
 }
 
-export function checkedForAuthenticatedUser(user) {
-  return {
-    type: CHECK_FOR_AUTHENTICATED_USER,
-    data: user,
-  };
-}
-
 export function loggedOut() {
   return {
-    type: LOGOUT,
+    type: LOGGED_OUT,
   };
 }
