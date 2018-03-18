@@ -43,7 +43,7 @@ export function isTokenExpired(token) {
   return payload.exp < currentTime;
 }
 
-export function getUserFromToken() {
+export function getAuthenticatedUser() {
   const token = getToken();
   if (token && !isTokenExpired(token)) {
     return jwtDecode(token);

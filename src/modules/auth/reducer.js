@@ -7,7 +7,7 @@ import {
 import { authService } from '../../services';
 
 const initialState = {
-  user: authService.getUserFromToken() || null,
+  user: authService.getAuthenticatedUser() || null,
   error: null,
 };
 
@@ -31,6 +31,7 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         user: null,
+        error: null,
       };
     default:
       return state;

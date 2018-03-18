@@ -7,9 +7,10 @@ const Header = ({ user, handleLogout }) => (
   <div className={styles.header}>
     <div className="text-right">
       {
-        !user ? <Link to="/login">Login</Link>
+        !user ?
+          <Link to="/login">Login</Link>
           :
-          <button onClick={handleLogout}>logout</button>
+          <button onClick={handleLogout}>Logout</button>
       }
     </div>
     <Link to='/' className={styles.logo}>Cinema</Link>
