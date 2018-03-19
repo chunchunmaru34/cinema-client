@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login } from '../actions';
+import { login, clearAuthError } from '../actions';
 import LoginPage from './login-page';
 
 class LoginPageContainer extends React.Component {
@@ -9,6 +9,10 @@ class LoginPageContainer extends React.Component {
     if (nextProps.user) {
       this.props.history.push('/');
     }
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAuthError());
   }
 
   onLogin = (credentials) => {

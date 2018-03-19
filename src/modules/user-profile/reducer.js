@@ -16,7 +16,7 @@ export default function profile(state = initialState, action) {
     case RECEIVE_USER:
       return {
         ...state,
-        userProfile: action.data,
+        userDetails: action.data,
       };
     default:
       return state;

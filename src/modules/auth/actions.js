@@ -3,6 +3,7 @@ import {
   LOGIN_REQUESTED,
   LOGIN_FAILED,
   LOGGED_OUT,
+  CLEAR_AUTH_ERROR,
 } from './actions-types';
 import { authService } from '../../services';
 
@@ -47,5 +48,11 @@ export function signUp(credentials) {
 export function loggedOut() {
   return {
     type: LOGGED_OUT,
+  };
+}
+
+export function clearAuthError() {
+  return {
+    type: CLEAR_AUTH_ERROR,
   };
 }

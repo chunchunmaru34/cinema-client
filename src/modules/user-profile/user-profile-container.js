@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchUser } from './actions';
+import { fetchUser, updateUser } from './actions';
 import UserProfile from './user-profile';
 
 class UserProfileContainer extends React.Component {
@@ -10,8 +10,14 @@ class UserProfileContainer extends React.Component {
     dispatch(fetchUser(user.id));
   }
 
+  handleSubmit = (user) => {
+    this.props.dispatch(updateUser(user));
+  };
+
   render() {
-    return <UserProfile user={this.props.user}/>;
+    const { userDetails } = this.props;
+    return userDetails && <UserProfile user={ userDetails }
+                                       updateUser={this.handleSubmit}/>;
   }
 }
 
