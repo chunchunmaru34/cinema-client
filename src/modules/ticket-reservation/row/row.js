@@ -4,11 +4,10 @@ import Seat from '../seat/seat';
 import styles from './styles.scss';
 
 const Row = ({ data }) => {
-  const seats = data.map((item, seatIndex) => {
+  const seats = data.map((item, index) => {
     return <Seat data={item}
-                 key={seatIndex}
-                 className={styles.seat}
-                 index={seatIndex}
+                 key={index}
+                 index={index}
     />;
   });
   return (
