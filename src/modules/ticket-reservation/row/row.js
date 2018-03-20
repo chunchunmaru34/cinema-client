@@ -4,11 +4,12 @@ import Seat from '../seat/seat';
 import styles from './styles.scss';
 
 const Row = ({ data, movieSession }) => {
-  const seats = data.seats.map((item, index) => {
-    const reservetationStatus = movieSession.reservation[data.number - 1]
-    && movieSession.reservation[data.number - 1][index];
+  let seats = data.seats.filter(item => item.name !== 'empty');
+  seats = seats.map((item, index) => {
+    const reservationStatus = movieSession.reservation[data.number - 1]
+      && movieSession.reservation[data.number - 1][index];
     let reserved;
-    if (reservetationStatus) {
+    if (reservationStatus) {
       reserved = movieSession.reservation[data.number - 1][index].reserved;
     }
     return <Seat data={item}
