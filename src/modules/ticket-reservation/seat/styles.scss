@@ -13,6 +13,11 @@
   color: $dark;
 }
 
+.selected {
+  background-color: #41c5da;
+  color: white;
+}
+
 .occupied {
   background-color: transparent;
 }

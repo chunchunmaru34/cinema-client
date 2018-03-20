@@ -1,0 +1,12 @@
+.container {
+  padding: 10px;
+  color: black;
+  background-color: white;
+}
+
+.orderInfo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}

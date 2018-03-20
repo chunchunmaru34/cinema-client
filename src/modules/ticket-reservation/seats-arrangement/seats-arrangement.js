@@ -1,15 +1,17 @@
 import React from 'react';
 import Row from '../row/row';
+import OrderSummary from '../order-summary/order-summary-container';
 import styles from './styles.scss';
 
 const SeatsArrangements = ({ movieSession }) => {
   const rows = movieSession.seats
     .map((item, index) => <Row data={item}
-                               index={index}
+                               rowIndex={index}
                                key={index}/>);
   return (
     <div className={styles.container}>
       {rows}
+      <OrderSummary movieSession={movieSession}/>
     </div>
   );
 };

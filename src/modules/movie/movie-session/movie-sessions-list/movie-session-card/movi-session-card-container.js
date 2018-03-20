@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import MovieSessionCard from './movie-session-card';
 
+
 class MovieSessionCardContainer extends React.Component {
+  componentWillUnmount() {
+    this.props.dispatch(clearOrder());
+  }
+
   onClick = () => {
     const {
       history, match, data,
