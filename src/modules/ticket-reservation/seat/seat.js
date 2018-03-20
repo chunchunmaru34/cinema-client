@@ -1,13 +1,13 @@
 import React from 'react';
 import styles from './styles.scss';
 
-const Seat = ({ index, reserved }) => (
-    <div className={styles.container}
+const Seat = ({ index, data }) => (
+    <div className={`${styles.container} ${styles[data.status]} ${styles[data.name]}`}
          style={{
-           backgroundColor: reserved !== 'paid' ? 'white' : 'transparent',
-           color: reserved !== 'paid' ? 'black' : 'white',
-         }}>
-      {index + 1}
+      minWidth: `${40 * data.space}px`,
+    }}>
+      <div>{index + 1}</div>
+      <div>{data.space > 1 && data.name}</div>
     </div>
 );
 

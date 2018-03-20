@@ -1,8 +1,9 @@
 .container {
   display: flex;
-  justify-content: center;
-}
+  overflow: auto;
 
-.seat {
-
+  &::before, &::after {
+    content: '';
+    margin: auto;
+  }
 }
