@@ -1,15 +1,29 @@
+/* eslint-disable arrow-body-style */
 import React from 'react';
+import Addition from '../addition/addition';
 import styles from './styles.scss';
 
 export default class OrderSummary extends React.Component {
   render() {
-    let price = 0;
-    const seats = this.props.addedSeats.map((item) => {
-      price += this.props.movieSession.price * (item.priceMultiplier || 1);
-      return <div>Row: {item.rowNumber} Number: {item.number}</div>;
+    const {
+      movieSession,
+      addedSeats,
+      additions,
+      incrementAddition,
+      decrementAddition,
+      totalPrice,
+    } = this.props;
+    const seats = addedSeats.map((item) => {
+      const seatPrice = movieSession.price * (item.kind.priceMultiplier || 1);
+      return <div>Row: {item.rowNumber} Seat: {item.number} - {seatPrice}$</div>;
     });
-    const additions = this.props.movieSession.additions
-      .map(item => <div>{item.addition.name}: {item.price}$</div>)
+    const additionList = movieSession.additions.map((item) => {
+      return <Addition data={item}
+                       key={item._id}
+                       count={additions[item.addition.name]}
+                       increment={incrementAddition}
+                       decrement={decrementAddition}/>;
+    });
     return (
       <div className={styles.container}>
         <div className={styles.orderInfo}>
@@ -17,10 +31,10 @@ export default class OrderSummary extends React.Component {
             {seats}
           </div>
           <div>
-            Additions: {additions}
+            Additions: {additionList}
           </div>
           <div>
-            <h4>Total price: {price}$</h4>
+            <h4>Total price: {totalPrice}$</h4>
           </div>
         </div>
         <div className="text-center mt-3">

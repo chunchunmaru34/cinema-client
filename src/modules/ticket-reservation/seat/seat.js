@@ -30,14 +30,14 @@ export default class Seat extends React.Component {
   render() {
     const { index, data } = this.props;
     return (
-      <div className={`${styles.container} ${styles[data.status]} ${styles[data.name]}
+      <div className={`${styles.container} ${styles[data.status]} ${styles[data.kind.name]}
         ${this.state.selected && styles.selected}`}
            onClick={this.handleSelect}
            style={{
-             minWidth: `${this.NORMAL_SEAT_WIDTH * data.space}px`,
+             minWidth: `${this.NORMAL_SEAT_WIDTH * data.kind.space}px`,
            }}>
         <div>{index + 1}</div>
-        <div>{data.space > 1 && data.name}</div>
+        <div>{data.kind.space > 1 && data.kind.displayName}</div>
       </div>
     );
   }
