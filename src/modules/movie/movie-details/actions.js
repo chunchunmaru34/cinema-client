@@ -1,6 +1,9 @@
-import { MOVIES_PATH } from '../../../../conf/api-endpoints';
-import { MOVIE_DETAILS_RECEIVED, MOVIE_DETAILS_REQUESTED, MOVIE_SELECTED } from './action-types';
-
+import {
+  MOVIE_DETAILS_RECEIVED,
+  MOVIE_DETAILS_REQUESTED,
+  MOVIE_SELECTED,
+} from './action-types';
+import { movieService } from '../../../services';
 
 export function requestMovieDetails() {
   return {
@@ -18,9 +21,8 @@ export function receiveMovieDetails(json) {
 export function fetchMovieDetails(id) {
   return (dispatch) => {
     dispatch(requestMovieDetails());
-    return fetch(`${MOVIES_PATH}/${id}`)
-      .then(res => res.json())
-      .then(json => dispatch(receiveMovieDetails(json)))
+    return movieService.getMovieById(id)
+      .then(res => dispatch(receiveMovieDetails(res.data)))
       .catch(err => console.log(err));
   };
 }
