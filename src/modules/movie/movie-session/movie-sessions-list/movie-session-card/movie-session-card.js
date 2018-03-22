@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
-import SeatsArrangement from '../../../../ticket-reservation/seats-arrangement/seats-arrangement-container';
+import SeatsArrangement from '../../../../ticket-reservation/seats-arrangement/seats-arrangement';
 
 function getDate(data) {
   return new Date(data).toDateString();
