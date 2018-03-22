@@ -53,9 +53,10 @@ export function clearOrder() {
   };
 }
 
-export function paymentSucceed() {
+export function paymentSucceed(transactionId) {
   return {
     type: PAYMENT_SUCCEED,
+    data: transactionId,
   };
 }
 
@@ -80,21 +81,18 @@ export function ticketReceivingFailed(err) {
   };
 }
 
-export function requestTicket(transactionId, order) {
+export function requestTicket(order) {
   return (dispatch) => {
-    ticketService.requestTicket(transactionId, order)
-      .then(res => dispatch(ticketReceived(res)))
+    ticketService.requestTicket(order)
+      .then(res => dispatch(ticketReceived(res.data)))
       .catch(err => dispatch(ticketReceivingFailed(err)));
   };
 }
 
-export function payForOrder(order, paymentInfo) {
+export function payForOrder(paymentInfo) {
   return (dispatch) => {
     ticketService.pay(paymentInfo)
-      .then((res) => {
-        dispatch(paymentSucceed(res));
-        return dispatch(requestTicket(res, order));
-      })
+      .then(res => dispatch(paymentSucceed(res)))
       .catch(err => paymentFailed(err));
   };
 }

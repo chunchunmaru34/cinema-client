@@ -6,7 +6,7 @@ import {
   DECREMENT_ADDITION, SELECT_MOVIE_SESSION,
   PAYMENT_FAILED,
   TICKET_RECEIVED,
-  TICKET_RECEIVING_FAILED,
+  TICKET_RECEIVING_FAILED, PAYMENT_SUCCEED,
 } from './action-types';
 
 const initialState = {
@@ -14,6 +14,7 @@ const initialState = {
   addedSeats: [],
   additions: {},
   totalPrice: 0,
+  transactionId: null,
   ticket: null,
   error: null,
 };
@@ -77,6 +78,11 @@ function ticketReservation(state = initialState, action) {
         additions: {},
         totalPrice: 0,
       };
+    case PAYMENT_SUCCEED:
+      return {
+        ...state,
+        transactionId: action.data,
+      };
     case PAYMENT_FAILED:
       return {
         ...state,
@@ -84,7 +90,8 @@ function ticketReservation(state = initialState, action) {
       };
     case TICKET_RECEIVED:
       return {
-        ...state,
+        ...initialState,
+        selectedMovieSession: state.selectedMovieSession,
         ticket: action.data,
       };
     case TICKET_RECEIVING_FAILED:
