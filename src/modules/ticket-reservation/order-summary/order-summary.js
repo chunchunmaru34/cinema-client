@@ -8,6 +8,8 @@ export default class OrderSummary extends React.Component {
       price += this.props.movieSession.price * (item.priceMultiplier || 1);
       return <div>Row: {item.rowNumber} Number: {item.number}</div>;
     });
+    const additions = this.props.movieSession.additions
+      .map(item => <div>{item.addition.name}: {item.price}$</div>)
     return (
       <div className={styles.container}>
         <div className={styles.orderInfo}>
@@ -15,11 +17,7 @@ export default class OrderSummary extends React.Component {
             {seats}
           </div>
           <div>
-            Additions:
-            {
-              this.props.movieSession.additions
-                .map(item => <div>{item.addition.name}: {item.price}$</div>)
-            }
+            Additions: {additions}
           </div>
           <div>
             <h4>Total price: {price}$</h4>

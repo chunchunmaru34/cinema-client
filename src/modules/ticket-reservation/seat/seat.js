@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './styles.scss';
 
 export default class Seat extends React.Component {
+  NORMAL_SEAT_WIDTH = 40;
+
   constructor(props) {
     super(props);
     this.state = { selected: false };
@@ -32,7 +34,7 @@ export default class Seat extends React.Component {
         ${this.state.selected && styles.selected}`}
            onClick={this.handleSelect}
            style={{
-             minWidth: `${40 * data.space}px`,
+             minWidth: `${this.NORMAL_SEAT_WIDTH * data.space}px`,
            }}>
         <div>{index + 1}</div>
         <div>{data.space > 1 && data.name}</div>
