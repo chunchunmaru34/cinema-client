@@ -1,9 +1,19 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import Addition from '../addition/addition';
+import OrderPayment from '../order-payment/order-payment-container';
 import styles from './styles.scss';
 
 export default class OrderSummary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isCheckingOut: false };
+  }
+
+  toggleCheckOut = () => {
+    this.setState({ isCheckingOut: !this.state.isCheckingOut });
+  };
+
   render() {
     const {
       movieSession,
@@ -28,18 +38,20 @@ export default class OrderSummary extends React.Component {
       <div className={styles.container}>
         <div className={styles.orderInfo}>
           <div>
+            Seats:
             {seats}
           </div>
           <div>
             Additions: {additionList}
           </div>
-          <div>
-            <h4>Total price: {totalPrice}$</h4>
-          </div>
         </div>
         <div className="text-center mt-3">
-          <button className="btn btn-primary">Checkout</button>
+          <h4>Total price: {totalPrice}$</h4>
         </div>
+        <div className="text-center mt-3">
+          <button className="btn btn-primary" onClick={this.toggleCheckOut}>Checkout</button>
+        </div>
+        {this.state.isCheckingOut && <OrderPayment/>}
       </div>
     );
   }

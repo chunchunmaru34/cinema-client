@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { clearOrder, selectMovieSession } from '../../../../ticket-reservation/actions';
+import { selectMovieSession } from '../../../../ticket-reservation/actions';
 import MovieSessionCard from './movie-session-card';
 
 
 class MovieSessionCardContainer extends React.Component {
-  componentWillUnmount() {
-    this.props.dispatch(clearOrder());
-  }
-
   onClick = () => {
     const {
       history, match, data, dispatch,
