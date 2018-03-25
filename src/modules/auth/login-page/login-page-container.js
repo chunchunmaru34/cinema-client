@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login } from '../actions';
 import LoginPage from './login-page';
+import { login } from '../actions';
+import { HOME_ROUTE } from '../../../constants/routes';
 
 class LoginPageContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
-      this.props.history.push('/');
+      this.props.history.push(HOME_ROUTE);
     }
   }
 
