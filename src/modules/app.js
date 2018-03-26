@@ -11,6 +11,11 @@ import LoginPage from './auth/login-page/login-page-container';
 import Header from './header/header-container';
 import Footer from './footer';
 import MovieDetails from './movie/movie-details/movie-details-container';
+import {
+  LOGIN_ROUTE,
+  MOVIES_ROUTE,
+  HOME_ROUTE,
+} from '../constants/routes';
 import SignUpPage from './auth/signup-page/signup-page-container';
 import UserProfile from './user-profile/user-profile-container';
 
@@ -21,11 +26,11 @@ const App = () => (
     <div>
       <Header/>
         <div className={styles.container}>
-          <Route exact path="/" component={Home}/>
-          <Route path="/login" component={LoginPage}/>
+          <Route exact path={HOME_ROUTE} component={Home}/>
+          <Route path={LOGIN_ROUTE} component={LoginPage}/>
           <Route path="/signup" component={SignUpPage}/>
           <Route path="/user/:id" component={UserProfile}/>
-          <Route path="/movies/:id"
+          <Route path={`${MOVIES_ROUTE}/:id`}
                  component={UserIsAuthenticated(MovieDetails)}/>
         </div>
      <Footer/>

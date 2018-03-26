@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login, clearAuthError } from '../actions';
 import LoginPage from './login-page';
+import { HOME_ROUTE } from '../../../constants/routes';
 
 class LoginPageContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.user) {
-      this.props.history.push('/');
+      this.props.history.push(HOME_ROUTE);
     }
   }
 
