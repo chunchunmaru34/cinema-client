@@ -31,9 +31,10 @@ export function login(credentials) {
 export function signUp(credentials) {
   return axios.post(`${AUTH_URL}/signup`, credentials)
     .then((res) => {
-      const { token } = res.data;
+      const { token, user } = res.data;
       localStorage.setItem(AUTH_TOKEN_NAME, token);
-      return jwtDecode(token);
+      localStorage.setItem(AUTH_USER, user);
+      return user;
     });
 }
 
