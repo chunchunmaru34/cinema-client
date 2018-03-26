@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { incrementAddition, decrementAddition } from '../actions';
+import { incrementAddition, decrementAddition, checkout } from '../actions';
+import { ticketService } from '../../../services';
 import OrderSummary from './order-summary';
 
 class OrderSummaryContainer extends React.Component {
@@ -12,13 +13,23 @@ class OrderSummaryContainer extends React.Component {
     this.props.dispatch(decrementAddition(addition));
   };
 
+  onCheckout = () => {
+    const {
+      addedSeats, movieSession,
+    } = this.props;
+    ticketService.reserveSeats({ seats: addedSeats, movieSession });
+    this.props.dispatch(checkout());
+  };
+
   render() {
     const {
-      addedSeats, movieSession, additions, totalPrice,
+      addedSeats, movieSession, additions, totalPrice, isCheckingOut,
     } = this.props;
     return addedSeats.length ? <OrderSummary addedSeats={addedSeats}
                                              additions={additions}
                                              totalPrice={totalPrice}
+                                             checkout={this.onCheckout}
+                                             isCheckingOut={isCheckingOut}
                                              incrementAddition={this.onIncrementAddition}
                                              decrementAddition={this.onDecrementAddition}
                                              movieSession={movieSession}/> : '';
@@ -26,9 +37,10 @@ class OrderSummaryContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  addedSeats: state.ticketReservation.addedSeats,
-  additions: state.ticketReservation.additions,
-  totalPrice: state.ticketReservation.totalPrice,
+  addedSeats: state.ticketReservation.order.addedSeats,
+  additions: state.ticketReservation.order.additions,
+  totalPrice: state.ticketReservation.order.totalPrice,
+  isCheckingOut: state.ticketReservation.isCheckingOut,
   movieSession: ownProps.movieSession,
 });
 

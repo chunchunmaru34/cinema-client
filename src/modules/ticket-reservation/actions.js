@@ -10,6 +10,8 @@ import {
   PAYMENT_SUCCEED,
   TICKET_RECEIVED,
   TICKET_RECEIVING_FAILED,
+  CHECKOUT,
+  FINISH_ORDERING,
 } from './action-types';
 
 export function selectMovieSession(movieSession) {
@@ -82,17 +84,25 @@ export function ticketReceivingFailed(err) {
 }
 
 export function requestTicket(order) {
-  return (dispatch) => {
-    ticketService.requestTicket(order)
-      .then(res => dispatch(ticketReceived(res.data)))
-      .catch(err => dispatch(ticketReceivingFailed(err)));
-  };
+  return dispatch => ticketService.requestTicket(order)
+    .then(res => dispatch(ticketReceived(res.data)))
+    .catch(err => dispatch(ticketReceivingFailed(err.response.data.error)));
 }
 
 export function payForOrder(paymentInfo) {
-  return (dispatch) => {
-    ticketService.pay(paymentInfo)
-      .then(res => dispatch(paymentSucceed(res)))
-      .catch(err => paymentFailed(err));
+  return dispatch => ticketService.pay(paymentInfo)
+    .then(res => dispatch(paymentSucceed(res)))
+    .catch(err => dispatch(paymentFailed(err.response.data.error)));
+}
+
+export function checkout() {
+  return {
+    type: CHECKOUT,
+  };
+}
+
+export function finishOrdering() {
+  return {
+    type: FINISH_ORDERING,
   };
 }

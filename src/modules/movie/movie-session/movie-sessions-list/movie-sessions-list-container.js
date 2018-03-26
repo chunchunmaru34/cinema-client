@@ -12,6 +12,12 @@ class MovieSessionsListContainer extends React.Component {
       dispatch(selectCinema(cinema));
     }
     dispatch(fetchMovieSessionsForCinema(cinema.id, movie.id));
+
+    const interval = setInterval(
+      () => dispatch(fetchMovieSessionsForCinema(cinema.id, movie.id)),
+      5000,
+    );
+    this.setState({ interval });
   }
 
   render() {

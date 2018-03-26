@@ -1,7 +1,10 @@
+@import '../../../css/variables.global.';
+
 .container {
+  margin-top: 50px;;
   padding: 10px;
-  color: black;
-  background-color: white;
+  background-color: $light;
+  color: $dark;
 }
 
 .orderInfo {

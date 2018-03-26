@@ -5,3 +5,4 @@ export const MOVIE_SESSIONS_URL = `${API}/movie-sessions`;
 export const AUTH_URL = `${API}/auth`;
 export const USERS_URL = `${API}/users`;
 export const TICKETS_URL = `${API}/tickets`;
+export const RESERVATIONS_URL = `${API}/reservations`;

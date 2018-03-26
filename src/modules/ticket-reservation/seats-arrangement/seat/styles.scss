@@ -1,4 +1,4 @@
-@import '../../../css/variables.global.';
+@import '../../../../css/variables.global.';
 
 .container {
   text-align: center;
@@ -20,4 +20,8 @@
 
 .occupied {
   background-color: transparent;
+}
+
+.temporaryOccupied {
+  background: transparentize($light, 0.75);
 }

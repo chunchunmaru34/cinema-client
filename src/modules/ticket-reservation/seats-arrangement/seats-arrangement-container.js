@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { clearOrder, selectMovieSession } from '../actions';
+import { finishOrdering, selectMovieSession } from '../actions';
 import SeatsArrangement from './seats-arrangement';
 
 class SeatsArrangementContainer extends React.Component {
@@ -12,18 +12,20 @@ class SeatsArrangementContainer extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.dispatch(clearOrder());
+    this.props.dispatch(finishOrdering());
   }
 
   render() {
-    const { movieSession } = this.props;
-    return <SeatsArrangement movieSession={movieSession}/>;
+    const { movieSession, isCheckingOut } = this.props;
+    return <SeatsArrangement movieSession={movieSession}
+                             isCheckingOut={isCheckingOut}/>;
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   movieSession: ownProps.movieSession,
-  selectMovieSession: state.selectMovieSession,
+  selectedMovieSession: state.ticketReservation.selectedMovieSession,
+  isCheckingOut: state.ticketReservation.isCheckingOut,
 });
 
 

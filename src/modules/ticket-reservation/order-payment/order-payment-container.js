@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { payForOrder, requestTicket } from '../actions';
+import { payForOrder, requestTicket, finishOrdering } from '../actions';
 import OrderPayment from './order-payment';
 
 class OrderPaymentContainer extends React.Component {
@@ -9,24 +9,36 @@ class OrderPaymentContainer extends React.Component {
     dispatch(payForOrder(order));
   };
 
+  onClosing = () => {
+    this.props.dispatch(finishOrdering());
+  };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.transactionId) {
-      const { dispatch, order } = this.props;
-      dispatch(requestTicket(order));
+      const { dispatch } = this.props;
+      const data = {
+        ...nextProps.order,
+        selectedMovieSession: nextProps.selectedMovieSession,
+      };
+      dispatch(requestTicket(data));
     }
   }
 
   render() {
     const { ticket, error } = this.props;
-    return <OrderPayment pay={this.onPayment} ticket={ticket} error={error}/>;
+    return <OrderPayment pay={this.onPayment}
+                         ticket={ticket}
+                         error={error}
+                         finishOrder={this.onClosing}/>;
   }
 }
 
 const mapStateToProps = state => ({
-  order: state.ticketReservation,
+  order: state.ticketReservation.order,
   ticket: state.ticketReservation.ticket,
   error: state.ticketReservation.error,
-  transactionId: state.ticketReservation.transactionId,
+  selectedMovieSession: state.ticketReservation.selectedMovieSession,
+  transactionId: state.ticketReservation.order.transactionId,
 });
 
 export default connect(mapStateToProps)(OrderPaymentContainer);
