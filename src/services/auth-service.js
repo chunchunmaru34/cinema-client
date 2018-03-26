@@ -1,20 +1,20 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 import history from '../utils/history/index';
 import { SIGN_IN_URL } from '../constants/api-endpoints';
-import { AUTH_TOKEN_NAME } from '../constants/auth';
+import { AUTH_TOKEN_NAME, AUTH_USER } from '../constants/auth';
 import { LOGIN_ROUTE } from '../constants/routes';
-import { APP_ROLE } from '../constants/app';
+import { APP_NAME } from '../constants/app';
 
 export function login(credentials) {
   const payload = {
     ...credentials,
-    appRole: APP_ROLE,
+    app: APP_NAME,
   };
   return axios.post(SIGN_IN_URL, payload)
     .then((res) => {
       localStorage.setItem(AUTH_TOKEN_NAME, res.data.token);
+      localStorage.setItem(AUTH_USER, res.data.user);
       return res.data.user;
     });
 }
@@ -29,8 +29,6 @@ export function getToken() {
 }
 
 export function getAuthenticatedUser() {
-  const token = getToken();
-  if (!token) return null;
-  return jwtDecode(token);
+  return localStorage.getItem(AUTH_USER);
 }
 
