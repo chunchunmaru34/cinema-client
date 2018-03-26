@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 import history from '../utils/history/index';
-import { SIGN_IN_URL } from '../constants/api-endpoints';
+import { SIGN_IN_URL, SIGN_UP_URL } from '../constants/api-endpoints';
 import { AUTH_TOKEN_NAME, AUTH_USER } from '../constants/auth';
 import { LOGIN_ROUTE } from '../constants/routes';
 import { APP_NAME } from '../constants/app';
@@ -20,12 +20,11 @@ export function login(credentials) {
 }
 
 export function signUp(credentials) {
-  return axios.post(`${AUTH_URL}/signup`, credentials)
+  return axios.post(SIGN_UP_URL, credentials)
     .then((res) => {
-      const { token, user } = res.data;
-      localStorage.setItem(AUTH_TOKEN_NAME, token);
-      localStorage.setItem(AUTH_USER, user);
-      return user;
+      localStorage.setItem(AUTH_TOKEN_NAME, res.data.token);
+      localStorage.setItem(AUTH_USER, res.data.user);
+      return res.data.user;
     });
 }
 
