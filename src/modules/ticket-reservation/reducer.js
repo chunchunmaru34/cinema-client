@@ -74,7 +74,7 @@ function ticketReservation(state = initialState, action) {
       };
     }
     case DECREMENT_ADDITION: {
-      const additions = { ...state.additions };
+      const additions = { ...state.order.additions };
       const { name } = action.data.addition;
       additions[name] -= 1;
       return {
@@ -130,6 +130,7 @@ function ticketReservation(state = initialState, action) {
     case FINISH_ORDERING:
       return {
         ...initialState,
+        selectedMovieSession: state.selectedMovieSession,
       };
     default:
       return state;

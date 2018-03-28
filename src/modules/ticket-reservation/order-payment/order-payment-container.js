@@ -5,7 +5,8 @@ import OrderPayment from './order-payment';
 
 class OrderPaymentContainer extends React.Component {
   onPayment = () => {
-    const { dispatch, order } = this.props;
+    const { dispatch, order, ticket } = this.props;
+    if (ticket) return;
     dispatch(payForOrder(order));
   };
 

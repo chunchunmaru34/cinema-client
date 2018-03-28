@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { incrementAddition, decrementAddition, checkout } from '../actions';
-import { ticketService } from '../../../services';
 import OrderSummary from './order-summary';
 
 class OrderSummaryContainer extends React.Component {
@@ -14,10 +13,7 @@ class OrderSummaryContainer extends React.Component {
   };
 
   onCheckout = () => {
-    const {
-      addedSeats, movieSession,
-    } = this.props;
-    ticketService.reserveSeats({ seats: addedSeats, movieSession });
+    // ticketService.reserveSeats({ seats: addedSeats, movieSession });
     this.props.dispatch(checkout());
   };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { finishOrdering, selectMovieSession } from '../actions';
+import { selectMovieSession } from '../actions';
 import SeatsArrangement from './seats-arrangement';
 
 class SeatsArrangementContainer extends React.Component {
@@ -9,10 +9,6 @@ class SeatsArrangementContainer extends React.Component {
     if (!selectMovieSessions) {
       dispatch(selectMovieSession(movieSession));
     }
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(finishOrdering());
   }
 
   render() {

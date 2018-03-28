@@ -2,7 +2,6 @@
 
 .container {
   padding: 15px;
-  margin-top: 50px;
   text-align: center;
   background-color: $light;
   color: $dark;
@@ -11,4 +10,9 @@
 .secondaryInfo {
   margin-top: 10px;
   font-size: 0.8em;
+}
+
+.payForm {
+  margin: 20px auto;
+  max-width: 300px;
 }

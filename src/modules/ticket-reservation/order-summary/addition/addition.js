@@ -5,11 +5,14 @@ const Addition = ({
 }) => (
   <div>
     {data.addition.name}: {data.price}$
-    <button className="btn btn-sm btn-primary"
+    <button className="btn btn-sm btn-primary m-sm-1"
             onClick={() => increment(data)}>+</button>
-    {count > 0 && <button className="btn btn-sm btn-primary"
-                          onClick={() => decrement(data)}>-</button>}
-    {count > 0 && <span>x{count}</span>}
+    <button className="btn btn-sm btn-primary m-1"
+            onClick={() => {
+              if (count > 0) decrement(data);
+            }}
+    >-</button>
+    <span>x{count || 0}</span>
   </div>
 );
 

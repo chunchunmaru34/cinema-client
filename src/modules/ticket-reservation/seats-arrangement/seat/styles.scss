@@ -13,15 +13,15 @@
   color: $dark;
 }
 
-.selected {
-  background-color: #41c5da;
-  color: white;
-}
-
 .occupied {
   background-color: transparent;
 }
 
 .temporaryOccupied {
-  background: transparentize($light, 0.75);
+  background-color: transparentize($light, 0.75);
+}
+
+.selected {
+  background-color: #41c5da;
+  color: white;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './styles.scss';
+import { authService } from '../../../../services';
 
 export default class Seat extends React.Component {
   NORMAL_SEAT_WIDTH = 40;
@@ -10,7 +11,7 @@ export default class Seat extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const selected = nextProps.addedSeats.find(item => item._id === nextProps.data._id);
+    const selected = !!nextProps.addedSeats.find(item => item._id === nextProps.data._id);
     this.setState({ selected });
   }
 
@@ -18,7 +19,10 @@ export default class Seat extends React.Component {
     const {
       addSeat, removeSeat, data, index, rowIndex,
     } = this.props;
-    if (data.status === 'occupied' || data.status === 'temporaryOccupied') return;
+    if (data.status === 'occupied') return;
+    if (data.status === 'temporaryOccupied') {
+      if (data.occupiedBy !== authService.getAuthenticatedUser().id) return;
+    }
     const seat = {
       ...data,
       number: index,
@@ -35,7 +39,7 @@ export default class Seat extends React.Component {
     const { index, data } = this.props;
 
     return (
-      <div className={`${styles.container} ${styles[data.status]} ${styles[data.kind.name]}
+      <div className={`${styles.container} ${styles[data.status]} ${styles[data.kind.name] || ''}
         ${this.state.selected && styles.selected}`}
            onClick={this.handleSelect}
            style={{

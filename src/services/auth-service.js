@@ -3,11 +3,12 @@ import jwtDecode from 'jwt-decode';
 import { AUTH_URL } from '../constants/api-endpoints';
 import history from '../utils/history/index';
 import { AUTH_TOKEN_NAME } from '../constants/auth';
+import { APP_NAME } from '../constants/app';
 
 export function login(credentials) {
   const payload = {
     ...credentials,
-    appRole: 'user',
+    app: APP_NAME,
   };
   return axios.post(`${AUTH_URL}/signin`, payload)
     .then((res) => {

@@ -20,6 +20,10 @@ class MovieSessionsListContainer extends React.Component {
     this.setState({ interval });
   }
 
+  componentWillUnmount() {
+    clearInterval(this.state.interval);
+  }
+
   render() {
     return this.props.movieSessions ?
       <MovieSessionList data={this.props.movieSessions}/> : 'Loading';

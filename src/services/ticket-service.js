@@ -7,7 +7,6 @@ export function pay() {
   const transactionId = 'grtgh4yhhdvvbge4';
   // fake payment
   const paymentProcess = new Promise(resolve => setTimeout(() => resolve(transactionId)), 2000);
-  // return new Promise(resolve => resolve(transactionId));
   return paymentProcess;
 }
 
@@ -22,11 +21,21 @@ export function requestTicket(order) {
   return axios.post(TICKETS_URL, payload);
 }
 
-export function reserveSeats({ seats, movieSession }) {
+export function reserveSeat({ seat, movieSession }) {
   const payload = {
-    seats,
+    seat,
     movieSessionId: movieSession.id,
     userId: authService.getAuthenticatedUser().id,
   };
-  return axios.post(RESERVATIONS_URL, payload);
+  return axios.put(RESERVATIONS_URL, payload);
+}
+
+
+export function unreserveSeat({ seat, movieSession }) {
+  const payload = {
+    seat,
+    movieSessionId: movieSession.id,
+    userId: authService.getAuthenticatedUser().id,
+  };
+  return axios.patch(RESERVATIONS_URL, payload);
 }
