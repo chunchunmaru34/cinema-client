@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  overflow: auto;
+
+  &::before, &::after {
+    content: '';
+    margin: auto;
+  }
+}

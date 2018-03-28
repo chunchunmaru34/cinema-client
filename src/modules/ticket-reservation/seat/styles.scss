@@ -1,0 +1,18 @@
+@import '../../../css/variables.global.';
+
+.container {
+  text-align: center;
+  border: 1px solid $light;
+  margin: 5px;
+  padding: 5px;
+  height: 60px;
+}
+
+.available {
+  background-color: $light;
+  color: $dark;
+}
+
+.occupied {
+  background-color: transparent;
+}
