@@ -8,9 +8,15 @@ const Header = ({ user, handleLogout }) => (
     <div className="text-right">
       {
         !user ?
-          <Link to="/login">Login</Link>
+          <div>
+            <Link to="/login">Login</Link>
+            <Link to='/signup'>Sign Up</Link>
+          </div>
           :
-          <button onClick={handleLogout}>Logout</button>
+          <div>
+            <Link to={`/user/${user.id}`}>Profile</Link>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
       }
     </div>
     <Link to='/' className={styles.logo}>Cinema</Link>

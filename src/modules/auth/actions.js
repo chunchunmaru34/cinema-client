@@ -3,6 +3,7 @@ import {
   LOGIN_REQUESTED,
   LOGIN_FAILED,
   LOGGED_OUT,
+  CLEAR_AUTH_ERROR,
 } from './actions-types';
 import { authService } from '../../services';
 
@@ -35,8 +36,23 @@ export function login(credentials) {
   };
 }
 
+export function signUp(credentials) {
+  return (dispatch) => {
+    dispatch(loginRequested());
+    return authService.signUp(credentials)
+      .then(data => dispatch(loginReceived(data)))
+      .catch(err => dispatch(loginFailed(err.response.data)));
+  };
+}
+
 export function loggedOut() {
   return {
     type: LOGGED_OUT,
+  };
+}
+
+export function clearAuthError() {
+  return {
+    type: CLEAR_AUTH_ERROR,
   };
 }
