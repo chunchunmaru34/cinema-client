@@ -1,0 +1,5 @@
+export const LOGGED_OUT = 'LOGGED_OUT';
+export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
+export const LOGIN_RECEIVED = 'LOGIN_RECEIVED';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const CLEAR_AUTH_ERROR = 'CLEAR_AUTH_ERROR';
