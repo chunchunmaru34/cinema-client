@@ -49,12 +49,6 @@ export function decrementAddition(addition) {
   };
 }
 
-export function clearOrder() {
-  return {
-    type: CLEAR_ORDER,
-  };
-}
-
 export function paymentSucceed(transactionId) {
   return {
     type: PAYMENT_SUCCEED,

@@ -13,17 +13,14 @@ class OrderSummaryContainer extends React.Component {
   };
 
   onCheckout = () => {
-    // ticketService.reserveSeats({ seats: addedSeats, movieSession });
     this.props.dispatch(checkout());
   };
 
   render() {
     const {
-      addedSeats, movieSession, additions, totalPrice, isCheckingOut,
+      movieSession, order, isCheckingOut,
     } = this.props;
-    return addedSeats.length ? <OrderSummary addedSeats={addedSeats}
-                                             additions={additions}
-                                             totalPrice={totalPrice}
+    return order.addedSeats.length ? <OrderSummary order={order}
                                              checkout={this.onCheckout}
                                              isCheckingOut={isCheckingOut}
                                              incrementAddition={this.onIncrementAddition}
@@ -33,9 +30,7 @@ class OrderSummaryContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  addedSeats: state.ticketReservation.order.addedSeats,
-  additions: state.ticketReservation.order.additions,
-  totalPrice: state.ticketReservation.order.totalPrice,
+  order: state.ticketReservation.order,
   isCheckingOut: state.ticketReservation.isCheckingOut,
   movieSession: ownProps.movieSession,
 });

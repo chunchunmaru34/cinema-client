@@ -1,5 +1,6 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Addition from './addition/addition';
 import styles from './styles.scss';
 
@@ -7,16 +8,14 @@ export default class OrderSummary extends React.Component {
   render() {
     const {
       movieSession,
-      addedSeats,
-      additions,
+      order,
       incrementAddition,
       decrementAddition,
-      totalPrice,
       isCheckingOut,
       checkout,
     } = this.props;
 
-    const seats = addedSeats.map((item) => {
+    const seats = order.addedSeats.map((item) => {
       const seatPrice = movieSession.price * (item.kind.priceMultiplier || 1);
       return <div>Row: {item.rowNumber + 1} Seat: {item.number + 1} - {seatPrice}$</div>;
     });
@@ -24,7 +23,7 @@ export default class OrderSummary extends React.Component {
     const additionList = movieSession.additions.map((item) => {
       return <Addition data={item}
                        key={item._id}
-                       count={additions[item.addition.name]}
+                       count={order.additions[item.addition.name]}
                        increment={incrementAddition}
                        decrement={decrementAddition}/>;
     });
@@ -41,7 +40,7 @@ export default class OrderSummary extends React.Component {
           </div>
         </div>
         <div className="text-center mt-3">
-          <h4>Total price: {totalPrice}$</h4>
+          <h4>Total price: {order.totalPrice}$</h4>
         </div>
         <div className="text-center mt-3">
           <button disabled={isCheckingOut}
@@ -52,3 +51,30 @@ export default class OrderSummary extends React.Component {
     );
   }
 }
+
+OrderSummary.propTypes = {
+  order: {
+    transactionId: PropTypes.string,
+    addedSeats: PropTypes.array,
+    additions: PropTypes.array,
+    ticket: PropTypes.shape({
+      user: PropTypes.string,
+      movieSession: PropTypes.string,
+      createdAd: PropTypes.string,
+    }),
+    movieSession: PropTypes.shape({
+      roomCodeName: PropTypes.string,
+      date: PropTypes.string,
+      price: PropTypes.number,
+      cinema: PropTypes.object,
+      movie: PropTypes.object,
+      additions: PropTypes.array,
+      seat: PropTypes.array,
+    }),
+    incrementAddition: PropTypes.func,
+    decrementAddition: PropTypes.func,
+    checkout: PropTypes.func,
+    isCheckingOut: PropTypes.bool,
+  },
+};
+

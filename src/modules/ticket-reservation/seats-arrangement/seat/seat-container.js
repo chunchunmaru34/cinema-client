@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addSeat, removeSeat } from '../../actions';
 import { authService, ticketService } from '../../../../services';
 import Seat from './seat';
+import { TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
 
 class SeatContainer extends React.Component {
   componentDidMount() {
@@ -10,7 +12,7 @@ class SeatContainer extends React.Component {
       data, dispatch, rowIndex, index,
     } = this.props;
     const { id } = authService.getAuthenticatedUser();
-    if (data.status === 'temporaryOccupied' && data.occupiedBy === id) {
+    if (data.status === TEMPORARY_OCCUPIED && data.occupiedBy === id) {
       const payload = {
         ...data,
         number: index,
@@ -52,5 +54,36 @@ const mapStateToProps = (state, ownProps) => ({
   addedSeats: state.ticketReservation.order.addedSeats,
   movieSession: state.ticketReservation.selectedMovieSession,
 });
+
+SeatContainer.propTypes = {
+  data: PropTypes.arrayOf({
+    kind: PropTypes.shape({
+      name: PropTypes.string,
+      displayName: PropTypes.string,
+      space: PropTypes.number,
+      priceMultiplier: PropTypes.number,
+    }),
+    status: PropTypes.string,
+    occupiedUntil: PropTypes.string,
+    occupiedBy: PropTypes.string,
+  }),
+  addedSeats: PropTypes.arrayOf({
+    data: PropTypes.arrayOf({
+      kind: PropTypes.shape({
+        name: PropTypes.string,
+        displayName: PropTypes.string,
+        space: PropTypes.number,
+        priceMultiplier: PropTypes.number,
+      }),
+      status: PropTypes.string,
+      occupiedUntil: PropTypes.string,
+      occupiedBy: PropTypes.string,
+      number: PropTypes.number,
+      rowNumber: PropTypes.number,
+    }),
+  }),
+  index: PropTypes.number,
+  rowIndex: PropTypes.number,
+};
 
 export default connect(mapStateToProps)(SeatContainer);
