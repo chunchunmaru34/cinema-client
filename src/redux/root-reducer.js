@@ -3,6 +3,7 @@ import movieList from '../modules/movie/movie-list/reducer';
 import movieSessions from '../modules/movie/movie-session/reducer';
 import auth from '../modules/auth/reducer';
 import profile from '../modules/user-profile/reducer';
+import ticketReservation from '../modules/ticket-reservation/reducer';
 
 const initialState = {
   selectedMovie: {},
@@ -16,6 +17,7 @@ const rootReducer = (state = initialState, action) => ({
   },
   auth: auth(state.auth, action),
   profile: profile(state.profile, action),
+  ticketReservation: ticketReservation(state.ticketReservation, action),
 });
 
 export default rootReducer;
