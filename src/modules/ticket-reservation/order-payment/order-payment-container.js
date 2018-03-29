@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { payForOrder, requestTicket, finishOrdering } from '../actions';
 import OrderPayment from './order-payment';
+import { PAYMENT_SUCCESS } from '../constants/payment-statuses';
 
 class OrderPaymentContainer extends React.Component {
   onPayment = (e) => {
@@ -17,7 +18,7 @@ class OrderPaymentContainer extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.paymentStatus === 'success') {
+    if (nextProps.paymentStatus === PAYMENT_SUCCESS) {
       const { dispatch } = this.props;
       const data = {
         ...nextProps.order,
