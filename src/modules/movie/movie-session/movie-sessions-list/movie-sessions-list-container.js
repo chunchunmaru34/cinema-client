@@ -4,6 +4,8 @@ import MovieSessionList from './movie-sessions-list';
 import { fetchMovieSessionsForCinema, selectCinema } from '../actions';
 
 class MovieSessionsListContainer extends React.Component {
+  FETCH_REFRESH_RATE = 5000;
+
   componentDidMount() {
     const {
       dispatch, cinema, selectedCinema, movie,
@@ -15,7 +17,7 @@ class MovieSessionsListContainer extends React.Component {
 
     const interval = setInterval(
       () => dispatch(fetchMovieSessionsForCinema(cinema.id, movie.id)),
-      5000,
+      this.FETCH_REFRESH_RATE,
     );
     this.setState({ interval });
   }
