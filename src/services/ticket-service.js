@@ -4,8 +4,8 @@ import { authService } from './index';
 import { RESERVATIONS_URL, TICKETS_URL } from '../constants/api-endpoints';
 
 export function pay() {
-  const transactionId = 'grtgh4yhhdvvbge4';
   // fake payment
+  const transactionId = 'grtgh4yhhdvvbge4';
   const paymentProcess = new Promise((resolve) => {
     setTimeout(() => resolve(transactionId), 2000);
   });

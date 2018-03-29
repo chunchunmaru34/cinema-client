@@ -1,13 +1,18 @@
 import {
   ADD_SEAT,
   REMOVE_SEAT,
-  CLEAR_ORDER,
   INCREMENT_ADDITION,
-  DECREMENT_ADDITION, SELECT_MOVIE_SESSION,
+  DECREMENT_ADDITION,
+  SELECT_MOVIE_SESSION,
   PAYMENT_FAILED,
   TICKET_RECEIVED,
-  TICKET_RECEIVING_FAILED, PAYMENT_SUCCEED, CHECKOUT, FINISH_ORDERING,
+  TICKET_RECEIVING_FAILED,
+  PAYMENT_SUCCEED,
+  CHECKOUT,
+  FINISH_ORDERING,
+  PAYMENT_REQUESTED,
 } from './action-types';
+import { PAYMENT_SUCCESS, PAYMENT_FAIL, PAYMENT_PENDING } from './constants/payment-statuses';
 
 const initialState = {
   order: {
@@ -17,6 +22,7 @@ const initialState = {
     transactionId: null,
   },
   selectedMovieSession: null,
+  paymentStatus: null,
   ticket: null,
   error: null,
   isCheckingOut: false,
@@ -86,15 +92,10 @@ function ticketReservation(state = initialState, action) {
         },
       };
     }
-    case CLEAR_ORDER:
+    case PAYMENT_REQUESTED:
       return {
         ...state,
-        order: {
-          addedSeats: [],
-          additions: {},
-          totalPrice: 0,
-          transactionId: null,
-        },
+        paymentStatus: PAYMENT_PENDING,
       };
     case PAYMENT_SUCCEED:
       return {
@@ -103,11 +104,13 @@ function ticketReservation(state = initialState, action) {
           ...state.order,
           transactionId: action.data,
         },
+        paymentStatus: PAYMENT_SUCCESS,
       };
     case PAYMENT_FAILED:
       return {
         ...state,
         error: action.data,
+        paymentStatus: PAYMENT_FAIL,
       };
     case TICKET_RECEIVED:
       return {

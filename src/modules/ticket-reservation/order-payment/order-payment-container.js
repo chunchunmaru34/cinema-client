@@ -17,7 +17,7 @@ class OrderPaymentContainer extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.order.transactionId) {
+    if (nextProps.paymentStatus === 'success') {
       const { dispatch } = this.props;
       const data = {
         ...nextProps.order,
@@ -28,10 +28,11 @@ class OrderPaymentContainer extends React.Component {
   }
 
   render() {
-    const { ticket, error } = this.props;
+    const { ticket, error, paymentStatus } = this.props;
     return <OrderPayment pay={this.onPayment}
                          ticket={ticket}
                          error={error}
+                         paymentStatus={paymentStatus}
                          finishOrder={this.onClosing}/>;
   }
 }
@@ -55,12 +56,14 @@ OrderPaymentContainer.propTypes = {
     message: PropTypes.string,
   }),
   selectedMovieSession: PropTypes.object,
+  paymentStatus: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
   order: state.ticketReservation.order,
   ticket: state.ticketReservation.ticket,
   error: state.ticketReservation.error,
+  paymentStatus: state.ticketReservation.paymentStatus,
   selectedMovieSession: state.ticketReservation.selectedMovieSession,
 });
 

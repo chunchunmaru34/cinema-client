@@ -1,12 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
+import { PAYMENT_SUCCESS, PAYMENT_FAIL, PAYMENT_PENDING } from '../constants/payment-statuses';
 
 export default class OrderPayment extends React.Component {
   render() {
     const {
-      pay, ticket, error, finishOrder,
+      pay, ticket, error, finishOrder, paymentStatus,
     } = this.props;
+
+    let paymentInfo;
+    switch (paymentStatus) {
+      case PAYMENT_SUCCESS:
+        paymentInfo = <div className="alert alert-info">'Payment succeed'</div>;
+        break;
+      case PAYMENT_FAIL:
+        paymentInfo = <div className="alert alert-danger">Payment failed, try again</div>;
+        break;
+      case PAYMENT_PENDING:
+        paymentInfo = <div>'Waiting for payment'</div>;
+        break;
+      default:
+        paymentInfo = null;
+    }
+
     return (
       <div className={styles.container}>
         <button className="close" onClick={finishOrder}>&times;</button>
@@ -24,6 +41,7 @@ export default class OrderPayment extends React.Component {
             <button onClick={pay} className="btn btn-primary mt-3">Pay</button>
           </div>
         </form>
+        {paymentInfo}
         { error &&
           <div className="alert alert-danger">
             {error.message}
@@ -45,6 +63,7 @@ export default class OrderPayment extends React.Component {
 }
 
 OrderPayment.propTypes = {
+  paymentStatus: PropTypes.bool,
   pay: PropTypes.func,
   finishOrder: PropTypes.func,
   ticket: PropTypes.shape({
