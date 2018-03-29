@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './styles.scss';
 
 export default class SignUpPage extends React.Component {
@@ -66,3 +67,11 @@ export default class SignUpPage extends React.Component {
     );
   }
 }
+
+SignUpPage.propTypes = {
+  signUp: PropTypes.func,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+};
+

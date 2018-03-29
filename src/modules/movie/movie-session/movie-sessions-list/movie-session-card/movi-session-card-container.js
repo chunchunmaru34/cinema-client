@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { selectMovieSession } from '../../../../ticket-reservation/actions';
 import MovieSessionCard from './movie-session-card';
 
-
 class MovieSessionCardContainer extends React.Component {
   onClick = () => {
     const {

@@ -1,52 +1,42 @@
 import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-import { AUTH_URL } from '../constants/api-endpoints';
 import history from '../utils/history/index';
-import { AUTH_TOKEN_NAME } from '../constants/auth';
 import { APP_NAME } from '../constants/app';
+import { SIGN_IN_URL, SIGN_UP_URL } from '../constants/api-endpoints';
+import { AUTH_TOKEN_NAME, AUTH_USER } from '../constants/auth';
+import { LOGIN_ROUTE } from '../constants/routes';
 
 export function login(credentials) {
   const payload = {
     ...credentials,
     app: APP_NAME,
   };
-  return axios.post(`${AUTH_URL}/signin`, payload)
+  return axios.post(SIGN_IN_URL, payload)
     .then((res) => {
-      const user = jwtDecode(res.data.token);
       localStorage.setItem(AUTH_TOKEN_NAME, res.data.token);
-      return user;
+      localStorage.setItem(AUTH_USER, res.data.user);
+      return res.data.user;
     });
 }
 
 export function signUp(credentials) {
-  return axios.post(`${AUTH_URL}/signup`, credentials)
+  return axios.post(SIGN_UP_URL, credentials)
     .then((res) => {
-      const { token } = res.data;
-      localStorage.setItem(AUTH_TOKEN_NAME, token);
-      return jwtDecode(token);
+      localStorage.setItem(AUTH_TOKEN_NAME, res.data.token);
+      localStorage.setItem(AUTH_USER, res.data.user);
+      return res.data.user;
     });
 }
 
 export function logout() {
   localStorage.removeItem(AUTH_TOKEN_NAME);
-  history.push('/login');
+  history.push(LOGIN_ROUTE);
 }
 
 export function getToken() {
   return localStorage.getItem(AUTH_TOKEN_NAME);
 }
 
-export function isTokenExpired(token) {
-  const currentTime = Date.now().valueOf() / 1000;
-  const payload = jwtDecode(token);
-  return payload.exp < currentTime;
-}
-
 export function getAuthenticatedUser() {
-  const token = getToken();
-  if (token && !isTokenExpired(token)) {
-    return jwtDecode(token);
-  }
-  return null;
+  return localStorage.getItem(AUTH_USER);
 }
 
