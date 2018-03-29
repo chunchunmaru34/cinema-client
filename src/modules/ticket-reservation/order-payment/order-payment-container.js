@@ -37,20 +37,24 @@ class OrderPaymentContainer extends React.Component {
 }
 
 OrderPaymentContainer.propTypes = {
-  order: {
+  order: PropTypes.shape({
     transactionId: PropTypes.string,
     addedSeats: PropTypes.array,
     additions: PropTypes.array,
-    ticket: PropTypes.shape({
-      user: PropTypes.string,
-      movieSession: PropTypes.string,
-      createdAd: PropTypes.string,
-    }),
-    error: PropTypes.shape({
-      message: PropTypes.string,
-    }),
-    selectedMovieSession: PropTypes.object,
-  },
+    totalPrice: PropTypes.number,
+  }),
+  ticket: PropTypes.shape({
+    id: PropTypes.string,
+    user: PropTypes.string,
+    movieSession: PropTypes.string,
+    additions: PropTypes.array,
+    addedSeats: PropTypes.array,
+    createdAd: PropTypes.string,
+  }),
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  selectedMovieSession: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

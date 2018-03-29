@@ -2,7 +2,6 @@ import { ticketService } from '../../services';
 import {
   ADD_SEAT,
   REMOVE_SEAT,
-  CLEAR_ORDER,
   INCREMENT_ADDITION,
   DECREMENT_ADDITION,
   SELECT_MOVIE_SESSION,
