@@ -19,6 +19,7 @@ export function requestTicket(order) {
     transactionId: order.transactionId,
     addedSeats: order.addedSeats,
     additions: order.additions,
+    totalPrice: order.totalPrice,
   };
   return axios.post(TICKETS_URL, payload);
 }

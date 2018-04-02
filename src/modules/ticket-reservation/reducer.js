@@ -122,6 +122,7 @@ function ticketReservation(state = initialState, action) {
     case TICKET_RECEIVING_FAILED:
       return {
         ...initialState,
+        isCheckingOut: state.isCheckingOut,
         selectedMovieSession: state.selectedMovieSession,
         error: action.data,
       };

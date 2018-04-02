@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Addition from './addition/addition';
+import Addition from './addition/addition-container';
 import styles from './styles.scss';
 
 export default class OrderSummary extends React.Component {
@@ -9,8 +9,6 @@ export default class OrderSummary extends React.Component {
     const {
       movieSession,
       order,
-      incrementAddition,
-      decrementAddition,
       isCheckingOut,
       checkout,
     } = this.props;
@@ -22,10 +20,7 @@ export default class OrderSummary extends React.Component {
 
     const additionList = movieSession.additions.map((item) => {
       return <Addition data={item}
-                       key={item._id}
-                       count={order.additions[item.addition.name]}
-                       increment={incrementAddition}
-                       decrement={decrementAddition}/>;
+                       key={item._id}/>;
     });
 
     return (

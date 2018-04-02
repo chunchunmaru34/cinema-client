@@ -86,7 +86,7 @@ export function paymentRequested() {
 export function requestTicket(order) {
   return dispatch => ticketService.requestTicket(order)
     .then(res => dispatch(ticketReceived(res.data)))
-    .catch(err => dispatch(ticketReceivingFailed(err.response.data.error)));
+    .catch(err => dispatch(ticketReceivingFailed(err.response.data)));
 }
 
 export function payForOrder(paymentInfo) {
@@ -94,7 +94,7 @@ export function payForOrder(paymentInfo) {
     dispatch(paymentRequested());
     ticketService.pay(paymentInfo)
       .then(res => dispatch(paymentSucceed(res)))
-      .catch(err => dispatch(paymentFailed(err.response.data.error)));
+      .catch(err => dispatch(paymentFailed(err.response.data)));
   };
 }
 

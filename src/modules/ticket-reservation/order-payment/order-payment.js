@@ -12,13 +12,13 @@ export default class OrderPayment extends React.Component {
     let paymentInfo;
     switch (paymentStatus) {
       case PAYMENT_SUCCESS:
-        paymentInfo = <div className="alert alert-info">'Payment succeed'</div>;
+        paymentInfo = <div className="alert alert-info">Payment succeed</div>;
         break;
       case PAYMENT_FAIL:
         paymentInfo = <div className="alert alert-danger">Payment failed, try again</div>;
         break;
       case PAYMENT_PENDING:
-        paymentInfo = <div>'Waiting for payment'</div>;
+        paymentInfo = <div>Waiting for payment</div>;
         break;
       default:
         paymentInfo = null;
