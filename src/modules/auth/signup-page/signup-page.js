@@ -1,4 +1,4 @@
-/* eslint-disable no-useless-escape */
+/* eslint-disable no-useless-escape,no-return-assign */
 import React from 'react';
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
@@ -15,6 +15,15 @@ export default class SignUpPage extends React.Component {
       city: '',
     };
     this.onCheckEmailDebounce = debounce(email => this.props.checkEmailOriginality(email), 250);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { validation } = nextProps;
+    if (!validation.isEmailUnique) {
+      this.email.setCustomValidity('User with that email already exist');
+    } else {
+      this.email.setCustomValidity('');
+    }
   }
 
   handleChange = (e) => {
@@ -66,8 +75,14 @@ export default class SignUpPage extends React.Component {
                    type='email'
                    className="form-control"
                    required
+                   ref={element => this.email = element}
                    value={this.state.email}
                    onChange={this.handleEmailChange}/>
+            { !this.props.validation.isEmailUnique &&
+              <div className="invalid-feedback">
+                User with that email already exist
+              </div>
+            }
           </div>
           <div className="form-group">
             <label>Name</label>

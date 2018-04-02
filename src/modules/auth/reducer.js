@@ -3,12 +3,15 @@ import {
   LOGIN_REQUESTED,
   LOGIN_FAILED,
   LOGGED_OUT,
-  CLEAR_AUTH_ERROR, USER_ALREADY_EXIST,
+  CLEAR_AUTH_ERROR, USER_ALREADY_EXIST, USER_IS_UNIQUE,
 } from './actions-types';
 import { authService } from '../../services';
 
 const initialState = {
   user: authService.getAuthenticatedUser() || null,
+  signUpValidation: {
+    isEmailUnique: true,
+  },
   error: null,
 };
 
@@ -42,8 +45,15 @@ const auth = (state = initialState, action) => {
     case USER_ALREADY_EXIST:
       return {
         ...state,
-        error: {
-          message: 'User already exist',
+        signUpValidation: {
+          isEmailUnique: false,
+        },
+      };
+    case USER_IS_UNIQUE:
+      return {
+        ...state,
+        signUpValidation: {
+          isEmailUnique: true,
         },
       };
     default:

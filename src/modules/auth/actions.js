@@ -4,7 +4,7 @@ import {
   LOGIN_FAILED,
   LOGGED_OUT,
   CLEAR_AUTH_ERROR,
-  USER_ALREADY_EXIST,
+  USER_ALREADY_EXIST, USER_IS_UNIQUE,
 } from './actions-types';
 import { authService, userService } from '../../services';
 
@@ -64,11 +64,20 @@ export function userAlreadyExist() {
   };
 }
 
+
+export function userIsUnique() {
+  return {
+    type: USER_IS_UNIQUE,
+  };
+}
+
 export function checkIfUserAlreadyExist(email) {
   return dispatch => userService.getUserBy({ email })
     .then((res) => {
       if (res.data.length) {
         dispatch(userAlreadyExist());
+      } else {
+        dispatch(userIsUnique());
       }
     })
     .catch(console.log);

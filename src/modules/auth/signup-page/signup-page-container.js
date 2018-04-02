@@ -33,12 +33,14 @@ class SignUpPageContainer extends React.Component {
   render() {
     return <SignUpPage signUp={this.handleSubmit}
                        checkEmailOriginality={this.checkEmailOriginality}
+                       validation={this.props.validation}
                        error={this.props.error}/>;
   }
 }
 
 const mapStateToProps = state => ({
   error: state.auth.error,
+  validation: state.auth.signUpValidation,
 });
 
 SignUpPageContainer.propTypes = {
