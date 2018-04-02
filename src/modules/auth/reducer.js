@@ -3,6 +3,7 @@ import {
   LOGIN_REQUESTED,
   LOGIN_FAILED,
   LOGGED_OUT,
+  CLEAR_AUTH_ERROR, USER_ALREADY_EXIST,
 } from './actions-types';
 import { authService } from '../../services';
 
@@ -32,6 +33,18 @@ const auth = (state = initialState, action) => {
         ...state,
         user: null,
         error: null,
+      };
+    case CLEAR_AUTH_ERROR:
+      return {
+        ...state,
+        error: null,
+      };
+    case USER_ALREADY_EXIST:
+      return {
+        ...state,
+        error: {
+          message: 'User already exist',
+        },
       };
     default:
       return state;

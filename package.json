@@ -16,6 +16,7 @@
     "gravatar": "^1.6.0",
     "history": "^4.7.2",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.5",
     "node-sass": "^4.7.2",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.0",

@@ -4,8 +4,9 @@ import {
   LOGIN_FAILED,
   LOGGED_OUT,
   CLEAR_AUTH_ERROR,
+  USER_ALREADY_EXIST,
 } from './actions-types';
-import { authService } from '../../services';
+import { authService, userService } from '../../services';
 
 export function loginRequested() {
   return {
@@ -55,4 +56,20 @@ export function clearAuthError() {
   return {
     type: CLEAR_AUTH_ERROR,
   };
+}
+
+export function userAlreadyExist() {
+  return {
+    type: USER_ALREADY_EXIST,
+  };
+}
+
+export function checkIfUserAlreadyExist(email) {
+  return dispatch => userService.getUserBy({ email })
+    .then((res) => {
+      if (res.data.length) {
+        dispatch(userAlreadyExist());
+      }
+    })
+    .catch(console.log);
 }
