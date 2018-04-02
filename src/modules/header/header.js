@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from './styles.scss';
+import { LOGIN_ROUTE, USERS_ROUTE, SIGN_UP_ROUTE } from '../../constants/routes';
 
 const Header = ({ user, handleLogout }) => (
   <div className={styles.header}>
@@ -9,12 +10,12 @@ const Header = ({ user, handleLogout }) => (
       {
         !user ?
           <div>
-            <Link to="/login">Login</Link>
-            <Link to='/signup'>Sign Up</Link>
+            <Link to={LOGIN_ROUTE}>Login</Link>
+            <Link to={SIGN_UP_ROUTE}>Sign Up</Link>
           </div>
           :
           <div>
-            <Link to={`/user/${user.id}`}>Profile</Link>
+            <Link to={`${USERS_ROUTE}/${user.id}`}>Profile</Link>
             <button onClick={handleLogout}>Logout</button>
           </div>
       }

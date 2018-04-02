@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { selectMovie } from '../../movie-details/actions';
 import MovieCard from './movie-card';
+import { MOVIES_ROUTE } from '../../../../constants/routes';
 
 class MovieCardContainer extends React.Component {
   clickHandler = () => {
@@ -11,7 +12,7 @@ class MovieCardContainer extends React.Component {
       dispatch, history, movie,
     } = this.props;
     dispatch(selectMovie(movie));
-    history.push(`/movies/${movie.id}`);
+    history.push(`${MOVIES_ROUTE}/${movie.id}`);
   };
 
   render() {

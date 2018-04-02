@@ -31,7 +31,7 @@ const App = () => (
           <Route exact path={HOME_ROUTE} component={Home}/>
           <Route path={LOGIN_ROUTE} component={LoginPage}/>
           <Route path={SIGN_UP_ROUTE} component={SignUpPage}/>
-          <Route path={`${USERS_ROUTE}/id`} component={UserProfile}/>
+          <Route path={`${USERS_ROUTE}/:id`} component={UserProfile}/>
           <Route path={`${MOVIES_ROUTE}/:id`}
                  component={UserIsAuthenticated(MovieDetails)}/>
         </div>
