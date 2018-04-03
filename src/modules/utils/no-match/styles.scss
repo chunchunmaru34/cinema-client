@@ -1,0 +1,10 @@
+@import '../../../css/variables.global.';
+
+.error {
+  text-align: center;
+
+  span {
+    font-size: 15em;
+    color: $dark;
+  }
+}

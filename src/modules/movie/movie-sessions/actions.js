@@ -4,6 +4,7 @@ import {
   CINEMA_SELECTED,
   CINEMAS_REQUESTED,
   CINEMAS_RECEIVED,
+  CINEMA_UNSELECTED,
 } from './action-types';
 import {
   movieSessionService,
@@ -29,6 +30,7 @@ export function fetchMovieSessionsForCinema(cinemaId, movieId) {
     const params = {
       cinema: cinemaId,
       movie: movieId,
+      sortBy: 'date',
     };
     return movieSessionService.getAllMovieSessionsFor(params)
       .then(res => dispatch(receiveMovieSessions(res.data)))
@@ -63,5 +65,11 @@ export function selectCinema(cinema) {
   return {
     type: CINEMA_SELECTED,
     cinema,
+  };
+}
+
+export function unselectCinema() {
+  return {
+    type: CINEMA_UNSELECTED,
   };
 }

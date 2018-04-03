@@ -1,6 +1,7 @@
-import { connect } from 'react-redux';
 import React from 'react';
+import { connect } from 'react-redux';
 import MovieList from './movie-list';
+import LoadingBar from '../../utils/loading-bar';
 import { fetchMovies } from './actions';
 
 class MovieListContainer extends React.Component {
@@ -14,15 +15,17 @@ class MovieListContainer extends React.Component {
   };
 
   render() {
+    const { movies, isLoading } = this.props;
     const component = <MovieList refreshMovies={this.refreshMovies}
-                                 movies={this.props.movies}/>;
-    const loadingMessage = 'Loading';
-    return this.props.movies ? component : loadingMessage;
+                                 movies={movies}/>;
+    const loading = <LoadingBar isLoading={isLoading}/>;
+    return isLoading ? loading : component;
   }
 }
 
 const mapStateToProps = state => ({
   movies: state.movieList.data,
+  isLoading: state.movieList.isLoading,
 });
 
 export default connect(mapStateToProps)(MovieListContainer);

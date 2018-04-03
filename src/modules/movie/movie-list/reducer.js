@@ -5,7 +5,7 @@ import {
 
 const initialState = {
   data: null,
-  isLoading: false,
+  isLoading: true,
 };
 
 const movieList = (state = initialState, action) => {

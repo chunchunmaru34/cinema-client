@@ -12,12 +12,19 @@ import {
   CHECKOUT,
   FINISH_ORDERING,
   PAYMENT_REQUESTED,
+  UNSELECT_MOVIE_SESSION,
 } from './action-types';
 
 export function selectMovieSession(movieSession) {
   return {
     type: SELECT_MOVIE_SESSION,
     data: movieSession,
+  };
+}
+
+export function unselectMovieSession() {
+  return {
+    type: UNSELECT_MOVIE_SESSION,
   };
 }
 

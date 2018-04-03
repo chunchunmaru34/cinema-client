@@ -1,8 +1,12 @@
-import { MOVIE_DETAILS_RECEIVED, MOVIE_DETAILS_REQUESTED, MOVIE_SELECTED } from './action-types';
+import {
+  MOVIE_DETAILS_RECEIVED,
+  MOVIE_DETAILS_REQUESTED,
+  MOVIE_SELECTED,
+} from './action-types';
 
 const initialState = {
   data: null,
-  isLoading: false,
+  isLoading: true,
 };
 
 const movieDetails = (state = initialState, action) => {

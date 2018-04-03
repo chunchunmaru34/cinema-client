@@ -4,19 +4,24 @@ import MovieCard from './movie-card/movie-card-container';
 import styles from './styles.scss';
 import icon from './_media/icons/refresh.svg';
 
-const MovieList = ({ movies, refreshMovies }) => (
-  <div className={styles.container}>
-    <div className={styles.title}>
-      <h1>Current movie sessions</h1>
-      <div onClick={refreshMovies}
-           className={styles.refreshIcon}>
-        <img src={icon}/>
+const MovieList = ({ movies, refreshMovies }) => {
+  const movieList = movies.map(item => <MovieCard movie={item}
+                                                  key={item.id} />);
+  return (
+    <div className={styles.container}>
+      <div className={styles.title}>
+        <h1>Available Movies</h1>
+        <div onClick={refreshMovies}
+             className={styles.refreshIcon}>
+          <img src={icon}/>
+        </div>
+      </div>
+      <div>
+        {movieList}
       </div>
     </div>
-    {movies.map(item => <MovieCard movie={item}
-                                   key={item.id} />)}
-  </div>
-);
+  );
+};
 
 MovieList.propTypes = {
   movies: PropTypes.arrayOf(PropTypes.shape({

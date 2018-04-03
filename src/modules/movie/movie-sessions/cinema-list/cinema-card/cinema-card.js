@@ -8,7 +8,7 @@ const CinemaCard = ({ data, clickHandler, match }) => (
   <div className={styles.container}>
     <div className={styles.header}
          onClick={clickHandler}>{data.name}</div>
-    <Route path={`${match.url}/${data.id}`}
+    <Route path={`${match.url}/cinemas/${data.id}`}
            render={location => <MovieSessionsList location={location}
                                                   cinema={data}/>}
     />

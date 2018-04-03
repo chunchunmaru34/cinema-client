@@ -1,27 +1,34 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fetchMovieDetails } from './actions';
+import LoadingBar from '../../utils/loading-bar';
+import { fetchMovieDetails, movieDetailsReceived } from './actions';
 import MovieDetails from './movie-details';
 
 class MovieDetailsContainer extends React.Component {
   componentDidMount() {
     /* If movie list was not passed from movie-list (e.g. open page from direct link),
     load movie manually */
-    if (!this.props.movie) {
-      const { dispatch, id } = this.props;
+    const { dispatch, id, movie } = this.props;
+    if (!movie) {
       dispatch(fetchMovieDetails(id));
+    } else {
+      dispatch(movieDetailsReceived(movie));
     }
   }
 
   render() {
-    return this.props.movie ? <MovieDetails movie={this.props.movie}/> : '';
+    const { isLoading, movie } = this.props;
+    const component = <MovieDetails movie={movie}/>;
+    const loading = <LoadingBar isLoading={isLoading}/>;
+    return isLoading ? loading : component;
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   id: ownProps.match.params.id,
   movie: state.selectedMovie.movieDetails.data,
+  isLoading: state.selectedMovie.movieDetails.isLoading,
 });
 
 

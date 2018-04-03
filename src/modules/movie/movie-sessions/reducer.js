@@ -4,11 +4,13 @@ import {
   CINEMA_SELECTED,
   MOVIE_SESSIONS_REQUESTED,
   MOVIE_SESSIONS_RECEIVED,
+  CINEMA_UNSELECTED,
 } from './action-types';
 
 const initialState = {
   data: null,
-  isLoading: false,
+  isCinemasLoading: true,
+  isMovieSessionsLoading: true,
   cinemas: null,
   selectedCinema: null,
 };
@@ -18,33 +20,35 @@ const movieSessions = (state = initialState, action) => {
     case CINEMAS_REQUESTED:
       return {
         ...state,
-        isLoading: true,
+        isCinemasLoading: true,
       };
     case CINEMAS_RECEIVED:
       return {
         ...state,
         cinemas: action.cinemas,
-        isLoading: false,
+        isCinemasLoading: false,
       };
     case CINEMA_SELECTED:
-      // in case when same card was clicked twice
-      if (state.selectedCinema && state.selectedCinema.id === action.cinema.id) {
-        return state;
-      }
       return {
         ...state,
         selectedCinema: action.cinema,
         data: null,
       };
+    case CINEMA_UNSELECTED:
+      return {
+        ...state,
+        selectedCinema: null,
+        data: null,
+      };
     case MOVIE_SESSIONS_REQUESTED:
       return {
         ...state,
-        isLoading: true,
+        isMovieSessionsLoading: true,
       };
     case MOVIE_SESSIONS_RECEIVED:
       return {
         ...state,
-        isLoading: false,
+        isMovieSessionsLoading: false,
         data: action.movieSessions,
       };
     default:
