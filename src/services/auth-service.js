@@ -30,6 +30,7 @@ export function signUp(credentials) {
 
 export function logout() {
   localStorage.removeItem(AUTH_TOKEN_NAME);
+  localStorage.removeItem(AUTH_USER);
   history.push(LOGIN_ROUTE);
 }
 

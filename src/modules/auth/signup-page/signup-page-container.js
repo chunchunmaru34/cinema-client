@@ -11,6 +11,7 @@ class SignUpPageContainer extends React.Component {
   }
 
   handleSubmit = (credentials) => {
+    if (credentials.password !== credentials.repeatedPassword) return;
     this.props.dispatch(signUp(credentials));
   };
 
@@ -27,6 +28,7 @@ class SignUpPageContainer extends React.Component {
   }
 
   checkEmailOriginality = (email) => {
+    if (email.length < 3) return;
     this.props.dispatch(checkIfUserAlreadyExist(email));
   };
 
@@ -46,6 +48,9 @@ const mapStateToProps = state => ({
 SignUpPageContainer.propTypes = {
   error: PropTypes.shape({
     message: PropTypes.string,
+  }),
+  validation: PropTypes.shape({
+    isEmailUnique: PropTypes.bool,
   }),
 };
 
