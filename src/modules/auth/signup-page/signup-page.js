@@ -2,6 +2,7 @@
 import React from 'react';
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
+import { USER_ALREADY_EXIST, PASSWORDS_SHOULD_MATCH } from './constants/validation-alerts';
 import styles from './styles.scss';
 
 export default class SignUpPage extends React.Component {
@@ -21,11 +22,8 @@ export default class SignUpPage extends React.Component {
   passwordPattern = '(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.validation.isEmailUnique === this.props.validation.isEmailUnique) {
-      return;
-    }
     if (!nextProps.validation.isEmailUnique) {
-      this.email.setCustomValidity('User with that email already exist');
+      this.email.setCustomValidity(USER_ALREADY_EXIST);
     }
   }
 
@@ -47,7 +45,7 @@ export default class SignUpPage extends React.Component {
       passwordsDoesNotMatch: !matches,
     });
     if (!matches) {
-      this.repeatedPassword.setCustomValidity('Passwords should match');
+      this.repeatedPassword.setCustomValidity(PASSWORDS_SHOULD_MATCH);
     } else {
       this.repeatedPassword.setCustomValidity('');
     }
@@ -60,7 +58,7 @@ export default class SignUpPage extends React.Component {
       passwordsDoesNotMatch: !matches,
     });
     if (!matches) {
-      e.target.setCustomValidity('Passwords should match');
+      e.target.setCustomValidity(PASSWORDS_SHOULD_MATCH);
     } else {
       e.target.setCustomValidity('');
     }
@@ -72,8 +70,8 @@ export default class SignUpPage extends React.Component {
       email: this.state.email,
       password: this.state.password,
       repeatedPassword: this.state.repeatedPassword,
-      name: this.state.name,
-      city: this.state.city,
+      name: this.state.name || undefined,
+      city: this.state.city || undefined,
     };
     this.props.signUp(credentials);
   };
@@ -98,7 +96,7 @@ export default class SignUpPage extends React.Component {
                    onChange={this.handleEmailChange}/>
             { !this.props.validation.isEmailUnique &&
               <div className="invalid-feedback">
-                User with that email already exist
+                {USER_ALREADY_EXIST}
               </div>
             }
           </div>
@@ -134,7 +132,7 @@ export default class SignUpPage extends React.Component {
                    onChange={this.handleRepeatedPasswordChange}/>
             {this.state.passwordsDoesNotMatch &&
               <div className="invalid-feedback">
-               Passwords should match
+                {PASSWORDS_SHOULD_MATCH}
               </div>
             }
           </div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login, clearAuthError } from '../actions';
+import { authService } from '../../../services';
+import { login, loggedOut, clearAuthError } from '../actions';
 import LoginPage from './login-page';
 import { HOME_ROUTE } from '../../../constants/routes';
 
@@ -9,6 +10,14 @@ class LoginPageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { timer: null };
+  }
+
+  componentDidMount() {
+    const { user, dispatch } = this.props;
+    if (user) {
+      authService.logout();
+      dispatch(loggedOut());
+    }
   }
 
   componentWillReceiveProps(nextProps) {
