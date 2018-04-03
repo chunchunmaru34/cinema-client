@@ -2,10 +2,11 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
-import SeatsArrangement from '../../../../ticket-reservation/seats-arrangement/seats-arrangement';
+import MovieSession from '../../../../ticket-reservation/movie-session/movie-session';
 
 function getDate(data) {
-  return new Date(data).toDateString();
+  const date = new Date(data);
+  return `${date.toDateString()}  ${date.toTimeString()}`;
 }
 
 const MovieSessionCard = ({ data, clickHandler, match }) => (
@@ -13,7 +14,7 @@ const MovieSessionCard = ({ data, clickHandler, match }) => (
     <div onClick={clickHandler}
          className={styles.header}>{getDate(data.date)}</div>
     <Route path={`${match.url}/movie-sessions/${data.id}`}
-           render={() => <SeatsArrangement movieSession={data}/>}/>
+           render={() => <MovieSession movieSession={data}/>}/>
   </div>
 );
 

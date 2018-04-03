@@ -3,6 +3,7 @@ import * as movieSessionService from './movie-session-service';
 import * as movieService from './movie-service';
 import * as authService from './auth-service';
 import * as userService from './user-service';
+import * as ticketService from './ticket-service';
 
 export {
   cinemaService,
@@ -10,4 +11,5 @@ export {
   movieService,
   authService,
   userService,
+  ticketService,
 };

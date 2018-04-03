@@ -4,3 +4,13 @@
   padding: 15px;
   background-color: darken($dark, 7);
 }
+
+.screen {
+  margin: 20px auto;
+  width: 70%;
+  background-color: white;
+  color: $dark;
+  text-align: center;
+  line-height: 200px;
+  height: 200px;
+}
