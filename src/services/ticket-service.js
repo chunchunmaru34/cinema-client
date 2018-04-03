@@ -26,19 +26,21 @@ export function requestTicket(order) {
 
 export function reserveSeat({ seat, movieSession }) {
   const payload = {
+    action: 'reserve',
     seat,
     movieSessionId: movieSession.id,
     userId: authService.getAuthenticatedUser().id,
   };
-  return axios.put(RESERVATIONS_URL, payload);
+  return axios.post(RESERVATIONS_URL, payload);
 }
 
 
 export function unreserveSeat({ seat, movieSession }) {
   const payload = {
+    action: 'unreserve',
     seat,
     movieSessionId: movieSession.id,
     userId: authService.getAuthenticatedUser().id,
   };
-  return axios.patch(RESERVATIONS_URL, payload);
+  return axios.post(RESERVATIONS_URL, payload);
 }
