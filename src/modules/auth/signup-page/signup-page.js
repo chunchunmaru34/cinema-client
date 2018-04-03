@@ -72,6 +72,8 @@ export default class SignUpPage extends React.Component {
       email: this.state.email,
       password: this.state.password,
       repeatedPassword: this.state.repeatedPassword,
+      name: this.state.name,
+      city: this.state.city,
     };
     this.props.signUp(credentials);
   };
@@ -90,6 +92,7 @@ export default class SignUpPage extends React.Component {
                    type='email'
                    className="form-control"
                    required
+                   maxLength="50"
                    ref={element => this.email = element}
                    value={this.state.email}
                    onChange={this.handleEmailChange}/>
@@ -107,6 +110,7 @@ export default class SignUpPage extends React.Component {
                    type='password'
                    className="form-control"
                    required
+                   maxLength="20"
                    pattern={this.passwordPattern}
                    value={this.state.password}
                    onChange={this.handlePasswordChange}/>
@@ -123,6 +127,7 @@ export default class SignUpPage extends React.Component {
                    type='password'
                    className="form-control"
                    required
+                   maxLength="20"
                    ref={element => this.repeatedPassword = element}
                    pattern={this.passwordPattern}
                    value={this.state.repeatedPassword}
@@ -138,6 +143,7 @@ export default class SignUpPage extends React.Component {
           <div className="form-group">
             <label>Name</label>
             <input name='name'
+                   maxLength="50"
                    className="form-control"
                    value={this.state.name}
                    onChange={this.handleChange}/>
@@ -147,6 +153,7 @@ export default class SignUpPage extends React.Component {
           <div className="form-group">
             <label>City</label>
             <input name='city'
+                   maxLength="50"
                    className="form-control"
                    value={this.state.city}
                    onChange={this.handleChange}/>
