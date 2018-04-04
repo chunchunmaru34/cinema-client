@@ -5,8 +5,6 @@ import { authService } from '../../../../services';
 import { OCCUPIED, TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
 
 export default class Seat extends React.Component {
-  NORMAL_SEAT_WIDTH = 40;
-
   handleSelect = () => {
     const {
       addSeat, removeSeat, data, index, rowIndex, selected,
@@ -34,12 +32,11 @@ export default class Seat extends React.Component {
     return (
       <div className={`${styles.container} ${styles[data.status]} ${styles[data.kind.name]}
         ${this.props.selected && styles.selected}`}
-           onClick={this.handleSelect}
-           style={{
-             minWidth: `${this.NORMAL_SEAT_WIDTH * data.kind.space}px`,
-           }}>
+           onClick={this.handleSelect}>
         <div>{index + 1}</div>
-        <div>{data.kind.space > 1 && data.kind.displayName}</div>
+        <div>
+          <small>{data.kind.name !== 'common' && data.kind.displayName}</small>
+        </div>
       </div>
     );
   }
