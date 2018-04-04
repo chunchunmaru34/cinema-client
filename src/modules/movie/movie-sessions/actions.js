@@ -31,7 +31,7 @@ export function fetchMovieSessionsForCinema(cinemaId, movieId) {
     const params = {
       cinema: cinemaId,
       movie: movieId,
-      sortBy: 'date',
+      'sort-by': 'date',
     };
     return movieSessionService.getAllMovieSessionsFor(params)
       .then(res => dispatch(receiveMovieSessions(res.data)))
