@@ -5,6 +5,7 @@ import {
   CINEMAS_REQUESTED,
   CINEMAS_RECEIVED,
   CINEMA_UNSELECTED,
+  CLEAR_STATE,
 } from './action-types';
 import {
   movieSessionService,
@@ -71,5 +72,11 @@ export function selectCinema(cinema) {
 export function unselectCinema() {
   return {
     type: CINEMA_UNSELECTED,
+  };
+}
+
+export function clearState() {
+  return {
+    type: CLEAR_STATE,
   };
 }

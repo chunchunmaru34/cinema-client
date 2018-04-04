@@ -4,7 +4,7 @@ import {
   CINEMA_SELECTED,
   MOVIE_SESSIONS_REQUESTED,
   MOVIE_SESSIONS_RECEIVED,
-  CINEMA_UNSELECTED,
+  CINEMA_UNSELECTED, CLEAR_STATE,
 } from './action-types';
 
 const initialState = {
@@ -51,6 +51,8 @@ const movieSessions = (state = initialState, action) => {
         isMovieSessionsLoading: false,
         data: action.movieSessions,
       };
+    case CLEAR_STATE:
+      return initialState;
     default:
       return state;
   }
