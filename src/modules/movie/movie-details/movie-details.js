@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
-import MovieSessions from '../movie-session/movie-sessions-container';
+import CinemaList from '../movie-sessions/cinema-list/cinema-list-container';
 
 function getActors(actors) {
   if (!actors.length) return '';
@@ -13,7 +13,7 @@ function parseDate(JSONString) {
 }
 
 const MovieDetail = ({ movie }) => (
-  <div className={styles.container}>
+  <div className={`${styles.container} container`}>
       <div>
           <div className={styles.title}>
             <h2>{movie.title}</h2>
@@ -32,7 +32,19 @@ const MovieDetail = ({ movie }) => (
               </div>
           </div>
       </div>
-      <MovieSessions/>
+    <div className={styles.description}>
+      <div className={styles.descriptionHeader}>
+        <span>Description</span>
+      </div>
+      <p>{movie.description}</p>
+    </div>
+    <div>
+      <div className="text-center">
+        <h4>Movie Sessions</h4>
+      </div>
+      <CinemaList/>
+    </div>
+
   </div>
 );
 
@@ -47,7 +59,7 @@ MovieDetail.propTypes = {
     posterUrl: PropTypes.string,
     rating: PropTypes.number,
     year: PropTypes.number,
-    movieSessions: PropTypes.array,
+    description: PropTypes.string,
   }),
 };
 

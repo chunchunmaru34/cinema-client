@@ -2,13 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CinemaCard from './cinema-card/cinema-card-container';
 
-const CinemaList = ({ cinemas }) => (
-  <div>
-    Choose cinema
-    {cinemas.map(item => <CinemaCard data={item}
-                                     key={item.id}/>)}
-  </div>
-);
+const CinemaList = ({ cinemas }) => {
+  const cinemaList = cinemas.map(item => <CinemaCard data={item}
+                                                     key={item.id}/>);
+  return (
+    <div>
+      {cinemaList.length ?
+        <span>Choose cinema</span>
+          :
+        <span>Currently no available sessions</span>
+      }
+      {cinemaList}
+    </div>
+  );
+};
 
 CinemaList.propTypes = {
   cinemas: PropTypes.arrayOf(PropTypes.shape({

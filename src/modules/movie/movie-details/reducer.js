@@ -1,8 +1,13 @@
-import { MOVIE_DETAILS_RECEIVED, MOVIE_DETAILS_REQUESTED, MOVIE_SELECTED } from './action-types';
+import {
+  MOVIE_DETAILS_RECEIVED,
+  MOVIE_DETAILS_REQUESTED,
+  MOVIE_SELECTED,
+  CLEAR_STATE,
+} from './action-types';
 
 const initialState = {
   data: null,
-  isLoading: false,
+  isLoading: true,
 };
 
 const movieDetails = (state = initialState, action) => {
@@ -23,6 +28,8 @@ const movieDetails = (state = initialState, action) => {
         ...state,
         data: action.movie,
       };
+    case CLEAR_STATE:
+      return initialState;
     default:
       return state;
   }

@@ -5,7 +5,7 @@ import styles from './styles.scss';
 import { LOGIN_ROUTE, USERS_ROUTE, SIGN_UP_ROUTE } from '../../constants/routes';
 
 const Header = ({ user, handleLogout }) => (
-  <div className={styles.header}>
+  <header className={styles.header}>
     <div className="text-right">
       {
         !user ?
@@ -23,7 +23,7 @@ const Header = ({ user, handleLogout }) => (
       }
     </div>
     <Link to='/' className={styles.logo}>Cinema</Link>
-  </div>
+  </header>
 );
 
 Header.propTypes = {

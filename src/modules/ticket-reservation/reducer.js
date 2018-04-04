@@ -4,6 +4,7 @@ import {
   INCREMENT_ADDITION,
   DECREMENT_ADDITION,
   SELECT_MOVIE_SESSION,
+  UNSELECT_MOVIE_SESSION,
   PAYMENT_FAILED,
   TICKET_RECEIVED,
   TICKET_RECEIVING_FAILED,
@@ -34,6 +35,11 @@ function ticketReservation(state = initialState, action) {
       return {
         ...state,
         selectedMovieSession: action.data,
+      };
+    case UNSELECT_MOVIE_SESSION:
+      return {
+        ...state,
+        selectedMovieSession: null,
       };
     case ADD_SEAT: {
       const seats = [...state.order.addedSeats];

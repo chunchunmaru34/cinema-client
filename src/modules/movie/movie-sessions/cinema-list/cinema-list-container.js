@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchCinemasForMovie } from '../actions';
+import LoadingBar from '../../../utils/loading-bar';
+import { fetchCinemasForMovie, clearState } from '../actions';
 import CinemaList from './cinema-list';
 
 class CinemaListContainer extends React.Component {
@@ -10,16 +11,23 @@ class CinemaListContainer extends React.Component {
     const { dispatch, movieId } = this.props;
     dispatch(fetchCinemasForMovie(movieId));
   }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearState());
+  }
+
   render() {
-    const component = <CinemaList cinemas={this.props.cinemas}/>;
-    const loadingMessage = 'Loading';
-    return this.props.cinemas ? component : loadingMessage;
+    const { cinemas, isLoading } = this.props;
+    const component = <CinemaList cinemas={cinemas}/>;
+    const loading = <LoadingBar isLoading={isLoading}/>;
+    return isLoading ? loading : component;
   }
 }
 
 const mapStateToProps = state => ({
   cinemas: state.selectedMovie.movieSessions.cinemas,
   movieId: state.selectedMovie.movieDetails.data.id,
+  isLoading: state.selectedMovie.movieSessions.isCinemasLoading,
 });
 
 CinemaListContainer.propTypes = {

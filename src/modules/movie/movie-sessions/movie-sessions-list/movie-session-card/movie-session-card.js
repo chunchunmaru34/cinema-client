@@ -5,8 +5,16 @@ import styles from './styles.scss';
 import MovieSession from '../../../../ticket-reservation/movie-session/movie-session';
 
 function getDate(data) {
-  const date = new Date(data);
-  return `${date.toDateString()}  ${date.toTimeString()}`;
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+    timezone: 'UTC',
+    hour: 'numeric',
+    minute: 'numeric',
+  };
+  return new Date(data).toLocaleString('en-GB', options);
 }
 
 const MovieSessionCard = ({ data, clickHandler, match }) => (

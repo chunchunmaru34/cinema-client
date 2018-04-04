@@ -7,8 +7,11 @@ import MovieSessionsList from '../../movie-sessions-list/movie-sessions-list-con
 const CinemaCard = ({ data, clickHandler, match }) => (
   <div className={styles.container}>
     <div className={styles.header}
-         onClick={clickHandler}>{data.name}</div>
-    <Route path={`${match.url}/${data.id}`}
+         onClick={clickHandler}>
+      <span>{data.name}</span>
+      <span className="ml-4">City: {data.city}</span>
+      </div>
+    <Route path={`${match.url}/cinemas/${data.id}`}
            render={location => <MovieSessionsList location={location}
                                                   cinema={data}/>}
     />

@@ -37,3 +37,20 @@
     text-align: center;
     margin: 10px;
 }
+
+.description {
+  margin: 30px auto;
+  background-color: $primary;
+  color: $text-color-light;
+  p {
+    padding: 15px 20px 15px 20px;
+  }
+}
+
+.descriptionHeader {
+  padding: 15px 20px 15px 20px;
+  background-color: lighten($primary, 5);
+  span {
+    font-size: 1.1em;
+  }
+}

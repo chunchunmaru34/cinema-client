@@ -1,6 +1,6 @@
 import React from 'react';
 import gravatar from 'gravatar';
-import styles from './styles.css';
+import styles from './styles.scss';
 
 export default class UserProfile extends React.Component {
   constructor(props) {
@@ -31,47 +31,78 @@ export default class UserProfile extends React.Component {
   };
 
   render() {
-    const { user } = this.state;
+    const { user, isEditingCity, isEditingName } = this.state;
+    const { error, info } = this.props;
+
     return (
       <div className={styles.container}>
-        <div className={styles.info}>
-          <div className={styles.profilePic}>
-            <img src={gravatar.url(user.email, { s: '220', r: 'pg' })}/>
-          </div>
-          <div className={styles.details}>
-            <div>
-              { this.state.isEditingName ?
-                <input value={user.name}
-                       onChange={this.handleChange}
-                       name="name"/>
-                :
-                <span>Name: {user.name}</span>
-              }
-              <button onClick={this.toggleEdit}
-                      name="Name">Edit</button>
+        { !error &&
+        <div>
+          <div className={styles.info}>
+
+            {/* Profile pic */}
+            <div className={styles.profilePic}>
+              <img src={gravatar.url(user.email, { s: '220', r: 'pg' })}/>
             </div>
-            <div>
-              { this.state.isEditingCity ?
-                  <input value={user.city}
+
+            <div className={styles.details}>
+              {/* Name */}
+              <div className={`${styles.infoLine} input-group`}>
+                <label>Name: </label>
+                { this.state.isEditingName ?
+                  <input className="form-control"
+                         value={user.name}
                          onChange={this.handleChange}
+                         maxLength="30"
+                         name="name"/>
+                  :
+                  <span>{user.name}</span>
+                }
+                <button className="btn btn-sm btn-outline-primary"
+                        onClick={this.toggleEdit}
+                        name="Name">{isEditingName ? 'Save' : 'Edit'}</button>
+              </div>
+
+              {/* City */}
+              <div className={`${styles.infoLine} input-group`}>
+                <label>City: </label>
+                { this.state.isEditingCity ?
+                  <input className="form-control"
+                         value={user.city}
+                         onChange={this.handleChange}
+                         maxLength="30"
                          name="city"/>
-                :
-                  <span>City: {user.city}</span>
-              }
-              <button onClick={this.toggleEdit} name="City">Edit</button>
+                  :
+                  <span>{user.city}</span>
+                }
+                <button onClick={this.toggleEdit}
+                        className="btn btn-sm btn-outline-primary"
+                        name="City">{isEditingCity ? 'Save' : 'Edit'}</button>
+              </div>
+              {/* Email */}
+              <div>Email: {user.email}</div>
             </div>
-            <div>Email: {user.email}</div>
+          </div>
+
+          <div className="text-center mt-5">
+            <button onClick={this.onSubmit}
+                    className="btn btn-primary">Update Info</button>
           </div>
         </div>
-        { this.props.error &&
+
+        }
+        {/* After-action info */}
+        { error &&
             <div className="alert-danger alert">
-              {this.props.error}
+              {error}
             </div>
         }
-        <div className="text-center mt-5">
-          <button onClick={this.onSubmit}
-                  className="btn btn-primary">Update Info</button>
+        { info &&
+        <div className="alert alert-success">
+          {info}
         </div>
+        }
+
       </div>
     );
   }
