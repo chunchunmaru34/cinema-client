@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import axios from 'axios';
 import { SIGN_IN_URL, SIGN_UP_URL } from '../constants/api-endpoints';
 import { AUTH_TOKEN_NAME, AUTH_USER } from '../constants/auth';
