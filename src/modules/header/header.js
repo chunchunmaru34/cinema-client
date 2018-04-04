@@ -10,13 +10,15 @@ const Header = ({ user, handleLogout }) => (
       {
         !user ?
           <div>
-            <Link to={LOGIN_ROUTE}>Login</Link>
+            <Link to={LOGIN_ROUTE}
+                  className="mr-2">Login</Link>
             <Link to={SIGN_UP_ROUTE}>Sign Up</Link>
           </div>
           :
           <div>
             <Link to={`${USERS_ROUTE}/${user.id}`}>Profile</Link>
-            <button onClick={handleLogout}>Logout</button>
+            <button className="btn btn-primary ml-2"
+                    onClick={handleLogout}>Logout</button>
           </div>
       }
     </div>

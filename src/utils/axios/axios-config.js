@@ -3,6 +3,8 @@ import axios from 'axios';
 import { authService } from '../../services/index';
 import { AUTH_TOKEN_NAME } from '../../constants/auth';
 import store from '../../redux/store';
+import history from '../../utils/history';
+import { LOGIN_ROUTE } from '../../constants/routes';
 import { loggedOut } from '../../modules/auth/actions';
 
 function attachToken(config) {
@@ -14,6 +16,7 @@ function attachToken(config) {
 function handleTokenExpiration() {
   authService.logout();
   store.dispatch(loggedOut());
+  history.push(LOGIN_ROUTE);
 }
 
 export default function configureAxios() {
