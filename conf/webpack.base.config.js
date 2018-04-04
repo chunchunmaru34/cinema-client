@@ -5,7 +5,7 @@ import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 
 export default new Config().merge({
-  entry: '/../src/index.js',
+  entry: `${__dirname}/../src/index.js`,
   output: {
     path: `${__dirname}/../public`,
   },

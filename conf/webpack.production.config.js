@@ -7,23 +7,46 @@ export default new Config().extend('conf/webpack.base.config.js').merge({
   },
   devtool: 'source-map',
   module: {
-    rules: [{
-      test: /\.css$/,
-      use: [
-        'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            importLoaders: 1,
-            localIdentName: '[hash:base64:10]',
-            minimize: true,
+    rules: [
+      {
+        test: /\.?global.(css|scss)$/,
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+      },
+      {
+        test: /^((?!\.?global).)*(css|scss)$/,
+        use: [
+          {
+            loader: 'style-loader',
           },
-        },
-        { loader: 'postcss-loader' },
-        { loader: 'sass-loader' },
-      ],
-    }],
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 2,
+              localIdentName: '[local]__[hash:base64:5]',
+              minimize: false,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
