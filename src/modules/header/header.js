@@ -6,7 +6,7 @@ import { LOGIN_ROUTE, USERS_ROUTE, SIGN_UP_ROUTE } from '../../constants/routes'
 
 const Header = ({ user, handleLogout }) => (
   <header className={styles.header}>
-    <div className="text-right">
+    <div className="text-right position-absolute w-100">
       {
         !user ?
           <div>
