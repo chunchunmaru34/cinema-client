@@ -2,7 +2,7 @@ import { userService, ticketService } from '../../services';
 import {
   RECEIVE_USER,
   REQUEST_USER,
-  REQUEST_FAILED,
+  USER_REQUEST_FAILED,
   UPDATE_SUCCEED,
   CLEAR_ERROR,
   CLEAR_INFO,
@@ -27,7 +27,7 @@ export function receiveUser(user) {
 
 export function requestFailed(err) {
   return {
-    type: REQUEST_FAILED,
+    type: USER_REQUEST_FAILED,
     data: err,
   };
 }

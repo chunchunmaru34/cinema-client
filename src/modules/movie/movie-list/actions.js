@@ -1,7 +1,8 @@
 import {
   MOVIES_REQUESTED,
   MOVIES_RECEIVED,
-  REQUEST_FAILED,
+  MOVIES_REQUEST_FAILED,
+  CLEAR_ERROR,
 } from './action-types';
 import { movieService } from '../../../services';
 
@@ -20,8 +21,14 @@ export function moviesReceived(json) {
 
 export function requestFailed(err) {
   return {
-    type: REQUEST_FAILED,
+    type: MOVIES_REQUEST_FAILED,
     data: err,
+  };
+}
+
+export function clearError() {
+  return {
+    type: CLEAR_ERROR,
   };
 }
 

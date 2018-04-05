@@ -12,8 +12,8 @@ class SeatsArrangementContainer extends React.Component {
   }
 
   render() {
-    const { movieSession } = this.props;
-    return <SeatsArrangement movieSession={movieSession}/>;
+    const { movieSession, selectedMovieSession } = this.props;
+    return selectedMovieSession && <SeatsArrangement movieSession={movieSession}/>;
   }
 }
 

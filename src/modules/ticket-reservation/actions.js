@@ -13,6 +13,7 @@ import {
   FINISH_ORDERING,
   PAYMENT_REQUESTED,
   UNSELECT_MOVIE_SESSION,
+  CLEAR_STATE,
 } from './action-types';
 
 export function selectMovieSession(movieSession) {
@@ -114,5 +115,11 @@ export function checkout() {
 export function finishOrdering() {
   return {
     type: FINISH_ORDERING,
+  };
+}
+
+export function clearState() {
+  return {
+    type: CLEAR_STATE,
   };
 }

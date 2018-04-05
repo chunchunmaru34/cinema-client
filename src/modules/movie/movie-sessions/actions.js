@@ -5,7 +5,7 @@ import {
   CINEMAS_REQUESTED,
   CINEMAS_RECEIVED,
   CINEMA_UNSELECTED,
-  CLEAR_STATE,
+  CLEAR_MOVIE_SESSIONS_STATE,
 } from './action-types';
 import {
   movieSessionService,
@@ -32,6 +32,7 @@ export function fetchMovieSessionsForCinema(cinemaId, movieId) {
       cinema: cinemaId,
       movie: movieId,
       'sort-by': 'date',
+      relevant: true,
     };
     return movieSessionService.getAllMovieSessionsFor(params)
       .then(res => dispatch(receiveMovieSessions(res.data)))
@@ -77,6 +78,6 @@ export function unselectCinema() {
 
 export function clearState() {
   return {
-    type: CLEAR_STATE,
+    type: CLEAR_MOVIE_SESSIONS_STATE,
   };
 }

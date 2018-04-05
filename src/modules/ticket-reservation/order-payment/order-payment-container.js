@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { payForOrder, requestTicket, finishOrdering } from '../actions';
+import { payForOrder, requestTicket, clearState } from '../actions';
 import OrderPayment from './order-payment';
 import { PAYMENT_SUCCESS } from '../constants/payment-statuses';
 
@@ -14,12 +14,12 @@ class OrderPaymentContainer extends React.Component {
   };
 
   onClosing = () => {
-    this.props.dispatch(finishOrdering());
+    this.props.dispatch(clearState());
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.paymentStatus === PAYMENT_SUCCESS) {
-      const { dispatch } = this.props;
+    const { dispatch, paymentStatus } = this.props;
+    if (nextProps.paymentStatus !== paymentStatus && nextProps.paymentStatus === PAYMENT_SUCCESS) {
       const data = {
         ...nextProps.order,
         selectedMovieSession: nextProps.selectedMovieSession,

@@ -1,7 +1,7 @@
 import {
   REQUEST_USER,
   RECEIVE_USER,
-  REQUEST_FAILED,
+  USER_REQUEST_FAILED,
   UPDATE_SUCCEED,
   CLEAR_INFO,
   CLEAR_ERROR,
@@ -34,7 +34,7 @@ export default function profile(state = initialState, action) {
         userDetails: action.data,
         isLoading: false,
       };
-    case REQUEST_FAILED:
+    case USER_REQUEST_FAILED:
       return {
         ...state,
         isLoading: false,

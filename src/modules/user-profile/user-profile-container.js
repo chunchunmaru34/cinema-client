@@ -29,10 +29,7 @@ class UserProfileContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch } = this.props;
     if (nextProps.error) {
-      clearTimeout(this.state.timer);
       dispatch(clearInfo());
-      const timer = setTimeout(() => dispatch(clearError()), 5000);
-      this.setState({ timer });
       return;
     }
     if (nextProps.info) {

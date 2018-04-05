@@ -2,7 +2,7 @@ import {
   MOVIE_DETAILS_RECEIVED,
   MOVIE_DETAILS_REQUESTED,
   MOVIE_SELECTED,
-  CLEAR_STATE,
+  CLEAR_MOVIE_DETAILS_STATE,
 } from './action-types';
 import { movieService } from '../../../services';
 
@@ -37,6 +37,6 @@ export function selectMovie(movie) {
 
 export function clearState() {
   return {
-    type: CLEAR_STATE,
+    type: CLEAR_MOVIE_DETAILS_STATE,
   };
 }
