@@ -21,6 +21,8 @@ function handleTokenExpiration() {
 
 export default function configureAxios() {
   axios.defaults.headers.post['Content-Type'] = 'application/json';
+  axios.defaults.timeout = 5000;
+
   axios.interceptors.request.use((request) => {
     attachToken(request);
     return request;
@@ -28,6 +30,9 @@ export default function configureAxios() {
   axios.interceptors.response.use(
     response => response,
     (error) => {
+      if (!error.response) {
+        return Promise.reject(error.message);
+      }
       if (error.response.status === 401) {
         handleTokenExpiration();
       }

@@ -33,7 +33,13 @@ export function login(credentials) {
     dispatch(loginRequested());
     return authService.login(credentials)
       .then(data => dispatch(loginReceived(data)))
-      .catch(err => dispatch(loginFailed(err.response.data)));
+      .catch((err) => {
+        if (err.response) {
+          dispatch(loginFailed(err.response.data.message));
+        } else {
+          dispatch(loginFailed(err));
+        }
+      });
   };
 }
 
@@ -42,7 +48,13 @@ export function signUp(credentials) {
     dispatch(loginRequested());
     return authService.signUp(credentials)
       .then(data => dispatch(loginReceived(data)))
-      .catch(err => dispatch(loginFailed(err.response.data)));
+      .catch((err) => {
+        if (err.response) {
+          dispatch(loginFailed(err.response.data.message));
+        } else {
+          dispatch(loginFailed(err));
+        }
+      });
   };
 }
 

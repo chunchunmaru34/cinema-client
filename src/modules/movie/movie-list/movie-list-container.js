@@ -15,7 +15,8 @@ class MovieListContainer extends React.Component {
   };
 
   render() {
-    const { movies, isLoading } = this.props;
+    const { movies, isLoading, error } = this.props;
+    if (error) return <div className="alert alert-danger">{error}</div>;
     const component = <MovieList refreshMovies={this.refreshMovies}
                                  movies={movies}/>;
     const loading = <LoadingBar isLoading={isLoading}/>;
@@ -26,6 +27,7 @@ class MovieListContainer extends React.Component {
 const mapStateToProps = state => ({
   movies: state.movieList.data,
   isLoading: state.movieList.isLoading,
+  error: state.movieList.error,
 });
 
 export default connect(mapStateToProps)(MovieListContainer);

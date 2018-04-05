@@ -166,7 +166,7 @@ export default class SignUpPage extends React.Component {
           <button className="btn btn-primary">Submit</button>
           { this.props.error &&
             <div className="alert alert-danger mt-3">
-              {this.props.error.message}
+              {this.props.error}
             </div>
           }
         </form>

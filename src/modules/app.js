@@ -31,7 +31,7 @@ const App = () => (
   <Router history={history}>
     <div className={styles.app}>
       <Header/>
-        <main className={styles.container}>
+        <main className={`${styles.container} container`}>
           <Switch>
             <Route exact path={HOME_ROUTE} component={Home}/>
             <Route path={LOGIN_ROUTE} component={LoginPage}/>
