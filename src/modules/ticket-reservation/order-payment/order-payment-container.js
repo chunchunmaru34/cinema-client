@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { payForOrder, requestTicket, clearState } from '../actions';
+import { payForOrder, requestTicket, finishOrdering } from '../actions';
+import { fetchMovieSessionsForCinema, requestMovieSessions } from '../../movie/movie-sessions/actions';
 import OrderPayment from './order-payment';
 import { PAYMENT_SUCCESS } from '../constants/payment-statuses';
 
@@ -14,7 +15,12 @@ class OrderPaymentContainer extends React.Component {
   };
 
   onClosing = () => {
-    this.props.dispatch(clearState());
+    const { dispatch, selectedMovieSession } = this.props;
+    dispatch(finishOrdering());
+    const movieId = selectedMovieSession.movie.id;
+    const cinemaId = selectedMovieSession.cinema.id;
+    dispatch(requestMovieSessions());
+    dispatch(fetchMovieSessionsForCinema({ movieId, cinemaId }));
   };
 
   componentWillReceiveProps(nextProps) {

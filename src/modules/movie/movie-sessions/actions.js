@@ -21,13 +21,13 @@ export function requestMovieSessions() {
 export function receiveMovieSessions(json) {
   return {
     type: MOVIE_SESSIONS_RECEIVED,
-    movieSessions: json,
+    data: json,
   };
 }
 
-export function fetchMovieSessionsForCinema(cinemaId, movieId) {
+export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
   return (dispatch) => {
-    dispatch(requestMovieSessions());
+    // dispatch(requestMovieSessions());
     const params = {
       cinema: cinemaId,
       movie: movieId,

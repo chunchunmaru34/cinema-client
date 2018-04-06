@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { clearState } from '../actions';
+import { clearState, selectMovieSession } from '../actions';
 import SeatsArrangement from '../seats-arrangement/seats-arrangement-container';
 import OrderPayment from '../order-payment/order-payment-container';
 
 class MovieSession extends React.Component {
+  componentDidMount() {
+    const { selectMovieSessions, movieSession, dispatch } = this.props;
+    if (!selectMovieSessions) {
+      dispatch(selectMovieSession(movieSession));
+    }
+  }
+
   componentWillUnmount() {
     this.props.dispatch(clearState());
   }

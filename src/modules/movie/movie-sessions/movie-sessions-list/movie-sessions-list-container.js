@@ -7,7 +7,7 @@ import LoadingBar from '../../../util-component/loading-bar/index';
 class MovieSessionsListContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { timer: null };
+    this.state = { interval: null };
   }
 
   FETCH_REFRESH_RATE = 5000;
@@ -19,10 +19,10 @@ class MovieSessionsListContainer extends React.Component {
     if (!selectedCinema) {
       dispatch(selectCinema(cinema));
     }
-    dispatch(fetchMovieSessionsForCinema(cinema.id, movie.id));
+    dispatch(fetchMovieSessionsForCinema({ cinemaId: cinema.id, movieId: movie.id }));
 
     const interval = setInterval(
-      () => dispatch(fetchMovieSessionsForCinema(cinema.id, movie.id)),
+      () => dispatch(fetchMovieSessionsForCinema({ cinemaId: cinema.id, movieId: movie.id })),
       this.FETCH_REFRESH_RATE,
     );
     this.setState({ interval });

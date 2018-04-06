@@ -18,10 +18,10 @@ class TicketListContainer extends React.Component {
     const {
       tickets, isTicketsRelevant, isTicketsLoading,
     } = this.props;
-    return tickets && <TicketList getTickets={this.onGetTickets}
-                                  isLoading={isTicketsLoading}
-                                  isTicketsRelevant={isTicketsRelevant}
-                                  tickets={tickets}/>;
+    return <TicketList getTickets={this.onGetTickets}
+                       isLoading={isTicketsLoading}
+                       isTicketsRelevant={isTicketsRelevant}
+                       tickets={tickets}/>;
   }
 }
 

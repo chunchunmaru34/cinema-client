@@ -4,7 +4,8 @@ import {
   CINEMA_SELECTED,
   MOVIE_SESSIONS_REQUESTED,
   MOVIE_SESSIONS_RECEIVED,
-  CINEMA_UNSELECTED, CLEAR_STATE,
+  CINEMA_UNSELECTED,
+  CLEAR_MOVIE_SESSIONS_STATE,
 } from './action-types';
 
 const initialState = {
@@ -46,12 +47,14 @@ const movieSessions = (state = initialState, action) => {
         isMovieSessionsLoading: true,
       };
     case MOVIE_SESSIONS_RECEIVED:
+      // if data received, but user already selected another cinema
+      if (action.data[0].cinema.id !== state.selectedCinema.id) return state;
       return {
         ...state,
         isMovieSessionsLoading: false,
-        data: action.movieSessions,
+        data: action.data,
       };
-    case CLEAR_STATE:
+    case CLEAR_MOVIE_SESSIONS_STATE:
       return initialState;
     default:
       return state;
