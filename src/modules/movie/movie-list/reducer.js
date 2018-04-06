@@ -2,13 +2,11 @@ import {
   MOVIES_REQUESTED,
   MOVIES_RECEIVED,
   MOVIES_REQUEST_FAILED,
-  CLEAR_ERROR,
 } from './action-types';
 
 const initialState = {
   data: null,
   isLoading: true,
-  error: null,
 };
 
 const movieList = (state = initialState, action) => {
@@ -29,11 +27,6 @@ const movieList = (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.data,
-      };
-    case CLEAR_ERROR:
-      return {
-        ...state,
-        error: null,
       };
     default:
       return state;

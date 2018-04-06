@@ -16,12 +16,12 @@ class TicketListContainer extends React.Component {
 
   render() {
     const {
-      tickets, isTicketsRelevant, isTicketsLoading, error,
+      tickets, isTicketsRelevant, isTicketsLoading,
     } = this.props;
-    return !error && <TicketList getTickets={this.onGetTickets}
-                                 isLoading={isTicketsLoading}
-                                 isTicketsRelevant={isTicketsRelevant}
-                                 tickets={tickets}/>;
+    return tickets && <TicketList getTickets={this.onGetTickets}
+                                  isLoading={isTicketsLoading}
+                                  isTicketsRelevant={isTicketsRelevant}
+                                  tickets={tickets}/>;
   }
 }
 
@@ -30,7 +30,6 @@ const mapStateToProps = state => ({
   tickets: state.profile.tickets,
   isTicketsRelevant: state.profile.isTicketsRelevant,
   isTicketsLoading: state.profile.isTicketsLoading,
-  error: state.profile.error,
 });
 
 export default connect(mapStateToProps)(TicketListContainer);

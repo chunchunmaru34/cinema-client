@@ -1,16 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MovieList from './movie-list';
-import LoadingBar from '../../utils/loading-bar';
-import { fetchMovies, clearError } from './actions';
+import LoadingBar from '../../util-component/loading-bar';
+import { fetchMovies } from './actions';
 
 class MovieListContainer extends React.Component {
   componentDidMount() {
     if (!this.props.movies) this.refreshMovies();
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(clearError());
   }
 
   refreshMovies = () => {
@@ -19,8 +15,7 @@ class MovieListContainer extends React.Component {
   };
 
   render() {
-    const { movies, isLoading, error } = this.props;
-    if (error) return <div className="alert alert-danger">{error}</div>;
+    const { movies, isLoading } = this.props;
     const component = <MovieList refreshMovies={this.refreshMovies}
                                  movies={movies}/>;
     const loading = <LoadingBar isLoading={isLoading}/>;
@@ -31,7 +26,6 @@ class MovieListContainer extends React.Component {
 const mapStateToProps = state => ({
   movies: state.movieList.data,
   isLoading: state.movieList.isLoading,
-  error: state.movieList.error,
 });
 
 export default connect(mapStateToProps)(MovieListContainer);

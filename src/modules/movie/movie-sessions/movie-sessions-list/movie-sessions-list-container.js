@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MovieSessionList from './movie-sessions-list';
 import { fetchMovieSessionsForCinema, selectCinema } from '../actions';
-import LoadingBar from '../../../utils/loading-bar/index';
+import LoadingBar from '../../../util-component/loading-bar/index';
 
 class MovieSessionsListContainer extends React.Component {
   constructor(props) {

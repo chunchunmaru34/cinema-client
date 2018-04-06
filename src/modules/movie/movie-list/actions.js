@@ -2,7 +2,6 @@ import {
   MOVIES_REQUESTED,
   MOVIES_RECEIVED,
   MOVIES_REQUEST_FAILED,
-  CLEAR_ERROR,
 } from './action-types';
 import { movieService } from '../../../services';
 
@@ -26,24 +25,12 @@ export function requestFailed(err) {
   };
 }
 
-export function clearError() {
-  return {
-    type: CLEAR_ERROR,
-  };
-}
-
 export function fetchMovies() {
   return (dispatch) => {
     dispatch(moviesRequested());
     return movieService.getAllMovies()
       .then(res => dispatch(moviesReceived(res.data)))
-      .catch((err) => {
-        if (err.response) {
-          dispatch(requestFailed(err.response.data.message));
-        } else {
-          dispatch(requestFailed(err));
-        }
-      });
+      .catch(console.log);
   };
 }
 

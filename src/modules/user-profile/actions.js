@@ -2,8 +2,8 @@ import { userService, ticketService } from '../../services';
 import {
   RECEIVE_USER,
   REQUEST_USER,
-  USER_REQUEST_FAILED,
-  UPDATE_SUCCEED,
+  USER_UPDATE_FAILED,
+  USER_UPDATE_SUCCEED,
   CLEAR_ERROR,
   CLEAR_INFO,
   CLEAR_STATE,
@@ -25,25 +25,12 @@ export function receiveUser(user) {
   };
 }
 
-export function requestFailed(err) {
-  return {
-    type: USER_REQUEST_FAILED,
-    data: err,
-  };
-}
-
 export function fetchUser(id) {
   return (dispatch) => {
     dispatch(requestUser());
     return userService.getUserById(id)
       .then(res => dispatch(receiveUser(res.data)))
-      .catch((err) => {
-        if (err.response) {
-          dispatch(requestFailed(err.response.data.message));
-        } else {
-          dispatch(requestFailed(err));
-        }
-      });
+      .catch(console.log);
   };
 }
 
@@ -78,20 +65,21 @@ export function fetchTickets({ user, relevant }) {
           dispatch(gotAllTickets(res.data));
         }
       })
-      .catch((err) => {
-        if (err.response) {
-          dispatch(requestFailed(err.response.data.message));
-        } else {
-          dispatch(requestFailed(err));
-        }
-      });
+      .catch(console.log);
   };
 }
 
 export function updateSucceed(user) {
   return {
-    type: UPDATE_SUCCEED,
+    type: USER_UPDATE_SUCCEED,
     data: user,
+  };
+}
+
+export function updateFailed(err) {
+  return {
+    type: USER_UPDATE_FAILED,
+    data: err,
   };
 }
 
@@ -99,11 +87,7 @@ export function updateUser(user) {
   return dispatch => userService.updateUser(user)
     .then(res => dispatch(updateSucceed(res.data)))
     .catch((err) => {
-      if (err.response) {
-        dispatch(requestFailed(err.response.data.message));
-      } else {
-        dispatch(requestFailed(err));
-      }
+      updateFailed(err.response ? err.response.data.message : err.message);
     });
 }
 

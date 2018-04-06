@@ -53,9 +53,7 @@ OrderPaymentContainer.propTypes = {
     addedSeats: PropTypes.array,
     createdAd: PropTypes.string,
   }),
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
+  error: PropTypes.string,
   selectedMovieSession: PropTypes.object,
   paymentStatus: PropTypes.string,
 };

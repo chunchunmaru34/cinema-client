@@ -44,7 +44,7 @@ export default class OrderPayment extends React.Component {
         {paymentInfo}
         { error &&
           <div className="alert alert-danger">
-            {error.message}
+            {error}
           </div>
         }
         {
@@ -71,8 +71,6 @@ OrderPayment.propTypes = {
     movieSession: PropTypes.string,
     createdAd: PropTypes.string,
   }),
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
+  error: PropTypes.string,
 };
 

@@ -37,7 +37,6 @@ export default class UserProfile extends React.Component {
 
     return (
       <div className={styles.container}>
-        { !error &&
         <div>
           <div className={styles.info}>
 
@@ -90,7 +89,7 @@ export default class UserProfile extends React.Component {
                     className="btn btn-primary">Update Info</button>
           </div>
         </div>
-        }
+
         {/* After-action info */}
         { error &&
             <div className="alert-danger alert mt-3">

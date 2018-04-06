@@ -57,7 +57,6 @@ Ticket.propTypes = {
     user: PropTypes.string,
     additions: PropTypes.object,
   }),
-
 };
 
 export default Ticket;
