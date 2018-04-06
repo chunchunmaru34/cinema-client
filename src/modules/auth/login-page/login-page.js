@@ -53,7 +53,7 @@ export default class LoginPage extends React.Component {
           </div>
           { this.props.error &&
           <div className="alert alert-danger mt-3">
-            <span>{this.props.error.message}</span>
+            <span>{this.props.error}</span>
           </div>
           }
         </form>

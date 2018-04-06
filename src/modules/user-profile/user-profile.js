@@ -1,5 +1,6 @@
 import React from 'react';
 import gravatar from 'gravatar';
+import TicketList from './ticket-list/ticket-list-container';
 import styles from './styles.scss';
 
 export default class UserProfile extends React.Component {
@@ -36,7 +37,6 @@ export default class UserProfile extends React.Component {
 
     return (
       <div className={styles.container}>
-        { !error &&
         <div>
           <div className={styles.info}>
 
@@ -90,19 +90,19 @@ export default class UserProfile extends React.Component {
           </div>
         </div>
 
-        }
         {/* After-action info */}
         { error &&
-            <div className="alert-danger alert">
+            <div className="alert-danger alert mt-3">
               {error}
             </div>
         }
         { info &&
-        <div className="alert alert-success">
+        <div className="alert alert-success mt-3">
           {info}
         </div>
         }
 
+        <TicketList/>
       </div>
     );
   }

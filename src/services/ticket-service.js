@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
+import qs from 'qs';
 import { authService } from './index';
 import { RESERVATIONS_URL, TICKETS_URL } from '../constants/api-endpoints';
 
@@ -43,4 +44,9 @@ export function unreserveSeat({ seat, movieSession }) {
     userId: authService.getAuthenticatedUser().id,
   };
   return axios.post(RESERVATIONS_URL, payload);
+}
+
+export function getTickets(params) {
+  const query = qs.stringify(params);
+  return axios.get(`${TICKETS_URL}?${query}`);
 }

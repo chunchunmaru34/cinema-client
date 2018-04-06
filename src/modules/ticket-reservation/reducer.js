@@ -12,6 +12,7 @@ import {
   CHECKOUT,
   FINISH_ORDERING,
   PAYMENT_REQUESTED,
+  CLEAR_STATE,
 } from './action-types';
 import { PAYMENT_SUCCESS, PAYMENT_FAIL, PAYMENT_PENDING } from './constants/payment-statuses';
 
@@ -142,6 +143,8 @@ function ticketReservation(state = initialState, action) {
         ...initialState,
         selectedMovieSession: state.selectedMovieSession,
       };
+    case CLEAR_STATE:
+      return initialState;
     default:
       return state;
   }

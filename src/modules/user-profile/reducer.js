@@ -1,18 +1,24 @@
 import {
   REQUEST_USER,
   RECEIVE_USER,
-  REQUEST_FAILED,
-  UPDATE_SUCCEED,
+  USER_UPDATE_FAILED,
+  USER_UPDATE_SUCCEED,
   CLEAR_INFO,
   CLEAR_ERROR,
   CLEAR_STATE,
+  TICKETS_REQUESTED,
+  GOT_ALL_TICKETS,
+  GOT_RELEVANT_TICKETS,
 } from './action-types';
 
 const initialState = {
   userDetails: null,
+  tickets: null,
   error: null,
   info: null,
   isLoading: true,
+  isTicketsRelevant: true,
+  isTicketsLoading: true,
 };
 
 export default function profile(state = initialState, action) {
@@ -28,13 +34,14 @@ export default function profile(state = initialState, action) {
         userDetails: action.data,
         isLoading: false,
       };
-    case REQUEST_FAILED:
+    case USER_UPDATE_FAILED:
       return {
         ...state,
         isLoading: false,
-        error: action.error,
+        isTicketsLoading: false,
+        error: action.data,
       };
-    case UPDATE_SUCCEED:
+    case USER_UPDATE_SUCCEED:
       return {
         ...state,
         userDetails: action.data,
@@ -49,6 +56,25 @@ export default function profile(state = initialState, action) {
       return {
         ...state,
         error: null,
+      };
+    case TICKETS_REQUESTED:
+      return {
+        ...state,
+        isTicketsLoading: true,
+      };
+    case GOT_ALL_TICKETS:
+      return {
+        ...state,
+        tickets: action.data,
+        isTicketsRelevant: false,
+        isTicketsLoading: false,
+      };
+    case GOT_RELEVANT_TICKETS:
+      return {
+        ...state,
+        tickets: action.data,
+        isTicketsRelevant: true,
+        isTicketsLoading: false,
       };
     case CLEAR_STATE:
       return initialState;

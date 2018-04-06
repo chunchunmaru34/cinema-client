@@ -5,7 +5,7 @@
 }
 
 .header {
-  composes: button from global;
+  cursor: pointer;
   padding: 10px;
   background-color: $dark;
 }

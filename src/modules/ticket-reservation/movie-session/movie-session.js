@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { finishOrdering } from '../actions';
+import { clearState } from '../actions';
 import SeatsArrangement from '../seats-arrangement/seats-arrangement-container';
 import OrderPayment from '../order-payment/order-payment-container';
 
 class MovieSession extends React.Component {
   componentWillUnmount() {
-    this.props.dispatch(finishOrdering());
+    this.props.dispatch(clearState());
   }
 
   render() {

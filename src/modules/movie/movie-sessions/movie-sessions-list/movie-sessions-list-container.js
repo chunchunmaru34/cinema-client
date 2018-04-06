@@ -2,9 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MovieSessionList from './movie-sessions-list';
 import { fetchMovieSessionsForCinema, selectCinema } from '../actions';
-import LoadingBar from '../../../utils/loading-bar/index';
+import LoadingBar from '../../../util-component/loading-bar/index';
 
 class MovieSessionsListContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { timer: null };
+  }
+
   FETCH_REFRESH_RATE = 5000;
 
   componentDidMount() {
@@ -37,7 +42,6 @@ class MovieSessionsListContainer extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
   movie: state.selectedMovie.movieDetails.data,
   cinema: ownProps.cinema,
-  isLoading: state.selectedMovie.movieSessions.isMovieSessionsLoading,
   selectedCinema: state.selectedMovie.movieSessions.selectedCinema,
   movieSessions: state.selectedMovie.movieSessions.data,
 });

@@ -1,6 +1,7 @@
 import {
   MOVIES_REQUESTED,
   MOVIES_RECEIVED,
+  MOVIES_REQUEST_FAILED,
 } from './action-types';
 
 const initialState = {
@@ -20,6 +21,12 @@ const movieList = (state = initialState, action) => {
         ...state,
         data: action.movies,
         isLoading: false,
+      };
+    case MOVIES_REQUEST_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.data,
       };
     default:
       return state;

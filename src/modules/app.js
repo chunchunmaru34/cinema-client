@@ -15,7 +15,7 @@ import Footer from './footer';
 import MovieDetails from './movie/movie-details/movie-details-container';
 import SignUpPage from './auth/signup-page/signup-page-container';
 import UserProfile from './user-profile/user-profile-container';
-import NoMatch from './utils/no-match/no-match';
+import NoMatch from './util-component/no-match/no-match';
 import {
   LOGIN_ROUTE,
   MOVIES_ROUTE,
@@ -31,7 +31,7 @@ const App = () => (
   <Router history={history}>
     <div className={styles.app}>
       <Header/>
-        <main className={styles.container}>
+        <main className={`${styles.container} container`}>
           <Switch>
             <Route exact path={HOME_ROUTE} component={Home}/>
             <Route path={LOGIN_ROUTE} component={LoginPage}/>

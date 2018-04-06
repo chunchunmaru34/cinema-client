@@ -1,25 +1,36 @@
-import { MOVIES_REQUESTED, MOVIES_RECEIVED } from './action-types';
+import {
+  MOVIES_REQUESTED,
+  MOVIES_RECEIVED,
+  MOVIES_REQUEST_FAILED,
+} from './action-types';
 import { movieService } from '../../../services';
 
-export function requestMovies() {
+export function moviesRequested() {
   return {
     type: MOVIES_REQUESTED,
   };
 }
 
-export function receiveMovies(json) {
+export function moviesReceived(json) {
   return {
     type: MOVIES_RECEIVED,
     movies: json,
   };
 }
 
+export function requestFailed(err) {
+  return {
+    type: MOVIES_REQUEST_FAILED,
+    data: err,
+  };
+}
+
 export function fetchMovies() {
   return (dispatch) => {
-    dispatch(requestMovies());
+    dispatch(moviesRequested());
     return movieService.getAllMovies()
-      .then(res => dispatch(receiveMovies(res.data)))
-      .catch(err => console.log(err));
+      .then(res => dispatch(moviesReceived(res.data)))
+      .catch(console.log);
   };
 }
 

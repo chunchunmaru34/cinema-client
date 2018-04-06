@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import LoadingBar from '../utils/loading-bar';
+import LoadingBar from '../util-component/loading-bar';
 import {
   fetchUser,
   updateUser,
@@ -29,8 +29,8 @@ class UserProfileContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { dispatch } = this.props;
     if (nextProps.error) {
-      clearTimeout(this.state.timer);
       dispatch(clearInfo());
+      clearTimeout(this.state.timer);
       const timer = setTimeout(() => dispatch(clearError()), 5000);
       this.setState({ timer });
       return;
