@@ -34,11 +34,7 @@ export function login(credentials) {
     return authService.login(credentials)
       .then(data => dispatch(loginReceived(data)))
       .catch((err) => {
-        if (err.response) {
-          dispatch(loginFailed(err.response.data.message));
-        } else {
-          dispatch(loginFailed(err));
-        }
+        dispatch(loginFailed(err.response ? err.response.data.message : err.message));
       });
   };
 }
@@ -49,11 +45,7 @@ export function signUp(credentials) {
     return authService.signUp(credentials)
       .then(data => dispatch(loginReceived(data)))
       .catch((err) => {
-        if (err.response) {
-          dispatch(loginFailed(err.response.data.message));
-        } else {
-          dispatch(loginFailed(err));
-        }
+        dispatch(loginFailed(err.response ? err.response.data.message : err.message));
       });
   };
 }
