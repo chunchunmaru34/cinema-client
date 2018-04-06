@@ -7,7 +7,7 @@ const MovieSessionsList = ({ data }) => (
   <div className={styles.container}>
       Sessions:
       {data.map(item => <MovieSessionCard data={item}
-                                      key={item.id}/>)}
+                                          key={item.id}/>)}
   </div>
 );
 

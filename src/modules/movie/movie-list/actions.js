@@ -1,7 +1,7 @@
 import {
   MOVIES_REQUESTED,
   MOVIES_RECEIVED,
-  MOVIES_REQUEST_FAILED,
+  MOVIES_CLEAR_STATE,
 } from './action-types';
 import { movieService } from '../../../services';
 
@@ -18,13 +18,6 @@ export function moviesReceived(json) {
   };
 }
 
-export function requestFailed(err) {
-  return {
-    type: MOVIES_REQUEST_FAILED,
-    data: err,
-  };
-}
-
 export function fetchMovies() {
   return (dispatch) => {
     dispatch(moviesRequested());
@@ -34,3 +27,8 @@ export function fetchMovies() {
   };
 }
 
+export function clearState() {
+  return {
+    type: MOVIES_CLEAR_STATE,
+  };
+}

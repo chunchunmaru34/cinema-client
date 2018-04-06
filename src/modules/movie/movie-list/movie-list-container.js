@@ -2,11 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MovieList from './movie-list';
 import LoadingBar from '../../util-component/loading-bar';
-import { fetchMovies } from './actions';
+import { fetchMovies, clearState, moviesReceived } from './actions';
 
 class MovieListContainer extends React.Component {
   componentDidMount() {
-    if (!this.props.movies) this.refreshMovies();
+    const { movies, dispatch } = this.props;
+    if (!movies) {
+      this.refreshMovies();
+    } else {
+      dispatch(moviesReceived(movies));
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(clearState());
   }
 
   refreshMovies = () => {
