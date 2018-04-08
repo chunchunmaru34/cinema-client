@@ -3,25 +3,19 @@ import PropTypes from 'prop-types';
 import Row from './row/row';
 import OrderSummary from '../order-summary/order-summary-container';
 import styles from './styles.scss';
-import LoadingBar from '../../util-component/loading-bar/index';
 
-const SeatsArrangements = ({ movieSession, isMovieSessionsLoading }) => {
+const SeatsArrangements = ({ movieSession }) => {
   const rows = movieSession.seats
     .map((item, index) => <Row data={item}
                                rowIndex={index}
                                key={index}/>);
   return (
     <div className={styles.container}>
-      {
-        isMovieSessionsLoading ?
-          <LoadingBar/>
-          :
-          <div>
-            <div className={styles.screen}>Screen</div>
-            {rows}
-            <OrderSummary movieSession={movieSession}/>
-          </div>
-      }
+      <div>
+        <div className={styles.screen}>Screen</div>
+        {rows}
+        <OrderSummary movieSession={movieSession}/>
+      </div>
     </div>
   );
 };

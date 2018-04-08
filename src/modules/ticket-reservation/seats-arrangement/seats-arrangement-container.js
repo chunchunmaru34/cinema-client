@@ -31,16 +31,14 @@ class SeatsArrangementContainer extends React.Component {
   }
 
   render() {
-    const { movieSession, isMovieSessionsLoading } = this.props;
-    return <SeatsArrangement movieSession={movieSession}
-                             isMovieSessionsLoading={isMovieSessionsLoading}/>;
+    const { movieSession } = this.props;
+    return <SeatsArrangement movieSession={movieSession}/>;
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   movieSession: ownProps.movieSession,
   addedSeats: state.ticketReservation.order.addedSeats,
-  isMovieSessionsLoading: state.selectedMovie.movieSessions.isMovieSessionsLoading,
   selectedMovieSession: state.ticketReservation.selectedMovieSession,
 });
 
