@@ -20,7 +20,7 @@ const Row = ({ data, rowIndex }) => {
 };
 
 Row.propTypes = {
-  data: PropTypes.arrayOf({
+  data: PropTypes.arrayOf(PropTypes.shape({
     kind: PropTypes.shape({
       name: PropTypes.string,
       displayName: PropTypes.string,
@@ -30,7 +30,7 @@ Row.propTypes = {
     status: PropTypes.string,
     occupiedUntil: PropTypes.string,
     occupiedBy: PropTypes.string,
-  }),
+  })),
   index: PropTypes.number,
 };
 

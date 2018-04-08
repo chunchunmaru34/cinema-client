@@ -6,12 +6,15 @@ import {
   MOVIE_SESSIONS_RECEIVED,
   CINEMA_UNSELECTED,
   CLEAR_MOVIE_SESSIONS_STATE,
+  MOVIE_SESSION_REFRESH_RECEIVED,
+  MOVIE_SESSION_REFRESH_REQUESTED,
 } from './action-types';
 
 const initialState = {
   data: null,
   isCinemasLoading: true,
   isMovieSessionsLoading: true,
+  isMovieSessionRefreshing: false,
   cinemas: null,
   selectedCinema: null,
 };
@@ -54,6 +57,21 @@ const movieSessions = (state = initialState, action) => {
         isMovieSessionsLoading: false,
         data: action.data,
       };
+    case MOVIE_SESSION_REFRESH_REQUESTED:
+      return {
+        ...state,
+        isMovieSessionRefreshing: true,
+      };
+    case MOVIE_SESSION_REFRESH_RECEIVED: {
+      const data = [...state.data];
+      const index = data.findIndex(item => item.id === action.data.id);
+      data[index] = action.data;
+      return {
+        ...state,
+        isMovieSessionRefreshing: false,
+        data,
+      };
+    }
     case CLEAR_MOVIE_SESSIONS_STATE:
       return initialState;
     default:

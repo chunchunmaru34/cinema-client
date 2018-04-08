@@ -63,7 +63,7 @@ export default class OrderPayment extends React.Component {
 }
 
 OrderPayment.propTypes = {
-  paymentStatus: PropTypes.bool,
+  paymentStatus: PropTypes.string,
   pay: PropTypes.func,
   finishOrder: PropTypes.func,
   ticket: PropTypes.shape({

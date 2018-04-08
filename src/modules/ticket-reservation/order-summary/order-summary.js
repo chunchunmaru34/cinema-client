@@ -48,10 +48,10 @@ export default class OrderSummary extends React.Component {
 }
 
 OrderSummary.propTypes = {
-  order: {
+  order: PropTypes.shape({
     transactionId: PropTypes.string,
     addedSeats: PropTypes.array,
-    additions: PropTypes.array,
+    additions: PropTypes.object,
     ticket: PropTypes.shape({
       user: PropTypes.string,
       movieSession: PropTypes.string,
@@ -66,10 +66,10 @@ OrderSummary.propTypes = {
       additions: PropTypes.array,
       seat: PropTypes.array,
     }),
-    incrementAddition: PropTypes.func,
-    decrementAddition: PropTypes.func,
-    checkout: PropTypes.func,
-    isCheckingOut: PropTypes.bool,
-  },
+  }),
+  incrementAddition: PropTypes.func,
+  decrementAddition: PropTypes.func,
+  checkout: PropTypes.func,
+  isCheckingOut: PropTypes.bool,
 };
 

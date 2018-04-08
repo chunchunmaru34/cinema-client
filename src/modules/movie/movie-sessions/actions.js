@@ -6,6 +6,8 @@ import {
   CINEMAS_RECEIVED,
   CINEMA_UNSELECTED,
   CLEAR_MOVIE_SESSIONS_STATE,
+  MOVIE_SESSION_REFRESH_RECEIVED,
+  MOVIE_SESSION_REFRESH_REQUESTED,
 } from './action-types';
 import {
   movieSessionService,
@@ -37,6 +39,28 @@ export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
     return movieSessionService.getAllMovieSessionsFor(params)
       .then(res => dispatch(receiveMovieSessions(res.data)))
       .catch(err => console.log(err));
+  };
+}
+
+export function movieSessionRefreshRequested() {
+  return {
+    type: MOVIE_SESSION_REFRESH_REQUESTED,
+  };
+}
+
+export function movieSessionRefreshReceived(movieSession) {
+  return {
+    type: MOVIE_SESSION_REFRESH_RECEIVED,
+    data: movieSession,
+  };
+}
+
+export function refreshMovieSession(movieSession) {
+  return (dispatch) => {
+    dispatch(movieSessionRefreshRequested());
+    return movieSessionService.getMovieSessionById(movieSession.id)
+      .then(res => dispatch(movieSessionRefreshReceived(res.data)))
+      .catch(console.log);
   };
 }
 

@@ -12,7 +12,7 @@ import {
   CHECKOUT,
   FINISH_ORDERING,
   PAYMENT_REQUESTED,
-  CLEAR_STATE,
+  CLEAR_STATE, CANCEL_CHECKING_OUT,
 } from './action-types';
 import { PAYMENT_SUCCESS, PAYMENT_FAIL, PAYMENT_PENDING } from './constants/payment-statuses';
 
@@ -34,14 +34,11 @@ function ticketReservation(state = initialState, action) {
   switch (action.type) {
     case SELECT_MOVIE_SESSION:
       return {
-        ...state,
+        ...initialState,
         selectedMovieSession: action.data,
       };
     case UNSELECT_MOVIE_SESSION:
-      return {
-        ...state,
-        selectedMovieSession: null,
-      };
+      return initialState;
     case ADD_SEAT: {
       const seats = [...state.order.addedSeats];
       const seatPrice = state.selectedMovieSession.price * (action.data.kind.priceMultiplier || 1);
@@ -120,6 +117,13 @@ function ticketReservation(state = initialState, action) {
         paymentStatus: PAYMENT_FAIL,
       };
     case TICKET_RECEIVED:
+      if (!state.isCheckingOut) {
+        return {
+          ...initialState,
+          isCheckingOut: state.isCheckingOut,
+          selectedMovieSession: state.selectedMovieSession,
+        };
+      }
       return {
         ...initialState,
         isCheckingOut: state.isCheckingOut,
@@ -143,7 +147,15 @@ function ticketReservation(state = initialState, action) {
         ...initialState,
         selectedMovieSession: state.selectedMovieSession,
       };
+    case CANCEL_CHECKING_OUT:
+      return {
+        ...state,
+        isCheckingOut: false,
+      };
     case CLEAR_STATE:
+      if (state.selectedMovieSession) {
+        return state.selectedMovieSession.id === action.data.id ? initialState : state;
+      }
       return initialState;
     default:
       return state;

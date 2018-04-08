@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addSeat, removeSeat } from '../../actions';
 import { ticketService } from '../../../../services';
 import Seat from './seat';
-// import { TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
+import { refreshMovieSession } from '../../../movie/movie-sessions/actions';
 
 class SeatContainer extends React.Component {
   constructor(props) {
@@ -12,36 +12,34 @@ class SeatContainer extends React.Component {
     this.state = { selected: false };
   }
 
-  // componentDidMount() {
-  // const {
-  //   data, dispatch, rowIndex, index,
-  // } = this.props;
-  // const { id } = authService.getAuthenticatedUser();
-  // if (data.status === TEMPORARY_OCCUPIED && data.occupiedBy === id) {
-  //   const payload = {
-  //     ...data,
-  //     number: index,
-  //     rowNumber: rowIndex,
-  //   };
-  //   dispatch(addSeat(payload));
-  //   }
-  // }
+  componentDidMount() {
+    this.checkIfSeatAlreadySelected(this.props);
+  }
 
   componentWillReceiveProps(nextProps) {
-    const selected = !!nextProps.addedSeats.find(item => item._id === nextProps.data._id);
+    this.checkIfSeatAlreadySelected(nextProps);
+  }
+
+  checkIfSeatAlreadySelected({ addedSeats, data }) {
+    const selected = !!addedSeats.find(item => item._id === data._id);
     this.setState({ selected });
   }
 
   onAddSeat = (seat) => {
-    const { movieSession, dispatch } = this.props;
+    const {
+      movieSession, dispatch, addedSeats, data,
+    } = this.props;
+    if (addedSeats.find(item => item._id === data._id)) return;
     dispatch(addSeat(seat));
     ticketService.reserveSeat({ seat, movieSession });
+    setTimeout(() => dispatch(refreshMovieSession(movieSession)), 100);
   };
 
   onRemoveSeat = (seat) => {
     const { movieSession, dispatch } = this.props;
     dispatch(removeSeat(seat));
     ticketService.unreserveSeat({ seat, movieSession });
+    setTimeout(() => dispatch(refreshMovieSession(movieSession)), 100);
   };
 
   render() {
@@ -66,7 +64,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 SeatContainer.propTypes = {
-  data: PropTypes.arrayOf({
+  data: PropTypes.shape({
     kind: PropTypes.shape({
       name: PropTypes.string,
       displayName: PropTypes.string,
@@ -77,7 +75,7 @@ SeatContainer.propTypes = {
     occupiedUntil: PropTypes.string,
     occupiedBy: PropTypes.string,
   }),
-  addedSeats: PropTypes.arrayOf({
+  addedSeats: PropTypes.arrayOf(PropTypes.shape({
     data: PropTypes.arrayOf({
       kind: PropTypes.shape({
         name: PropTypes.string,
@@ -91,7 +89,7 @@ SeatContainer.propTypes = {
       number: PropTypes.number,
       rowNumber: PropTypes.number,
     }),
-  }),
+  })),
   index: PropTypes.number,
   rowIndex: PropTypes.number,
 };
