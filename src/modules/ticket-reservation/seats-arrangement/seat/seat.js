@@ -45,7 +45,7 @@ export default class Seat extends React.Component {
 Seat.propTypes = {
   addSeat: PropTypes.func,
   removeSeat: PropTypes.func,
-  data: PropTypes.arrayOf({
+  data: PropTypes.shape({
     kind: PropTypes.shape({
       name: PropTypes.string,
       displayName: PropTypes.string,

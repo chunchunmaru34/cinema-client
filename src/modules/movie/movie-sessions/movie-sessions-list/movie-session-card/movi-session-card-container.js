@@ -36,14 +36,14 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 MovieSessionCardContainer.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
+  data: PropTypes.shape({
     id: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     seats: PropTypes.array,
     price: PropTypes.number,
     freeSeatsCount: PropTypes.number,
     roomCodeName: PropTypes.string,
-  })),
+  }),
 };
 
 export default withRouter(connect(mapStateToProps)(MovieSessionCardContainer));

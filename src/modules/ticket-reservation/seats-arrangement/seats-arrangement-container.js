@@ -1,26 +1,45 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectMovieSession } from '../actions';
+import { addSeat } from '../actions';
+import { authService } from '../../../services';
+import { TEMPORARY_OCCUPIED } from '../constants/seats-statuses';
 import SeatsArrangement from './seats-arrangement';
 
 class SeatsArrangementContainer extends React.Component {
   componentDidMount() {
-    const { selectMovieSessions, movieSession, dispatch } = this.props;
-    if (!selectMovieSessions) {
-      dispatch(selectMovieSession(movieSession));
-    }
+    const { movieSession } = this.props;
+    this.checkForAddedSeats(movieSession.seats);
+  }
+
+  checkForAddedSeats(seats) {
+    const userId = authService.getAuthenticatedUser().id;
+    seats.forEach((row, rowNumber) => {
+      row.forEach((seat, number) => {
+        if (seat.status === TEMPORARY_OCCUPIED &&
+            seat.occupiedBy === userId &&
+            !this.props.addedSeats.find(item => item._id === seat._id)
+        ) {
+          const payload = {
+            ...seat,
+            number,
+            rowNumber,
+          };
+          this.props.dispatch(addSeat(payload));
+        }
+      });
+    });
   }
 
   render() {
-    const { movieSession, selectedMovieSession } = this.props;
-    return selectedMovieSession && <SeatsArrangement movieSession={movieSession}/>;
+    const { movieSession } = this.props;
+    return <SeatsArrangement movieSession={movieSession}/>;
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   movieSession: ownProps.movieSession,
+  addedSeats: state.ticketReservation.order.addedSeats,
   selectedMovieSession: state.ticketReservation.selectedMovieSession,
 });
-
 
 export default connect(mapStateToProps)(SeatsArrangementContainer);

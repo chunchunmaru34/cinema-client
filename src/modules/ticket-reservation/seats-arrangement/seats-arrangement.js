@@ -11,9 +11,11 @@ const SeatsArrangements = ({ movieSession }) => {
                                key={index}/>);
   return (
     <div className={styles.container}>
-      <div className={styles.screen}>Screen</div>
-      {rows}
-      <OrderSummary movieSession={movieSession}/>
+      <div>
+        <div className={styles.screen}>Screen</div>
+        {rows}
+        <OrderSummary movieSession={movieSession}/>
+      </div>
     </div>
   );
 };
@@ -27,6 +29,7 @@ SeatsArrangements.propTypes = {
     additions: PropTypes.array,
     seat: PropTypes.array,
   }),
+  isMovieSessionsLoading: PropTypes.bool,
 };
 
 export default SeatsArrangements;
