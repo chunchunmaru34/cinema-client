@@ -15,7 +15,9 @@ export default class OrderSummary extends React.Component {
 
     const seats = order.addedSeats.map((item) => {
       const seatPrice = movieSession.price * (item.kind.priceMultiplier || 1);
-      return <div>Row: {item.rowNumber + 1} Seat: {item.number + 1} - {seatPrice}$</div>;
+      return (
+        <div key={`${item.rowNumber}_${item.number}`}>Row: {item.rowNumber + 1} Seat: {item.number + 1} - {seatPrice}$</div>
+      );
     });
 
     const additionList = movieSession.additions.map((item) => {

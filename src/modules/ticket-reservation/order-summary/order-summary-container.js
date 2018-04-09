@@ -12,10 +12,12 @@ class OrderSummaryContainer extends React.Component {
     const {
       movieSession, order, isCheckingOut,
     } = this.props;
-    return order.addedSeats.length ? <OrderSummary order={order}
-                                                   checkout={this.onCheckout}
-                                                   isCheckingOut={isCheckingOut}
-                                                   movieSession={movieSession}/> : null;
+    return order.addedSeats.length
+      ? <OrderSummary order={order}
+           checkout={this.onCheckout}
+           isCheckingOut={isCheckingOut}
+           movieSession={movieSession}/>
+      : null;
   }
 }
 

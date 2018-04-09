@@ -21,16 +21,19 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
       };
+
     case LOGIN_RECEIVED:
       return {
         ...state,
         user: action.data,
       };
+
     case LOGIN_FAILED:
       return {
         ...state,
         error: action.data,
       };
+
     case LOGGED_OUT:
       return {
         ...state,

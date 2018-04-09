@@ -38,7 +38,6 @@ CinemaListContainer.propTypes = {
     rooms: PropTypes.array,
     roomsCount: PropTypes.number,
   })),
-  movie: PropTypes.string.isRequired,
 };
 
 export default withRouter(connect(mapStateToProps)(CinemaListContainer));

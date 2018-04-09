@@ -51,10 +51,14 @@ class UserProfileContainer extends React.Component {
     const {
       userDetails, info, error, isLoading,
     } = this.props;
-    const component = <UserProfile user={userDetails}
-                                   info={info}
-                                   error={error}
-                                   updateUser={this.handleSubmit}/>;
+    const component = (
+      <UserProfile
+        user={userDetails}
+        info={info}
+        error={error}
+        updateUser={this.handleSubmit}
+      />
+    );
     const loading = <LoadingBar isLoading={isLoading}/>;
     return isLoading ? loading : component;
   }
