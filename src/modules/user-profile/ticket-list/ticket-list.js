@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Ticket from './ticket/ticket';
 import styles from './styles.scss';
-import LoadingBar from '../../util-component/loading-bar';
+import LoadingBar from '../../util-components/loading-bar';
 
 const TicketList = ({
   tickets, getTickets, isTicketsRelevant, isLoading,

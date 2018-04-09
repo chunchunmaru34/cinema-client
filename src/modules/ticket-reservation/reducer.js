@@ -14,6 +14,7 @@ import {
   PAYMENT_REQUESTED,
   CLEAR_STATE, CANCEL_CHECKING_OUT,
 } from './action-types';
+import { MOVIE_SESSION_REFRESH_RECEIVED } from '../movie/movie-sessions/action-types';
 import { PAYMENT_SUCCESS, PAYMENT_FAIL, PAYMENT_PENDING } from './constants/payment-statuses';
 
 const initialState = {
@@ -52,6 +53,14 @@ function ticketReservation(state = initialState, action) {
         },
       };
     }
+    case MOVIE_SESSION_REFRESH_RECEIVED:
+      if (state.selectedMovieSession.id === action.data.id) {
+        return {
+          ...state,
+          selectedMovieSession: action.data,
+        };
+      }
+      return state;
     case REMOVE_SEAT: {
       const seats = [...state.order.addedSeats];
       const i = seats.findIndex(item => item._id === action.data._id);

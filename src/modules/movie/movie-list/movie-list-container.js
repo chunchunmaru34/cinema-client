@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MovieList from './movie-list';
-import LoadingBar from '../../util-component/loading-bar';
+import LoadingBar from '../../util-components/loading-bar';
 import { fetchMovies, clearState, moviesReceived } from './actions';
 
 class MovieListContainer extends React.Component {

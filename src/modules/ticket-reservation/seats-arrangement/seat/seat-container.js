@@ -5,6 +5,7 @@ import { addSeat, removeSeat } from '../../actions';
 import { ticketService } from '../../../../services';
 import Seat from './seat';
 import { refreshMovieSession } from '../../../movie/movie-sessions/actions';
+import { AVAILABLE, TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
 
 class SeatContainer extends React.Component {
   constructor(props) {
@@ -18,11 +19,30 @@ class SeatContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.checkIfSeatAlreadySelected(nextProps);
+    this.checkIfSeatExpired(nextProps);
   }
 
   checkIfSeatAlreadySelected({ addedSeats, data }) {
     const selected = !!addedSeats.find(item => item._id === data._id);
     this.setState({ selected });
+  }
+
+  checkIfSeatExpired({
+    data, addedSeats, rowIndex, index, dispatch,
+  }) {
+    const oldSeat = this.props.data;
+    if (oldSeat.status === TEMPORARY_OCCUPIED &&
+        data.status === AVAILABLE &&
+        addedSeats.find(item => item._id === data._id)
+    ) {
+      const payload = {
+        ...data,
+        rowNumber: rowIndex,
+        number: index,
+      };
+      dispatch(removeSeat(payload));
+      this.setState({ selected: false });
+    }
   }
 
   onAddSeat = (seat) => {

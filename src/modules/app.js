@@ -15,7 +15,7 @@ import Footer from './footer';
 import MovieDetails from './movie/movie-details/movie-details-container';
 import SignUpPage from './auth/signup-page/signup-page-container';
 import UserProfile from './user-profile/user-profile-container';
-import NoMatch from './util-component/no-match/no-match';
+import NoMatch from './util-components/no-match/no-match';
 import {
   LOGIN_ROUTE,
   MOVIES_ROUTE,

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
-import LoadingBar from '../../util-component/loading-bar';
+import LoadingBar from '../../util-components/loading-bar';
 import { fetchMovieDetails, movieDetailsReceived } from './actions';
 import MovieDetails from './movie-details';
 
