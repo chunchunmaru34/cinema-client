@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MovieSessionList from './movie-sessions-list';
 import { fetchMovieSessionsForCinema, selectCinema } from '../actions';
-import LoadingBar from '../../../util-components/loading-bar/index';
 
 class MovieSessionsListContainer extends React.Component {
   componentDidMount() {
@@ -17,8 +16,7 @@ class MovieSessionsListContainer extends React.Component {
 
   render() {
     const { movieSessions } = this.props;
-    return movieSessions ?
-      <MovieSessionList data={movieSessions}/> : <LoadingBar/>;
+    return <MovieSessionList data={movieSessions}/>;
   }
 }
 

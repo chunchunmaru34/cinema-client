@@ -42,6 +42,24 @@ export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
   };
 }
 
+export function searchMovieSessionsForCinema({ cinemaId, movieId }, criteria) {
+  console.log('.');
+  return (dispatch) => {
+    dispatch(requestMovieSessions());
+    const params = {
+      cinema: cinemaId,
+      movie: movieId,
+      'sort-by': 'date',
+      relevant: true,
+      availableSeats: criteria.availableSeats,
+      date: criteria.date,
+    };
+    return movieSessionService.getAllMovieSessionsFor(params)
+      .then(res => dispatch(receiveMovieSessions(res.data)))
+      .catch(err => console.log(err));
+  };
+}
+
 export function movieSessionRefreshRequested() {
   return {
     type: MOVIE_SESSION_REFRESH_REQUESTED,
