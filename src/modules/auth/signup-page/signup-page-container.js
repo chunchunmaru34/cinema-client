@@ -47,10 +47,14 @@ class SignUpPageContainer extends React.Component {
   };
 
   render() {
-    return <SignUpPage signUp={this.handleSubmit}
-                       checkEmailOriginality={this.checkEmailOriginality}
-                       validation={this.props.validation}
-                       error={this.props.error}/>;
+    return (
+      <SignUpPage
+        signUp={this.handleSubmit}
+        checkEmailOriginality={this.checkEmailOriginality}
+        validation={this.props.validation}
+        error={this.props.error}
+      />
+    );
   }
 }
 
@@ -65,9 +69,7 @@ SignUpPageContainer.propTypes = {
     id: PropTypes.string,
     email: PropTypes.string,
   }),
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
+  error: PropTypes.string,
   validation: PropTypes.shape({
     isEmailUnique: PropTypes.bool,
   }),

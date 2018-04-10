@@ -15,31 +15,40 @@ function getDate(data) {
   return new Date(data).toLocaleString('en-GB', options);
 }
 
-const Ticket = ({ data }) => (
-  <div className={styles.container}>
-    <div className={styles.header}>
-      <h5>{getDate(data.movieSession.date)}</h5>
+const Ticket = ({ data }) => {
+  const seats = data.addedSeats.map(item => (
+    <div key={`${item.rowNumber}_${item.number}`}>
+      Row: {item.rowNumber} - Seat: {item.number}
     </div>
+  ));
+  const additions = data.additions &&
+    Object.entries(data.additions).map(([key, value]) => (
+      <div key={key}>{key} : {value}</div>
+    ));
+  return (
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h5>{getDate(data.movieSession.date)}</h5>
+      </div>
 
-    <div className={styles.info}>
-      <div className={styles.cinemaInfo}>
-        <div>Cinema: {data.movieSession.cinema.name}</div>
-        <div>Room: {data.movieSession.roomCodeName}</div>
-      </div>
-      <div className={styles.order}>
-        <div>
-          {data.addedSeats.map(item => <div>Row: {item.rowNumber} - Seat: {item.number} </div>)}
+      <div className={styles.info}>
+        <div className={styles.cinemaInfo}>
+          <div>Cinema: {data.movieSession.cinema.name}</div>
+          <div>Room: {data.movieSession.roomCodeName}</div>
         </div>
-        <div>
-          {data.additions &&
-            Object.entries(data.additions).map(([key, value]) => <div>{key} : {value}</div>)
-          }
+        <div className={styles.order}>
+          <div>
+            {seats}
+          </div>
+          <div>
+            {additions}
+          </div>
         </div>
+        <div className="text-center">Price: {data.totalPrice}$</div>
       </div>
-      <div className="text-center">Price: {data.totalPrice}$</div>
     </div>
-  </div>
-);
+  );
+};
 
 Ticket.propTypes = {
   data: PropTypes.shape({

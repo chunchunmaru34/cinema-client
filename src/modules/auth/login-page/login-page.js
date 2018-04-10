@@ -64,8 +64,6 @@ export default class LoginPage extends React.Component {
 
 LoginPage.propTypes = {
   login: PropTypes.func,
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
+  error: PropTypes.string,
 };
 

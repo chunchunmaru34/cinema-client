@@ -58,9 +58,7 @@ LoginPageContainer.propTypes = {
     role: PropTypes.string,
     exp: Number,
   }),
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
+  error: PropTypes.string,
 };
 
 export default connect(mapStateToProps)(LoginPageContainer);
