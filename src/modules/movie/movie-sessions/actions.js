@@ -29,7 +29,7 @@ export function receiveMovieSessions(json) {
 
 export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
   return (dispatch) => {
-    // dispatch(requestMovieSessions());
+    dispatch(requestMovieSessions());
     const params = {
       cinema: cinemaId,
       movie: movieId,
@@ -81,6 +81,20 @@ export function fetchCinemasForMovie(id) {
   return (dispatch) => {
     dispatch(requestCinemas());
     const params = { movie: id };
+    cinemaService.getAllCinemasFor(params)
+      .then(res => dispatch(receiveCinemas(res.data)))
+      .catch(err => console.log(err));
+  };
+}
+
+export function searchCinemasForMovie(id, criteria) {
+  return (dispatch) => {
+    dispatch(requestCinemas());
+    const params = {
+      movie: id,
+      'match-name': criteria.name,
+      'match-city': criteria.city,
+    };
     cinemaService.getAllCinemasFor(params)
       .then(res => dispatch(receiveCinemas(res.data)))
       .catch(err => console.log(err));

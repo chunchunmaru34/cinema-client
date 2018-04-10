@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import LoadingBar from '../../../util-components/loading-bar';
 import { fetchCinemasForMovie, clearState } from '../actions';
 import CinemaList from './cinema-list';
 
@@ -18,9 +17,12 @@ class CinemaListContainer extends React.Component {
 
   render() {
     const { cinemas, isLoading } = this.props;
-    const component = <CinemaList cinemas={cinemas}/>;
-    const loading = <LoadingBar isLoading={isLoading}/>;
-    return isLoading ? loading : component;
+    return (
+      <CinemaList
+        cinemas={cinemas}
+        isLoading={isLoading}
+      />
+    );
   }
 }
 

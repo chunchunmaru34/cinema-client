@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CinemaCard from './cinema-card/cinema-card-container';
+import SearchBar from './search-bar/search-bar-container';
+import LoadingBar from '../../../util-components/loading-bar';
 
-const CinemaList = ({ cinemas }) => {
-  const cinemaList = cinemas.map(item => <CinemaCard data={item}
-                                                     key={item.id}/>);
+const CinemaList = ({ cinemas, isLoading }) => {
+  const cinemaList = cinemas && cinemas.map(item => (
+    <CinemaCard data={item} key={item.id}/>
+  ));
   return (
     <div>
-      {cinemaList.length ?
-        <span>Choose cinema</span>
-          :
-        <span>Currently no available sessions</span>
-      }
-      {cinemaList}
+      <span>Choose cinema</span>
+      <SearchBar/>
+      {isLoading ? <LoadingBar/> : cinemaList}
     </div>
   );
 };
