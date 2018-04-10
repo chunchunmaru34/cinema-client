@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MovieList from './movie-list';
-import LoadingBar from '../../util-components/loading-bar';
 import { fetchMovies, clearState, moviesReceived } from './actions';
 
 class MovieListContainer extends React.Component {
@@ -25,10 +24,13 @@ class MovieListContainer extends React.Component {
 
   render() {
     const { movies, isLoading } = this.props;
-    const component = <MovieList refreshMovies={this.refreshMovies}
-                                 movies={movies}/>;
-    const loading = <LoadingBar isLoading={isLoading}/>;
-    return isLoading ? loading : component;
+    return (
+      <MovieList
+        refreshMovies={this.refreshMovies}
+        isLoading={isLoading}
+        movies={movies}
+      />
+    );
   }
 }
 

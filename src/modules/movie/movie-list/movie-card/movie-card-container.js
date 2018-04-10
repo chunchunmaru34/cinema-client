@@ -47,5 +47,4 @@ const mapStateToProps = (state, ownProps) => ({
   movie: ownProps.movie,
 });
 
-
 export default withRouter(connect(mapStateToProps)(MovieCardContainer));

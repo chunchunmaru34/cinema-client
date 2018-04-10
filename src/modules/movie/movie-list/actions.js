@@ -27,6 +27,18 @@ export function fetchMovies() {
   };
 }
 
+export function searchMovies(criteria) {
+  return (dispatch) => {
+    dispatch(moviesRequested());
+    const params = {
+      'match-title': criteria,
+    };
+    return movieService.getAllMoviesBy(params)
+      .then(res => dispatch(moviesReceived(res.data)))
+      .catch(console.log);
+  };
+}
+
 export function clearState() {
   return {
     type: MOVIES_CLEAR_STATE,
