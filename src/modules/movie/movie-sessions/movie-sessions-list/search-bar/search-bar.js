@@ -9,7 +9,8 @@ export default class SearchBar extends React.Component {
     this.state = {
       criteria: {
         availableSeats: 0,
-        date: null,
+        since: '',
+        to: '',
       },
     };
     this.searchDebounce = debounce(criteria => this.props.search(criteria), 250);
@@ -33,13 +34,26 @@ export default class SearchBar extends React.Component {
   render() {
     return (
       <div className={styles.container}>
+        <div className="row">
+          <span className="col-4">From date</span>
+          <span className="col-4">To date</span>
+          <span className="col-4">Min available seats</span>
+        </div>
         <div className="input-group">
           <input
             className="form-control"
             type="date"
             placeholder="date"
-            name="date"
-            value={this.state.criteria.date}
+            name="since"
+            value={this.state.criteria.since}
+            onChange={this.handleChange}
+          />
+          <input
+            className="form-control text-right"
+            type="date"
+            placeholder="Available seats"
+            name="to"
+            value={this.state.criteria.to}
             onChange={this.handleChange}
           />
           <input

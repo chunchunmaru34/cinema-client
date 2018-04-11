@@ -5,8 +5,8 @@ import SearchBar from './search-bar';
 
 class SearchBarContainer extends React.Component {
   onSearch = (criteria) => {
-    const { dispatch, movieId } = this.props;
-    dispatch(searchMovieSessionsForCinema(movieId, criteria));
+    const { dispatch, movieId, cinemaId } = this.props;
+    dispatch(searchMovieSessionsForCinema({ movieId, cinemaId }, criteria));
   };
 
   render() {
@@ -16,6 +16,7 @@ class SearchBarContainer extends React.Component {
 
 const mapStateToProps = state => ({
   movieId: state.selectedMovie.movieDetails.data.id,
+  cinemaId: state.selectedMovie.movieSessions.selectedCinema.id,
 });
 
 export default connect(mapStateToProps)(SearchBarContainer);

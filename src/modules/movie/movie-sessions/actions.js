@@ -43,17 +43,24 @@ export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
 }
 
 export function searchMovieSessionsForCinema({ cinemaId, movieId }, criteria) {
-  console.log('.');
   return (dispatch) => {
     dispatch(requestMovieSessions());
+
     const params = {
       cinema: cinemaId,
       movie: movieId,
       'sort-by': 'date',
       relevant: true,
-      availableSeats: criteria.availableSeats,
-      date: criteria.date,
+      since: criteria.since,
+      to: criteria.to,
+      'available-seats': criteria.availableSeats,
     };
+    Object.keys(params).forEach((key) => {
+      if (!params[key]) {
+        delete params[key];
+      }
+    });
+
     return movieSessionService.getAllMovieSessionsFor(params)
       .then(res => dispatch(receiveMovieSessions(res.data)))
       .catch(err => console.log(err));

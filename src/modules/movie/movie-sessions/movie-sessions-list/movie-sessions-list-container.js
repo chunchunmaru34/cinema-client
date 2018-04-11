@@ -15,8 +15,14 @@ class MovieSessionsListContainer extends React.Component {
   }
 
   render() {
-    const { movieSessions } = this.props;
-    return <MovieSessionList data={movieSessions}/>;
+    const { movieSessions, selectedCinema, isMovieSessionsLoading } = this.props;
+    return selectedCinema &&
+      (
+        <MovieSessionList
+          data={movieSessions}
+          isLoading={isMovieSessionsLoading}
+        />
+      );
   }
 }
 
@@ -25,6 +31,7 @@ const mapStateToProps = (state, ownProps) => ({
   cinema: ownProps.cinema,
   selectedCinema: state.selectedMovie.movieSessions.selectedCinema,
   movieSessions: state.selectedMovie.movieSessions.data,
+  isLoading: state.selectedMovie.isMovieSessionsLoading,
 });
 
 
