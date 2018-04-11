@@ -120,6 +120,11 @@ export function searchCinemasForMovie(id, criteria) {
       'match-name': criteria.name,
       'match-city': criteria.city,
     };
+    Object.keys(params).forEach((key) => {
+      if (!params[key]) {
+        delete params[key];
+      }
+    });
     cinemaService.getAllCinemasFor(params)
       .then(res => dispatch(receiveCinemas(res.data)))
       .catch(err => console.log(err));

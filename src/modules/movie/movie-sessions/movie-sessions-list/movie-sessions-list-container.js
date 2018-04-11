@@ -15,12 +15,12 @@ class MovieSessionsListContainer extends React.Component {
   }
 
   render() {
-    const { movieSessions, selectedCinema, isMovieSessionsLoading } = this.props;
+    const { movieSessions, selectedCinema, isLoading } = this.props;
     return selectedCinema &&
       (
         <MovieSessionList
           data={movieSessions}
-          isLoading={isMovieSessionsLoading}
+          isLoading={isLoading}
         />
       );
   }
@@ -31,7 +31,7 @@ const mapStateToProps = (state, ownProps) => ({
   cinema: ownProps.cinema,
   selectedCinema: state.selectedMovie.movieSessions.selectedCinema,
   movieSessions: state.selectedMovie.movieSessions.data,
-  isLoading: state.selectedMovie.isMovieSessionsLoading,
+  isLoading: state.selectedMovie.movieSessions.isMovieSessionsLoading,
 });
 
 

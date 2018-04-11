@@ -61,6 +61,7 @@ export default class SearchBar extends React.Component {
             type="number"
             placeholder="Available seats"
             name="availableSeats"
+            min="0"
             value={this.state.criteria.availableSeats}
             onChange={this.handleChange}
           />
