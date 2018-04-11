@@ -115,6 +115,7 @@ export function fetchCinemasForMovie(id) {
 export function searchCinemasForMovie(id, criteria) {
   return (dispatch) => {
     dispatch(requestCinemas());
+
     const params = {
       movie: id,
       'match-name': criteria.name,
@@ -125,6 +126,7 @@ export function searchCinemasForMovie(id, criteria) {
         delete params[key];
       }
     });
+
     cinemaService.getAllCinemasFor(params)
       .then(res => dispatch(receiveCinemas(res.data)))
       .catch(err => console.log(err));

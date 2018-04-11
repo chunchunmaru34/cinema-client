@@ -14,5 +14,4 @@ class SearchBarContainer extends React.Component {
   }
 }
 
-
 export default connect()(SearchBarContainer);
