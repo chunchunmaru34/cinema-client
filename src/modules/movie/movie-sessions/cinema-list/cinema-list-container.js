@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import LoadingBar from '../../../util-components/loading-bar';
 import { fetchCinemasForMovie, clearState } from '../actions';
+import LoadingBar from '../../../util-components/loading-bar';
 import CinemaList from './cinema-list';
 
 class CinemaListContainer extends React.Component {

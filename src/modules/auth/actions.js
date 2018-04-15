@@ -3,7 +3,7 @@ import {
   LOGIN_REQUESTED,
   LOGIN_FAILED,
   LOGGED_OUT,
-  CLEAR_AUTH_ERROR,
+  AUTH_ERROR_CLEARED,
   USER_ALREADY_EXIST, USER_IS_UNIQUE,
 } from './actions-types';
 import { authService, userService } from '../../services';
@@ -58,7 +58,7 @@ export function loggedOut() {
 
 export function clearAuthError() {
   return {
-    type: CLEAR_AUTH_ERROR,
+    type: AUTH_ERROR_CLEARED,
   };
 }
 
@@ -83,6 +83,5 @@ export function checkIfUserAlreadyExist(email) {
       } else {
         dispatch(userIsUnique());
       }
-    })
-    .catch(console.log);
+    });
 }

@@ -5,7 +5,7 @@ import {
   CINEMAS_REQUESTED,
   CINEMAS_RECEIVED,
   CINEMA_UNSELECTED,
-  CLEAR_MOVIE_SESSIONS_STATE,
+  MOVIE_SESSIONS_STATE_CLEARED,
   MOVIE_SESSION_REFRESH_RECEIVED,
   MOVIE_SESSION_REFRESH_REQUESTED,
 } from './action-types';
@@ -29,7 +29,7 @@ export function receiveMovieSessions(json) {
 
 export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
   return (dispatch) => {
-    // dispatch(requestMovieSessions());
+    dispatch(requestMovieSessions());
     const params = {
       cinema: cinemaId,
       movie: movieId,
@@ -37,8 +37,7 @@ export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
       relevant: true,
     };
     return movieSessionService.getAllMovieSessionsFor(params)
-      .then(res => dispatch(receiveMovieSessions(res.data)))
-      .catch(err => console.log(err));
+      .then(res => dispatch(receiveMovieSessions(res.data)));
   };
 }
 
@@ -59,8 +58,7 @@ export function refreshMovieSession(movieSession) {
   return (dispatch) => {
     dispatch(movieSessionRefreshRequested());
     return movieSessionService.getMovieSessionById(movieSession.id)
-      .then(res => dispatch(movieSessionRefreshReceived(res.data)))
-      .catch(console.log);
+      .then(res => dispatch(movieSessionRefreshReceived(res.data)));
   };
 }
 
@@ -82,8 +80,7 @@ export function fetchCinemasForMovie(id) {
     dispatch(requestCinemas());
     const params = { movie: id };
     cinemaService.getAllCinemasFor(params)
-      .then(res => dispatch(receiveCinemas(res.data)))
-      .catch(err => console.log(err));
+      .then(res => dispatch(receiveCinemas(res.data)));
   };
 }
 
@@ -102,6 +99,6 @@ export function unselectCinema() {
 
 export function clearState() {
   return {
-    type: CLEAR_MOVIE_SESSIONS_STATE,
+    type: MOVIE_SESSIONS_STATE_CLEARED,
   };
 }

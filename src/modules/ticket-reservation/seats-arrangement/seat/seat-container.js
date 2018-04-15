@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addSeat, removeSeat } from '../../actions';
 import { ticketService } from '../../../../services';
-import Seat from './seat';
 import { refreshMovieSession } from '../../../movie/movie-sessions/actions';
 import { AVAILABLE, TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
+import Seat from './seat';
 
 class SeatContainer extends React.Component {
   constructor(props) {
@@ -49,7 +49,9 @@ class SeatContainer extends React.Component {
     const {
       movieSession, dispatch, addedSeats, data,
     } = this.props;
+
     if (addedSeats.find(item => item._id === data._id)) return;
+
     dispatch(addSeat(seat));
     ticketService.reserveSeat({ seat, movieSession });
     setTimeout(() => dispatch(refreshMovieSession(movieSession)), 100);
@@ -66,12 +68,16 @@ class SeatContainer extends React.Component {
     const {
       data, index, rowIndex,
     } = this.props;
-    return <Seat data={data}
-                 selected={this.state.selected}
-                 index={index}
-                 rowIndex={rowIndex}
-                 addSeat={this.onAddSeat}
-                 removeSeat={this.onRemoveSeat}/>;
+    return (
+      <Seat
+        data={data}
+        selected={this.state.selected}
+        index={index}
+        rowIndex={rowIndex}
+        addSeat={this.onAddSeat}
+        removeSeat={this.onRemoveSeat}
+      />
+    );
   }
 }
 

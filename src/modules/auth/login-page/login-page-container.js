@@ -40,8 +40,12 @@ class LoginPageContainer extends React.Component {
   } ;
 
   render() {
-    return <LoginPage error={this.props.error}
-                      login={this.onLogin}/>;
+    return (
+      <LoginPage
+        error={this.props.error}
+        login={this.onLogin}
+      />
+    );
   }
 }
 

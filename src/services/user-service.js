@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { USERS_URL } from '../constants/api-endpoints';
+import { USERS_URL } from '../../conf/api-endpoints';
 
 export function getUserBy(params) {
   const query = qs.stringify(params);

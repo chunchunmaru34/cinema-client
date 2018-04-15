@@ -15,8 +15,12 @@ class HeaderContainer extends React.Component {
   };
 
   render() {
-    return <Header user={this.props.user}
-                   handleLogout={this.onLogout}/>;
+    return (
+      <Header
+        user={this.props.user}
+        handleLogout={this.onLogout}
+      />
+    );
   }
 }
 

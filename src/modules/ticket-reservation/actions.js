@@ -1,52 +1,52 @@
 import { ticketService } from '../../services';
 import {
-  ADD_SEAT,
-  REMOVE_SEAT,
-  INCREMENT_ADDITION,
+  SEAT_ADDED,
+  SEAT_REMOVED,
+  ADDITION_INCREMENTED,
   DECREMENT_ADDITION,
-  SELECT_MOVIE_SESSION,
+  MOVIE_SESSION_SELECTED,
   PAYMENT_FAILED,
   PAYMENT_SUCCEED,
   TICKET_RECEIVED,
   TICKET_RECEIVING_FAILED,
-  CHECKOUT,
-  FINISH_ORDERING,
+  ORDER_CHECKOUT,
+  ORDER_FINISH,
   PAYMENT_REQUESTED,
-  UNSELECT_MOVIE_SESSION,
-  CLEAR_STATE,
-  CANCEL_CHECKING_OUT,
+  MOVIE_SESSION_UNSELECTED,
+  RESERVATION_CLEAR_STATE,
+  ORDER_CHECKING_OUT_CANCELED,
 } from './action-types';
 
 export function selectMovieSession(movieSession) {
   return {
-    type: SELECT_MOVIE_SESSION,
+    type: MOVIE_SESSION_SELECTED,
     data: movieSession,
   };
 }
 
 export function unselectMovieSession() {
   return {
-    type: UNSELECT_MOVIE_SESSION,
+    type: MOVIE_SESSION_UNSELECTED,
   };
 }
 
 export function addSeat(seat) {
   return {
-    type: ADD_SEAT,
+    type: SEAT_ADDED,
     data: seat,
   };
 }
 
 export function removeSeat(seat) {
   return {
-    type: REMOVE_SEAT,
+    type: SEAT_REMOVED,
     data: seat,
   };
 }
 
 export function incrementAddition(addition) {
   return {
-    type: INCREMENT_ADDITION,
+    type: ADDITION_INCREMENTED,
     data: addition,
   };
 }
@@ -113,25 +113,25 @@ export function payForOrder(paymentInfo) {
 
 export function checkout() {
   return {
-    type: CHECKOUT,
+    type: ORDER_CHECKOUT,
   };
 }
 
 export function finishOrdering() {
   return {
-    type: FINISH_ORDERING,
+    type: ORDER_FINISH,
   };
 }
 
 export function cancelCheckingOut() {
   return {
-    type: CANCEL_CHECKING_OUT,
+    type: ORDER_CHECKING_OUT_CANCELED,
   };
 }
 
 export function clearState(movieSession) {
   return {
-    type: CLEAR_STATE,
+    type: RESERVATION_CLEAR_STATE,
     data: movieSession,
   };
 }

@@ -3,7 +3,9 @@ import {
   LOGIN_REQUESTED,
   LOGIN_FAILED,
   LOGGED_OUT,
-  CLEAR_AUTH_ERROR, USER_ALREADY_EXIST, USER_IS_UNIQUE,
+  AUTH_ERROR_CLEARED,
+  USER_ALREADY_EXIST,
+  USER_IS_UNIQUE,
 } from './actions-types';
 import { authService } from '../../services';
 
@@ -40,11 +42,13 @@ const auth = (state = initialState, action) => {
         user: null,
         error: null,
       };
-    case CLEAR_AUTH_ERROR:
+
+    case AUTH_ERROR_CLEARED:
       return {
         ...state,
         error: null,
       };
+
     case USER_ALREADY_EXIST:
       return {
         ...state,
@@ -52,6 +56,7 @@ const auth = (state = initialState, action) => {
           isEmailUnique: false,
         },
       };
+
     case USER_IS_UNIQUE:
       return {
         ...state,
@@ -59,6 +64,7 @@ const auth = (state = initialState, action) => {
           isEmailUnique: true,
         },
       };
+
     default:
       return state;
   }

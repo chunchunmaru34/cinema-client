@@ -1,26 +1,26 @@
 import { userService, ticketService } from '../../services';
 import {
-  RECEIVE_USER,
-  REQUEST_USER,
+  USER_RECEIVED,
+  USER_REQUESTED,
   USER_UPDATE_FAILED,
   USER_UPDATE_SUCCEED,
-  CLEAR_ERROR,
-  CLEAR_INFO,
-  CLEAR_STATE,
+  ERROR_CLEARED,
+  INFO_CLEARED,
+  USER_PROFILE_CLEAR_STATE,
   TICKETS_REQUESTED,
-  GOT_ALL_TICKETS,
-  GOT_RELEVANT_TICKETS,
+  ALL_TICKETS_RECEIVED,
+  RELEVANT_TICKETS_RECEIVED,
 } from './action-types';
 
 export function requestUser() {
   return {
-    type: REQUEST_USER,
+    type: USER_REQUESTED,
   };
 }
 
 export function receiveUser(user) {
   return {
-    type: RECEIVE_USER,
+    type: USER_RECEIVED,
     data: user,
   };
 }
@@ -29,8 +29,7 @@ export function fetchUser(id) {
   return (dispatch) => {
     dispatch(requestUser());
     return userService.getUserById(id)
-      .then(res => dispatch(receiveUser(res.data)))
-      .catch(console.log);
+      .then(res => dispatch(receiveUser(res.data)));
   };
 }
 
@@ -42,14 +41,14 @@ export function ticketsRequested() {
 
 export function gotRelevantTickets(tickets) {
   return {
-    type: GOT_RELEVANT_TICKETS,
+    type: RELEVANT_TICKETS_RECEIVED,
     data: tickets,
   };
 }
 
 export function gotAllTickets(tickets) {
   return {
-    type: GOT_ALL_TICKETS,
+    type: ALL_TICKETS_RECEIVED,
     data: tickets,
   };
 }
@@ -64,8 +63,7 @@ export function fetchTickets({ user, relevant }) {
         } else {
           dispatch(gotAllTickets(res.data));
         }
-      })
-      .catch(console.log);
+      });
   };
 }
 
@@ -93,18 +91,18 @@ export function updateUser(user) {
 
 export function clearInfo() {
   return {
-    type: CLEAR_INFO,
+    type: INFO_CLEARED,
   };
 }
 
 export function clearError() {
   return {
-    type: CLEAR_ERROR,
+    type: ERROR_CLEARED,
   };
 }
 
 export function clearState() {
   return {
-    type: CLEAR_STATE,
+    type: USER_PROFILE_CLEAR_STATE,
   };
 }
