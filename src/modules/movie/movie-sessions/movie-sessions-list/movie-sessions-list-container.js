@@ -18,7 +18,9 @@ class MovieSessionsListContainer extends React.Component {
   render() {
     const { movieSessions } = this.props;
     return movieSessions ?
-      <MovieSessionList data={movieSessions}/> : <LoadingBar/>;
+      <MovieSessionList data={movieSessions}/>
+      :
+      <LoadingBar/>;
   }
 }
 

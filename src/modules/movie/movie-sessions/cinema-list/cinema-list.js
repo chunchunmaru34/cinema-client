@@ -3,8 +3,14 @@ import PropTypes from 'prop-types';
 import CinemaCard from './cinema-card/cinema-card-container';
 
 const CinemaList = ({ cinemas }) => {
-  const cinemaList = cinemas.map(item => <CinemaCard data={item}
-                                                     key={item.id}/>);
+  const cinemaList = cinemas
+    .map(item => (
+      <CinemaCard
+        data={item}
+        key={item.id}
+      />
+    ));
+
   return (
     <div>
       {cinemaList.length ?

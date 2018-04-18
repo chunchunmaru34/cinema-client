@@ -5,8 +5,14 @@ import styles from './styles.scss';
 import icon from './_media/icons/refresh.svg';
 
 const MovieList = ({ movies, refreshMovies }) => {
-  const movieList = movies.map(item => <MovieCard movie={item}
-                                                  key={item.id} />);
+  const movieList = movies
+    .map(item => (
+      <MovieCard
+        movie={item}
+        key={item.id}
+      />
+    ));
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -34,7 +40,6 @@ MovieList.propTypes = {
     posterUrl: PropTypes.string,
     rating: PropTypes.number,
     year: PropTypes.number,
-    movieSessions: PropTypes.array,
   })),
 };
 

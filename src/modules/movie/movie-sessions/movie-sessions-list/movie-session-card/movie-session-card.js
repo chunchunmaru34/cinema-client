@@ -22,7 +22,10 @@ const MovieSessionCard = ({ data, clickHandler, match }) => (
     <div onClick={clickHandler}
          className={styles.header}>{getDate(data.date)}</div>
     <Route path={`${match.url}/movie-sessions/${data.id}`}
-           render={() => <MovieSession movieSession={data}/>}/>
+           render={() => (
+             <MovieSession movieSession={data}/>
+           )}
+    />
   </div>
 );
 

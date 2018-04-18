@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SIGN_IN_URL, SIGN_UP_URL } from '../constants/api-endpoints';
+import { SIGN_IN_URL, SIGN_UP_URL } from '../../conf/api-endpoints';
 import { AUTH_TOKEN_NAME, AUTH_USER } from '../constants/auth';
 import { APP_NAME } from '../constants/app';
 

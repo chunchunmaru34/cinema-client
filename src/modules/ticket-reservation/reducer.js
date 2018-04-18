@@ -1,18 +1,18 @@
 import {
-  ADD_SEAT,
-  REMOVE_SEAT,
-  INCREMENT_ADDITION,
+  SEAT_ADDED,
+  SEAT_REMOVED,
+  ADDITION_INCREMENTED,
   DECREMENT_ADDITION,
-  SELECT_MOVIE_SESSION,
-  UNSELECT_MOVIE_SESSION,
+  MOVIE_SESSION_SELECTED,
+  MOVIE_SESSION_UNSELECTED,
   PAYMENT_FAILED,
   TICKET_RECEIVED,
   TICKET_RECEIVING_FAILED,
   PAYMENT_SUCCEED,
-  CHECKOUT,
-  FINISH_ORDERING,
+  ORDER_CHECKOUT,
+  ORDER_FINISH,
   PAYMENT_REQUESTED,
-  CLEAR_STATE, CANCEL_CHECKING_OUT,
+  RESERVATION_CLEAR_STATE, ORDER_CHECKING_OUT_CANCELED,
 } from './action-types';
 import { MOVIE_SESSION_REFRESH_RECEIVED } from '../movie/movie-sessions/action-types';
 import { PAYMENT_SUCCESS, PAYMENT_FAIL, PAYMENT_PENDING } from './constants/payment-statuses';
@@ -33,14 +33,16 @@ const initialState = {
 
 function ticketReservation(state = initialState, action) {
   switch (action.type) {
-    case SELECT_MOVIE_SESSION:
+    case MOVIE_SESSION_SELECTED:
       return {
         ...initialState,
         selectedMovieSession: action.data,
       };
-    case UNSELECT_MOVIE_SESSION:
+
+    case MOVIE_SESSION_UNSELECTED:
       return initialState;
-    case ADD_SEAT: {
+
+    case SEAT_ADDED: {
       const seats = [...state.order.addedSeats];
       const seatPrice = state.selectedMovieSession.price * (action.data.kind.priceMultiplier || 1);
       seats.push(action.data);
@@ -53,6 +55,7 @@ function ticketReservation(state = initialState, action) {
         },
       };
     }
+
     case MOVIE_SESSION_REFRESH_RECEIVED:
       if (state.selectedMovieSession.id === action.data.id) {
         return {
@@ -61,7 +64,8 @@ function ticketReservation(state = initialState, action) {
         };
       }
       return state;
-    case REMOVE_SEAT: {
+
+    case SEAT_REMOVED: {
       const seats = [...state.order.addedSeats];
       const i = seats.findIndex(item => item._id === action.data._id);
       const seatPrice = state.selectedMovieSession.price * (action.data.kind.priceMultiplier || 1);
@@ -75,7 +79,8 @@ function ticketReservation(state = initialState, action) {
         },
       };
     }
-    case INCREMENT_ADDITION: {
+
+    case ADDITION_INCREMENTED: {
       const additions = { ...state.order.additions };
       const { name } = action.data.addition;
       if (!additions[name]) {
@@ -92,6 +97,7 @@ function ticketReservation(state = initialState, action) {
         },
       };
     }
+
     case DECREMENT_ADDITION: {
       const additions = { ...state.order.additions };
       const { name } = action.data.addition;
@@ -105,11 +111,13 @@ function ticketReservation(state = initialState, action) {
         },
       };
     }
+
     case PAYMENT_REQUESTED:
       return {
         ...state,
         paymentStatus: PAYMENT_PENDING,
       };
+
     case PAYMENT_SUCCEED:
       return {
         ...state,
@@ -119,12 +127,14 @@ function ticketReservation(state = initialState, action) {
         },
         paymentStatus: PAYMENT_SUCCESS,
       };
+
     case PAYMENT_FAILED:
       return {
         ...state,
         error: action.data,
         paymentStatus: PAYMENT_FAIL,
       };
+
     case TICKET_RECEIVED:
       if (!state.isCheckingOut) {
         return {
@@ -139,6 +149,7 @@ function ticketReservation(state = initialState, action) {
         selectedMovieSession: state.selectedMovieSession,
         ticket: action.data,
       };
+
     case TICKET_RECEIVING_FAILED:
       return {
         ...initialState,
@@ -146,26 +157,31 @@ function ticketReservation(state = initialState, action) {
         selectedMovieSession: state.selectedMovieSession,
         error: action.data,
       };
-    case CHECKOUT:
+
+    case ORDER_CHECKOUT:
       return {
         ...state,
         isCheckingOut: true,
       };
-    case FINISH_ORDERING:
+
+    case ORDER_FINISH:
       return {
         ...initialState,
         selectedMovieSession: state.selectedMovieSession,
       };
-    case CANCEL_CHECKING_OUT:
+
+    case ORDER_CHECKING_OUT_CANCELED:
       return {
         ...state,
         isCheckingOut: false,
       };
-    case CLEAR_STATE:
+
+    case RESERVATION_CLEAR_STATE:
       if (state.selectedMovieSession) {
         return state.selectedMovieSession.id === action.data.id ? initialState : state;
       }
       return initialState;
+
     default:
       return state;
   }

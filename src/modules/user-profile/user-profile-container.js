@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import LoadingBar from '../util-components/loading-bar';
 import {
   fetchUser,
   updateUser,
@@ -10,6 +9,7 @@ import {
   clearState,
 } from './actions';
 import UserProfile from './user-profile';
+import LoadingBar from '../util-components/loading-bar';
 
 class UserProfileContainer extends React.Component {
   constructor(props) {
@@ -51,10 +51,14 @@ class UserProfileContainer extends React.Component {
     const {
       userDetails, info, error, isLoading,
     } = this.props;
-    const component = <UserProfile user={userDetails}
-                                   info={info}
-                                   error={error}
-                                   updateUser={this.handleSubmit}/>;
+    const component = (
+      <UserProfile
+        user={userDetails}
+        info={info}
+        error={error}
+        updateUser={this.handleSubmit}
+      />
+    );
     const loading = <LoadingBar isLoading={isLoading}/>;
     return isLoading ? loading : component;
   }

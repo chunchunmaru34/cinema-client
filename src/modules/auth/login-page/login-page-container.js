@@ -40,8 +40,12 @@ class LoginPageContainer extends React.Component {
   } ;
 
   render() {
-    return <LoginPage error={this.props.error}
-                      login={this.onLogin}/>;
+    return (
+      <LoginPage
+        error={this.props.error}
+        login={this.onLogin}
+      />
+    );
   }
 }
 
@@ -58,9 +62,7 @@ LoginPageContainer.propTypes = {
     role: PropTypes.string,
     exp: Number,
   }),
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
+  error: PropTypes.string,
 };
 
 export default connect(mapStateToProps)(LoginPageContainer);

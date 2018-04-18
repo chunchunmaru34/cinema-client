@@ -9,9 +9,12 @@ export default class Seat extends React.Component {
     const {
       addSeat, removeSeat, data, index, rowIndex, selected,
     } = this.props;
+
     if (data.status === OCCUPIED) return;
-    if (data.status === TEMPORARY_OCCUPIED) {
-      if (data.occupiedBy !== authService.getAuthenticatedUser().id) return;
+    if (data.status === TEMPORARY_OCCUPIED &&
+        data.occupiedBy !== authService.getAuthenticatedUser().id
+    ) {
+      return;
     }
 
     const seat = {
@@ -28,10 +31,10 @@ export default class Seat extends React.Component {
   };
 
   render() {
-    const { index, data } = this.props;
+    const { index, data, selected } = this.props;
     return (
       <div className={`${styles.container} ${styles[data.status]} ${styles[data.kind.name]}
-        ${this.props.selected && styles.selected}`}
+        ${selected && styles.selected}`}
            onClick={this.handleSelect}>
         <div>{index + 1}</div>
         <div>
