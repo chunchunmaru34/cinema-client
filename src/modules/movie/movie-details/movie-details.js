@@ -44,7 +44,6 @@ const MovieDetail = ({ movie }) => (
       </div>
       <CinemaList/>
     </div>
-
   </div>
 );
 

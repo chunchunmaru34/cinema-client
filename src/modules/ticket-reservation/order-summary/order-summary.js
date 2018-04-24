@@ -15,13 +15,20 @@ export default class OrderSummary extends React.Component {
 
     const seats = order.addedSeats.map((item) => {
       const seatPrice = movieSession.price * (item.kind.priceMultiplier || 1);
-      return <div>Row: {item.rowNumber + 1} Seat: {item.number + 1} - {seatPrice}$</div>;
+      return (
+        <div key={`${item.rowNumber}_${item.number}`}>
+          Row: {item.rowNumber + 1} Seat: {item.number + 1} - {seatPrice}$
+        </div>
+      );
     });
 
-    const additionList = movieSession.additions.map((item) => {
-      return <Addition data={item}
-                       key={item._id}/>;
-    });
+    const additionList = movieSession.additions
+      .map(item => (
+        <Addition
+          data={item}
+          key={item._id}
+        />
+      ));
 
     return (
       <div className={styles.container}>
@@ -40,7 +47,10 @@ export default class OrderSummary extends React.Component {
         <div className="text-center mt-3">
           <button disabled={isCheckingOut}
                   className="btn btn-primary"
-                  onClick={checkout}>Checkout</button>
+                  onClick={checkout}
+          >
+            Checkout
+          </button>
         </div>
       </div>
     );

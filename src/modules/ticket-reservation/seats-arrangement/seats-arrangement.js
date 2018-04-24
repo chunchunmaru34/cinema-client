@@ -6,9 +6,14 @@ import styles from './styles.scss';
 
 const SeatsArrangements = ({ movieSession }) => {
   const rows = movieSession.seats
-    .map((item, index) => <Row data={item}
-                               rowIndex={index}
-                               key={index}/>);
+    .map((item, index) => (
+      <Row
+        data={item}
+        rowIndex={index}
+        key={index}
+      />
+    ));
+
   return (
     <div className={styles.container}>
       <div>

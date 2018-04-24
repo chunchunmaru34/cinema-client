@@ -60,7 +60,9 @@ export default class UserProfile extends React.Component {
                 }
                 <button className="btn btn-sm btn-outline-primary"
                         onClick={this.toggleEdit}
-                        name="Name">{isEditingName ? 'Save' : 'Edit'}</button>
+                        name="Name">
+                  {isEditingName ? 'Save' : 'Edit'}
+                </button>
               </div>
 
               {/* City */}
@@ -77,7 +79,9 @@ export default class UserProfile extends React.Component {
                 }
                 <button onClick={this.toggleEdit}
                         className="btn btn-sm btn-outline-primary"
-                        name="City">{isEditingCity ? 'Save' : 'Edit'}</button>
+                        name="City">
+                  {isEditingCity ? 'Save' : 'Edit'}
+                </button>
               </div>
               {/* Email */}
               <div>Email: {user.email}</div>
@@ -86,7 +90,10 @@ export default class UserProfile extends React.Component {
 
           <div className="text-center mt-5">
             <button onClick={this.onSubmit}
-                    className="btn btn-primary">Update Info</button>
+                    className="btn btn-primary"
+            >
+              Update Info
+            </button>
           </div>
         </div>
 
@@ -97,9 +104,9 @@ export default class UserProfile extends React.Component {
             </div>
         }
         { info &&
-        <div className="alert alert-success mt-3">
-          {info}
-        </div>
+            <div className="alert alert-success mt-3">
+              {info}
+            </div>
         }
 
         <TicketList/>

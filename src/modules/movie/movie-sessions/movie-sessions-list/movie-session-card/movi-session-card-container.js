@@ -22,10 +22,13 @@ class MovieSessionCardContainer extends React.Component {
 
   render() {
     const { movieSession, match } = this.props;
-    return <MovieSessionCard data={movieSession}
-                             match={match}
-                             clickHandler={this.onClick}
-    />;
+    return (
+      <MovieSessionCard
+        data={movieSession}
+        match={match}
+        clickHandler={this.onClick}
+      />
+    );
   }
 }
 

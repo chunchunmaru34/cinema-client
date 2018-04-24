@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { payForOrder, requestTicket, finishOrdering, cancelCheckingOut } from '../actions';
 import { refreshMovieSession } from '../../movie/movie-sessions/actions';
-import OrderPayment from './order-payment';
 import { PAYMENT_SUCCESS } from '../constants/payment-statuses';
+import OrderPayment from './order-payment';
 
 class OrderPaymentContainer extends React.Component {
   onPayment = (e) => {
@@ -37,11 +37,15 @@ class OrderPaymentContainer extends React.Component {
 
   render() {
     const { ticket, error, paymentStatus } = this.props;
-    return <OrderPayment pay={this.onPayment}
-                         ticket={ticket}
-                         error={error}
-                         paymentStatus={paymentStatus}
-                         finishOrder={this.onClosing}/>;
+    return (
+      <OrderPayment
+        pay={this.onPayment}
+        ticket={ticket}
+        error={error}
+        paymentStatus={paymentStatus}
+        finishOrder={this.onClosing}
+      />
+    );
   }
 }
 
@@ -49,14 +53,14 @@ OrderPaymentContainer.propTypes = {
   order: PropTypes.shape({
     transactionId: PropTypes.string,
     addedSeats: PropTypes.array,
-    additions: PropTypes.array,
+    additions: PropTypes.object,
     totalPrice: PropTypes.number,
   }),
   ticket: PropTypes.shape({
     id: PropTypes.string,
     user: PropTypes.string,
     movieSession: PropTypes.string,
-    additions: PropTypes.array,
+    additions: PropTypes.object,
     addedSeats: PropTypes.array,
     createdAd: PropTypes.string,
   }),

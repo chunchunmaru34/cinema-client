@@ -19,6 +19,13 @@ export default class SignUpPage extends React.Component {
     this.onCheckEmailDebounce = debounce(email => this.props.checkEmailOriginality(email), 500);
   }
 
+  /*
+  * Regex for password field.
+  * Password should:
+  * - contain at least 1 symbol: (?=.*?[a-z])
+  * - contain at least 1 number: (?=.*?[0-9])
+  * - have length at least 8 or more characters: .{8,}
+  */
   passwordPattern = '(?=.*?[a-z])(?=.*?[0-9]).{8,}$';
 
   componentWillReceiveProps(nextProps) {
@@ -86,14 +93,16 @@ export default class SignUpPage extends React.Component {
           {/* Email */}
           <div className="form-group">
             <label>Email*</label>
-            <input name='email'
-                   type='email'
-                   className="form-control"
-                   required
-                   maxLength="50"
-                   ref={element => this.email = element}
-                   value={this.state.email}
-                   onChange={this.handleEmailChange}/>
+            <input
+              name='email'
+              type='email'
+              className="form-control"
+              required
+              maxLength="50"
+              ref={element => this.email = element}
+              value={this.state.email}
+              onChange={this.handleEmailChange}
+            />
             { !this.props.validation.isEmailUnique &&
               <div className="invalid-feedback">
                 {USER_ALREADY_EXIST}
@@ -104,14 +113,15 @@ export default class SignUpPage extends React.Component {
           {/* Password */}
           <div className="form-group">
             <label>Password*</label>
-            <input name='password'
-                   type='password'
-                   className="form-control"
-                   required
-                   maxLength="20"
-                   pattern={this.passwordPattern}
-                   value={this.state.password}
-                   onChange={this.handlePasswordChange}/>
+            <input
+              name='password'
+              type='password'
+              className="form-control"
+              required
+              pattern={this.passwordPattern}
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+            />
             <small className="form-text text-muted">
               Your password must be 8-20 characters long
               and contain letters and numbers.
@@ -121,15 +131,16 @@ export default class SignUpPage extends React.Component {
           {/* Repeated password */}
           <div className="form-group">
             <label>Repeat password*</label>
-            <input name='repeatedPassword'
-                   type='password'
-                   className="form-control"
-                   required
-                   maxLength="20"
-                   ref={element => this.repeatedPassword = element}
-                   pattern={this.passwordPattern}
-                   value={this.state.repeatedPassword}
-                   onChange={this.handleRepeatedPasswordChange}/>
+            <input
+              name='repeatedPassword'
+              type='password'
+              className="form-control"
+              required
+              ref={element => this.repeatedPassword = element}
+              pattern={this.passwordPattern}
+              value={this.state.repeatedPassword}
+              onChange={this.handleRepeatedPasswordChange}
+            />
             {this.state.passwordsDoesNotMatch &&
               <div className="invalid-feedback">
                 {PASSWORDS_SHOULD_MATCH}
@@ -140,21 +151,25 @@ export default class SignUpPage extends React.Component {
           {/* Name */}
           <div className="form-group">
             <label>Name</label>
-            <input name='name'
-                   maxLength="50"
-                   className="form-control"
-                   value={this.state.name}
-                   onChange={this.handleChange}/>
+            <input
+              name='name'
+              maxLength="50"
+              className="form-control"
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
           </div>
 
           {/* City */}
           <div className="form-group">
             <label>City</label>
-            <input name='city'
-                   maxLength="50"
-                   className="form-control"
-                   value={this.state.city}
-                   onChange={this.handleChange}/>
+            <input
+              name='city'
+              maxLength="50"
+              className="form-control"
+              value={this.state.city}
+              onChange={this.handleChange}
+            />
           </div>
 
           {/* Tips */}
@@ -176,13 +191,9 @@ export default class SignUpPage extends React.Component {
 }
 
 SignUpPage.propTypes = {
-  validation: PropTypes.shape({
-    isEmailUnique: PropTypes.bool,
-  }),
+  validation: PropTypes.string,
   checkEmailOriginality: PropTypes.func,
   signUp: PropTypes.func,
-  error: PropTypes.shape({
-    message: PropTypes.string,
-  }),
+  error: PropTypes.string,
 };
 

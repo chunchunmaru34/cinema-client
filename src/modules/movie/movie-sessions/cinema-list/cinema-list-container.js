@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchCinemasForMovie, clearState } from '../actions';
+import LoadingBar from '../../../util-components/loading-bar';
 import CinemaList from './cinema-list';
 
 class CinemaListContainer extends React.Component {
@@ -40,7 +41,6 @@ CinemaListContainer.propTypes = {
     rooms: PropTypes.array,
     roomsCount: PropTypes.number,
   })),
-  movie: PropTypes.string.isRequired,
 };
 
 export default withRouter(connect(mapStateToProps)(CinemaListContainer));

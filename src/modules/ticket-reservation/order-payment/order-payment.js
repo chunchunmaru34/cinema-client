@@ -26,8 +26,12 @@ export default class OrderPayment extends React.Component {
 
     return (
       <div className={styles.container}>
-        <button className="close" onClick={finishOrder}>&times;</button>
+        <button className="close"
+                onClick={finishOrder}>
+          &times;
+        </button>
         <h4>Payment information</h4>
+
         <form className={styles.payForm}>
           <div>
             <label>Card</label>
@@ -38,9 +42,13 @@ export default class OrderPayment extends React.Component {
             <input className="form-control"/>
           </div>
           <div>
-            <button onClick={pay} className="btn btn-primary mt-3">Pay</button>
+            <button onClick={pay}
+                    className="btn btn-primary mt-3">
+              Pay
+            </button>
           </div>
         </form>
+
         {paymentInfo}
         { error &&
           <div className="alert alert-danger">

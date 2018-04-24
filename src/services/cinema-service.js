@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { CINEMAS_URL } from '../constants/api-endpoints';
+import { CINEMAS_URL } from '../../conf/api-endpoints';
 
 export function getAllCinemas() {
   return axios.get(CINEMAS_URL);

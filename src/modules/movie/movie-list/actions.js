@@ -1,7 +1,7 @@
 import {
   MOVIES_REQUESTED,
   MOVIES_RECEIVED,
-  MOVIES_CLEAR_STATE,
+  MOVIES_STATE_CLEARED,
 } from './action-types';
 import { movieService } from '../../../services';
 
@@ -22,8 +22,7 @@ export function fetchMovies() {
   return (dispatch) => {
     dispatch(moviesRequested());
     return movieService.getAllMovies()
-      .then(res => dispatch(moviesReceived(res.data)))
-      .catch(console.log);
+      .then(res => dispatch(moviesReceived(res.data)));
   };
 }
 
@@ -41,6 +40,6 @@ export function searchMovies(criteria) {
 
 export function clearState() {
   return {
-    type: MOVIES_CLEAR_STATE,
+    type: MOVIES_STATE_CLEARED,
   };
 }

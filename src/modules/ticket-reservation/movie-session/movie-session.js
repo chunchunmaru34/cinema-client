@@ -17,6 +17,7 @@ class MovieSession extends React.Component {
     if (!selectedMovieSession) {
       dispatch(selectMovieSession(movieSession));
     }
+
     const timer = setInterval(() => dispatch(refreshMovieSession(movieSession)), 10000);
     this.setState({ timer });
   }
@@ -29,8 +30,13 @@ class MovieSession extends React.Component {
 
   render() {
     const { isCheckingOut, movieSession, selectedMovieSession } = this.props;
+
     if (!selectedMovieSession) return null;
-    return isCheckingOut ? <OrderPayment/> : <SeatsArrangement movieSession={movieSession}/>;
+
+    return isCheckingOut ?
+      <OrderPayment/>
+      :
+      <SeatsArrangement movieSession={movieSession}/>;
   }
 }
 

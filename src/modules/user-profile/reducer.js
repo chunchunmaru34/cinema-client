@@ -1,14 +1,14 @@
 import {
-  REQUEST_USER,
-  RECEIVE_USER,
+  USER_REQUESTED,
+  USER_RECEIVED,
   USER_UPDATE_FAILED,
   USER_UPDATE_SUCCEED,
-  CLEAR_INFO,
-  CLEAR_ERROR,
-  CLEAR_STATE,
+  INFO_CLEARED,
+  ERROR_CLEARED,
+  USER_PROFILE_CLEAR_STATE,
   TICKETS_REQUESTED,
-  GOT_ALL_TICKETS,
-  GOT_RELEVANT_TICKETS,
+  ALL_TICKETS_RECEIVED,
+  RELEVANT_TICKETS_RECEIVED,
 } from './action-types';
 
 const initialState = {
@@ -23,12 +23,13 @@ const initialState = {
 
 export default function profile(state = initialState, action) {
   switch (action.type) {
-    case REQUEST_USER:
+    case USER_REQUESTED:
       return {
         ...state,
         isLoading: true,
       };
-    case RECEIVE_USER:
+
+    case USER_RECEIVED:
       return {
         ...state,
         userDetails: action.data,
@@ -41,43 +42,51 @@ export default function profile(state = initialState, action) {
         isTicketsLoading: false,
         error: action.data,
       };
+
     case USER_UPDATE_SUCCEED:
       return {
         ...state,
         userDetails: action.data,
         info: 'User was updated successfully',
       };
-    case CLEAR_INFO:
+
+    case INFO_CLEARED:
       return {
         ...state,
         info: null,
       };
-    case CLEAR_ERROR:
+
+    case ERROR_CLEARED:
       return {
         ...state,
         error: null,
       };
+
     case TICKETS_REQUESTED:
       return {
         ...state,
         isTicketsLoading: true,
       };
-    case GOT_ALL_TICKETS:
+
+    case ALL_TICKETS_RECEIVED:
       return {
         ...state,
         tickets: action.data,
         isTicketsRelevant: false,
         isTicketsLoading: false,
       };
-    case GOT_RELEVANT_TICKETS:
+
+    case RELEVANT_TICKETS_RECEIVED:
       return {
         ...state,
         tickets: action.data,
         isTicketsRelevant: true,
         isTicketsLoading: false,
       };
-    case CLEAR_STATE:
+
+    case USER_PROFILE_CLEAR_STATE:
       return initialState;
+
     default:
       return state;
   }
