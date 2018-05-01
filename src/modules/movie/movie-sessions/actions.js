@@ -41,6 +41,31 @@ export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
   };
 }
 
+export function searchMovieSessionsForCinema({ cinemaId, movieId }, criteria) {
+  return (dispatch) => {
+    dispatch(requestMovieSessions());
+
+    const params = {
+      cinema: cinemaId,
+      movie: movieId,
+      'sort-by': 'date',
+      relevant: true,
+      since: criteria.since,
+      to: criteria.to,
+      'available-seats': criteria.availableSeats,
+    };
+    Object.keys(params).forEach((key) => {
+      if (!params[key]) {
+        delete params[key];
+      }
+    });
+
+    return movieSessionService.getAllMovieSessionsFor(params)
+      .then(res => dispatch(receiveMovieSessions(res.data)))
+      .catch(err => console.log(err));
+  };
+}
+
 export function movieSessionRefreshRequested() {
   return {
     type: MOVIE_SESSION_REFRESH_REQUESTED,
@@ -81,6 +106,27 @@ export function fetchCinemasForMovie(id) {
     const params = { movie: id };
     cinemaService.getAllCinemasFor(params)
       .then(res => dispatch(receiveCinemas(res.data)));
+  };
+}
+
+export function searchCinemasForMovie(id, criteria) {
+  return (dispatch) => {
+    dispatch(requestCinemas());
+
+    const params = {
+      movie: id,
+      'match-name': criteria.name,
+      'match-city': criteria.city,
+    };
+    Object.keys(params).forEach((key) => {
+      if (!params[key]) {
+        delete params[key];
+      }
+    });
+
+    cinemaService.getAllCinemasFor(params)
+      .then(res => dispatch(receiveCinemas(res.data)))
+      .catch(err => console.log(err));
   };
 }
 

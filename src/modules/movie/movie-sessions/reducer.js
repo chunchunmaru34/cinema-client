@@ -56,7 +56,9 @@ const movieSessions = (state = initialState, action) => {
 
     case MOVIE_SESSIONS_RECEIVED:
       // if data received, but user already selected another cinema
-      if (action.data[0].cinema.id !== state.selectedCinema.id) return state;
+      if (action.data.length && action.data[0].cinema.id !== state.selectedCinema.id) {
+        return state;
+      }
       return {
         ...state,
         isMovieSessionsLoading: false,

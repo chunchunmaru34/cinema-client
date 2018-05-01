@@ -5,6 +5,8 @@
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
   cursor: pointer;
   padding: 10px;
   background-color: $dark;

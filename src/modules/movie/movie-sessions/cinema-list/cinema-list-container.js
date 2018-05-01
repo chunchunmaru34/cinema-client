@@ -18,9 +18,12 @@ class CinemaListContainer extends React.Component {
 
   render() {
     const { cinemas, isLoading } = this.props;
-    const component = <CinemaList cinemas={cinemas}/>;
-    const loading = <LoadingBar isLoading={isLoading}/>;
-    return isLoading ? loading : component;
+    return (
+      <CinemaList
+        cinemas={cinemas}
+        isLoading={isLoading}
+      />
+    );
   }
 }
 
