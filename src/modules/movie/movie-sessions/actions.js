@@ -37,7 +37,7 @@ export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
       relevant: true,
     };
     return movieSessionService.getAllMovieSessionsFor(params)
-      .then(res => dispatch(receiveMovieSessions(res.data)));
+      .then(res => dispatch(receiveMovieSessions(res.data.data)));
   };
 }
 
@@ -61,7 +61,7 @@ export function searchMovieSessionsForCinema({ cinemaId, movieId }, criteria) {
     });
 
     return movieSessionService.getAllMovieSessionsFor(params)
-      .then(res => dispatch(receiveMovieSessions(res.data)))
+      .then(res => dispatch(receiveMovieSessions(res.data.data)))
       .catch(err => console.log(err));
   };
 }
@@ -105,7 +105,7 @@ export function fetchCinemasForMovie(id) {
     dispatch(requestCinemas());
     const params = { movie: id };
     cinemaService.getAllCinemasFor(params)
-      .then(res => dispatch(receiveCinemas(res.data)));
+      .then(res => dispatch(receiveCinemas(res.data.data)));
   };
 }
 
@@ -125,7 +125,7 @@ export function searchCinemasForMovie(id, criteria) {
     });
 
     cinemaService.getAllCinemasFor(params)
-      .then(res => dispatch(receiveCinemas(res.data)))
+      .then(res => dispatch(receiveCinemas(res.data.data)))
       .catch(err => console.log(err));
   };
 }

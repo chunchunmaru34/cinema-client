@@ -59,9 +59,9 @@ export function fetchTickets({ user, relevant }) {
     return ticketService.getTickets({ user, relevant })
       .then((res) => {
         if (relevant) {
-          dispatch(gotRelevantTickets(res.data));
+          dispatch(gotRelevantTickets(res.data.data));
         } else {
-          dispatch(gotAllTickets(res.data));
+          dispatch(gotAllTickets(res.data.data));
         }
       });
   };
@@ -83,7 +83,7 @@ export function updateFailed(err) {
 
 export function updateUser(user) {
   return dispatch => userService.updateUser(user)
-    .then(res => dispatch(updateSucceed(res.data)))
+    .then(res => dispatch(updateSucceed(res.data.data)))
     .catch((err) => {
       updateFailed(err.response ? err.response.data.message : err.message);
     });

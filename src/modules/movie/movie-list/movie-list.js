@@ -10,7 +10,7 @@ const MovieList = ({ movies, refreshMovies, isLoading }) => {
   const movieList = movies && movies.map(item => (
       <MovieCard movie={item} key={item.id}/>
   ));
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>
