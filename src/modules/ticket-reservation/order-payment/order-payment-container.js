@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { payForOrder, requestTicket, finishOrdering, cancelCheckingOut } from '../actions';
-import { refreshMovieSession } from '../../movie/movie-sessions/actions';
+import { payForOrder, requestTicket, finishOrdering, cancelCheckingOut, refreshMovieSession } from '../actions';
 import { PAYMENT_SUCCESS } from '../constants/payment-statuses';
 import OrderPayment from './order-payment';
 

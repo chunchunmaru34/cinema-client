@@ -6,19 +6,23 @@ import { TEMPORARY_OCCUPIED } from '../constants/seats-statuses';
 import SeatsArrangement from './seats-arrangement';
 
 class SeatsArrangementContainer extends React.Component {
-  componentDidMount() {
-    const { movieSession } = this.props;
-    this.checkForAddedSeats(movieSession.seats);
+  componentWillReceiveProps(nextProps) {
+    const { selectedMovieSession } = nextProps;
+    if (!this.props.selectedMovieSession && selectedMovieSession) {
+      this.checkForAddedSeats(selectedMovieSession.seats);
+    }
   }
 
   checkForAddedSeats(seats) {
     const userId = authService.getAuthenticatedUser().id;
     seats.forEach((row, rowNumber) => {
       row.forEach((seat, number) => {
-        if (seat.status === TEMPORARY_OCCUPIED &&
-            seat.occupiedBy === userId &&
-            !this.props.addedSeats.find(item => item._id === seat._id)
-        ) {
+        const isSeatNotListed =
+          seat.status === TEMPORARY_OCCUPIED &&
+          seat.occupiedBy === userId &&
+          !this.props.addedSeats.find(item => item._id === seat._id);
+
+        if (isSeatNotListed) {
           const payload = {
             ...seat,
             number,
@@ -31,8 +35,8 @@ class SeatsArrangementContainer extends React.Component {
   }
 
   render() {
-    const { movieSession } = this.props;
-    return <SeatsArrangement movieSession={movieSession}/>;
+    const { selectedMovieSession } = this.props;
+    return <SeatsArrangement movieSession={selectedMovieSession}/>;
   }
 }
 

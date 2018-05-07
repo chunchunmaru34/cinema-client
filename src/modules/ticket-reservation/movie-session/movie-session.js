@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectMovieSession, clearState } from '../actions';
-import { refreshMovieSession } from '../../movie/movie-sessions/actions';
+import { clearState, refreshMovieSession, requestAndSelectMovieSession } from '../actions';
 import SeatsArrangement from '../seats-arrangement/seats-arrangement-container';
 import OrderPayment from '../order-payment/order-payment-container';
 
@@ -13,12 +12,17 @@ class MovieSession extends React.Component {
   }
 
   componentDidMount() {
-    const { selectedMovieSession, movieSession, dispatch } = this.props;
-    if (!selectedMovieSession) {
-      dispatch(selectMovieSession(movieSession));
-    }
+    const {
+      movieSession, isMovieSessionLoading, selectedMovieSession, dispatch,
+    } = this.props;
 
-    const timer = setInterval(() => dispatch(refreshMovieSession(movieSession)), 10000);
+    setTimeout(() => {
+      if (!selectedMovieSession && !isMovieSessionLoading) {
+        dispatch(requestAndSelectMovieSession(movieSession));
+      }
+    }, 2000);
+
+    const timer = setInterval(() => dispatch(refreshMovieSession(movieSession)), 5000);
     this.setState({ timer });
   }
 
@@ -29,14 +33,11 @@ class MovieSession extends React.Component {
   }
 
   render() {
-    const { isCheckingOut, movieSession, selectedMovieSession } = this.props;
+    const { isCheckingOut, selectedMovieSession } = this.props;
 
-    if (!selectedMovieSession) return null;
-
-    return isCheckingOut ?
-      <OrderPayment/>
-      :
-      <SeatsArrangement movieSession={movieSession}/>;
+    return isCheckingOut
+      ? <OrderPayment/>
+      : <SeatsArrangement movieSession={selectedMovieSession}/>;
   }
 }
 
@@ -44,6 +45,7 @@ const mapStateToProps = (state, ownProps) => ({
   isCheckingOut: state.ticketReservation.isCheckingOut,
   movieSession: ownProps.movieSession,
   selectedMovieSession: state.ticketReservation.selectedMovieSession,
+  isMovieSessionLoading: state.ticketReservation.isMovieSessionLoading,
 });
 
 MovieSession.propTypes = {

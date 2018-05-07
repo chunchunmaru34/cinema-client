@@ -3,7 +3,6 @@ import {
   SEAT_REMOVED,
   ADDITION_INCREMENTED,
   DECREMENT_ADDITION,
-  MOVIE_SESSION_SELECTED,
   MOVIE_SESSION_UNSELECTED,
   PAYMENT_FAILED,
   TICKET_RECEIVED,
@@ -12,9 +11,14 @@ import {
   ORDER_CHECKOUT,
   ORDER_FINISH,
   PAYMENT_REQUESTED,
-  RESERVATION_CLEAR_STATE, ORDER_CHECKING_OUT_CANCELED,
+  RESERVATION_CLEAR_STATE,
+  ORDER_CHECKING_OUT_CANCELED,
+  MOVIE_SESSION_RECEIVED,
+  MOVIE_SESSION_REQUESTED,
+  MOVIE_SESSION_SELECTED,
+  MOVIE_SESSION_REFRESH_RECEIVED,
+  MOVIE_SESSION_REFRESH_REQUESTED,
 } from './action-types';
-import { MOVIE_SESSION_REFRESH_RECEIVED } from '../movie/movie-sessions/action-types';
 import { PAYMENT_SUCCESS, PAYMENT_FAIL, PAYMENT_PENDING } from './constants/payment-statuses';
 
 const initialState = {
@@ -25,6 +29,7 @@ const initialState = {
     transactionId: null,
   },
   selectedMovieSession: null,
+  isMovieSessionLoading: false,
   paymentStatus: null,
   ticket: null,
   error: null,
@@ -33,11 +38,35 @@ const initialState = {
 
 function ticketReservation(state = initialState, action) {
   switch (action.type) {
+    case MOVIE_SESSION_REQUESTED:
+      return {
+        ...state,
+        isMovieSessionLoading: true,
+      };
+
+    case MOVIE_SESSION_RECEIVED:
+      return {
+        ...state,
+        isMovieSessionLoading: false,
+      };
+
     case MOVIE_SESSION_SELECTED:
       return {
-        ...initialState,
+        ...state,
         selectedMovieSession: action.data,
       };
+
+    case MOVIE_SESSION_REFRESH_REQUESTED:
+      return state;
+
+    case MOVIE_SESSION_REFRESH_RECEIVED:
+      if (state.selectedMovieSession && state.selectedMovieSession.id === action.data.id) {
+        return {
+          ...state,
+          selectedMovieSession: action.data,
+        };
+      }
+      return state;
 
     case MOVIE_SESSION_UNSELECTED:
       return initialState;
@@ -55,15 +84,6 @@ function ticketReservation(state = initialState, action) {
         },
       };
     }
-
-    case MOVIE_SESSION_REFRESH_RECEIVED:
-      if (state.selectedMovieSession.id === action.data.id) {
-        return {
-          ...state,
-          selectedMovieSession: action.data,
-        };
-      }
-      return state;
 
     case SEAT_REMOVED: {
       const seats = [...state.order.addedSeats];

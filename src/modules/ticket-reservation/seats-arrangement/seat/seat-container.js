@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addSeat, removeSeat } from '../../actions';
+import { addSeat, removeSeat, refreshMovieSession } from '../../actions';
 import { ticketService } from '../../../../services';
-import { refreshMovieSession } from '../../../movie/movie-sessions/actions';
 import { AVAILABLE, TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
 import Seat from './seat';
 
@@ -31,10 +30,13 @@ class SeatContainer extends React.Component {
     data, addedSeats, rowIndex, index, dispatch,
   }) {
     const oldSeat = this.props.data;
-    if (oldSeat.status === TEMPORARY_OCCUPIED &&
-        data.status === AVAILABLE &&
-        addedSeats.find(item => item._id === data._id)
-    ) {
+
+    const isSeatExpired =
+      oldSeat.status === TEMPORARY_OCCUPIED &&
+      data.status === AVAILABLE &&
+      addedSeats.find(item => item._id === data._id);
+
+    if (isSeatExpired) {
       const payload = {
         ...data,
         rowNumber: rowIndex,
