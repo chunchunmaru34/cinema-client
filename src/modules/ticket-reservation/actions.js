@@ -180,7 +180,6 @@ export function cancelCheckingOut() {
 }
 
 export function clearState(movieSession) {
-  console.log('clearing tickets state');
   return {
     type: RESERVATION_CLEAR_STATE,
     data: movieSession,

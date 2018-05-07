@@ -23,11 +23,10 @@ class MovieListContainer extends React.Component {
   };
 
   render() {
-    const { movies, isLoading } = this.props;
+    const { movies } = this.props;
     return (
       <MovieList
         refreshMovies={this.refreshMovies}
-        isLoading={isLoading}
         movies={movies}
       />
     );
@@ -36,7 +35,6 @@ class MovieListContainer extends React.Component {
 
 const mapStateToProps = state => ({
   movies: state.movieList.data,
-  isLoading: state.movieList.isLoading,
 });
 
 export default connect(mapStateToProps)(MovieListContainer);

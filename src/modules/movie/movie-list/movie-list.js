@@ -6,8 +6,12 @@ import SearchBar from './search-bar/search-bar-container';
 import styles from './styles.scss';
 import icon from './_media/icons/refresh.svg';
 
-const MovieList = ({ movies, refreshMovies, isLoading }) => {
-  const movieList = movies && movies.map(item => (
+const MovieList = ({ movies, refreshMovies }) => {
+  if (!movies) {
+    return <LoadingBar/>;
+  }
+
+  const movieList = movies.map(item => (
       <MovieCard movie={item} key={item.id}/>
   ));
 
@@ -22,7 +26,7 @@ const MovieList = ({ movies, refreshMovies, isLoading }) => {
       </div>
       <SearchBar/>
       <div>
-        {isLoading ? <LoadingBar/> : movieList}
+        {movieList}
       </div>
     </div>
   );
