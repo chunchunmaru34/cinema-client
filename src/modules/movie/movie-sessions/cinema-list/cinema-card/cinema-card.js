@@ -1,20 +1,28 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+// import { CSSTransition } from 'react-transition-group';
 import styles from './styles.scss';
 import MovieSessionsList from '../../movie-sessions-list/movie-sessions-list-container';
 
-const CinemaCard = ({ data, clickHandler, match }) => (
+const CinemaCard = ({
+  data, clickHandler, match,
+}) => (
   <div className={styles.container}>
     <div className={styles.header}
          onClick={clickHandler}>
       <span>{data.name}</span>
       <span className="ml-4">City: {data.city}</span>
-      </div>
-    <Route path={`${match.url}/cinemas/${data.id}`}
-           render={location => <MovieSessionsList location={location}
-                                                  cinema={data}/>}
-    />
+    </div>
+      <Route
+        path={`${match.url}/cinemas/${data.id}`}
+        render={location => (
+          <MovieSessionsList
+            location={location}
+            cinema={data}
+          />
+        )}
+      />
   </div>
 );
 

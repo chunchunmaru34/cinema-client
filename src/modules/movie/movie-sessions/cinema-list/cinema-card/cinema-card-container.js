@@ -20,18 +20,23 @@ class CinemaCardContainer extends React.Component {
   };
 
   render() {
-    const { cinema, match } = this.props;
-    return <CinemaCard data={cinema}
-                       key={cinema.id}
-                       clickHandler={this.handleClick}
-                       match={match}
-    />;
+    const { cinema, match, location } = this.props;
+    return (
+      <CinemaCard
+        data={cinema}
+        key={cinema.id}
+        clickHandler={this.handleClick}
+        match={match}
+        loc={location}
+      />
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   selectedCinema: state.selectedMovie.movieSessions.selectedCinema,
   cinema: ownProps.data,
+  location: ownProps.location,
 });
 
 export default withRouter(connect(mapStateToProps)(CinemaCardContainer));
