@@ -7,7 +7,7 @@ class MovieListContainer extends React.Component {
   componentDidMount() {
     const { movies, dispatch } = this.props;
     if (!movies) {
-      this.refreshMovies();
+      dispatch(fetchMovies());
     } else {
       dispatch(moviesReceived(movies));
     }
@@ -17,17 +17,13 @@ class MovieListContainer extends React.Component {
     this.props.dispatch(clearState());
   }
 
-  refreshMovies = () => {
-    const { dispatch } = this.props;
-    dispatch(fetchMovies());
-  };
 
   render() {
-    const { movies } = this.props;
+    const { movies, isLoading } = this.props;
     return (
       <MovieList
-        refreshMovies={this.refreshMovies}
         movies={movies}
+        isLoading={isLoading}
       />
     );
   }
@@ -35,6 +31,7 @@ class MovieListContainer extends React.Component {
 
 const mapStateToProps = state => ({
   movies: state.movieList.data,
+  isLoading: state.movieList.isLoading,
 });
 
 export default connect(mapStateToProps)(MovieListContainer);

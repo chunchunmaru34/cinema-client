@@ -4,14 +4,9 @@ import MovieCard from './movie-card/movie-card-container';
 import LoadingBar from '../../util-components/loading-bar';
 import SearchBar from './search-bar/search-bar-container';
 import styles from './styles.scss';
-import icon from './_media/icons/refresh.svg';
 
-const MovieList = ({ movies, refreshMovies }) => {
-  if (!movies) {
-    return <LoadingBar/>;
-  }
-
-  const movieList = movies.map(item => (
+const MovieList = ({ movies, isLoading }) => {
+  const movieList = movies && movies.map(item => (
       <MovieCard movie={item} key={item.id}/>
   ));
 
@@ -19,14 +14,10 @@ const MovieList = ({ movies, refreshMovies }) => {
     <div className={styles.container}>
       <div className={styles.title}>
         <h1>Available Movies</h1>
-        <div onClick={refreshMovies}
-             className={styles.refreshIcon}>
-          <img src={icon}/>
-        </div>
       </div>
       <SearchBar/>
       <div>
-        {movieList}
+        {isLoading ? <LoadingBar/> : movieList}
       </div>
     </div>
   );
