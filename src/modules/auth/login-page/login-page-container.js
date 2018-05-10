@@ -1,19 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { authService } from '../../../services';
 import { login, loggedOut, clearAuthError } from '../actions';
 import LoginPage from './login-page';
 import { HOME_ROUTE } from '../../../constants/routes';
 
 class LoginPageContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { timer: null };
-  }
-
   componentDidMount() {
     const { user, dispatch } = this.props;
+
     if (user) {
       authService.logout();
       dispatch(loggedOut());
@@ -21,10 +18,6 @@ class LoginPageContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.error) {
-      clearTimeout(this.state.timer);
-      this.state.timer = setTimeout(() => this.props.dispatch(clearAuthError()), 5000);
-    }
     if (nextProps.user) {
       this.props.history.push(HOME_ROUTE);
     }
@@ -32,18 +25,22 @@ class LoginPageContainer extends React.Component {
 
   componentWillUnmount() {
     this.props.dispatch(clearAuthError());
-    clearTimeout(this.state.timer);
   }
 
   onLogin = (credentials) => {
     this.props.dispatch(login(credentials));
-  } ;
+  };
+
+  clearError = () => {
+    this.props.dispatch(clearAuthError());
+  };
 
   render() {
     return (
       <LoginPage
         error={this.props.error}
         login={this.onLogin}
+        clearError={this.clearError}
       />
     );
   }

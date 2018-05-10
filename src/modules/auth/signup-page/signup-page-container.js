@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { authService } from '../../../services';
 import { signUp, clearAuthError, checkIfUserAlreadyExist, loggedOut } from '../actions';
 import SignUpPage from './signup-page';
@@ -14,6 +15,7 @@ class SignUpPageContainer extends React.Component {
 
   componentDidMount() {
     const { user, dispatch } = this.props;
+
     if (user) {
       authService.logout();
       dispatch(loggedOut());
@@ -21,10 +23,6 @@ class SignUpPageContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.error) {
-      clearTimeout(this.state.timer);
-      this.state.timer = setTimeout(() => this.props.dispatch(clearAuthError()), 5000);
-    }
     if (nextProps.user) {
       this.props.history.push(HOME_ROUTE);
     }
@@ -32,17 +30,21 @@ class SignUpPageContainer extends React.Component {
 
   componentWillUnmount() {
     this.props.dispatch(clearAuthError);
-    clearTimeout(this.state.timer);
   }
 
   handleSubmit = (credentials) => {
     if (credentials.password !== credentials.repeatedPassword) return;
+
     this.props.dispatch(signUp(credentials));
   };
 
+  clearError = () => {
+    this.props.dispatch(clearAuthError());
+  };
 
   checkEmailOriginality = (email) => {
     if (email.length < 3) return;
+
     this.props.dispatch(checkIfUserAlreadyExist(email));
   };
 
@@ -53,6 +55,7 @@ class SignUpPageContainer extends React.Component {
         checkEmailOriginality={this.checkEmailOriginality}
         validation={this.props.validation}
         error={this.props.error}
+        clearError={this.clearError}
       />
     );
   }

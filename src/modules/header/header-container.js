@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import history from '../../utils/history';
 import { loggedOut } from '../auth/actions';
 import { authService } from '../../services';

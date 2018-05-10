@@ -18,7 +18,6 @@ class MovieListContainer extends React.Component {
     this.props.dispatch(clearState());
   }
 
-
   render() {
     const { movies, isLoading } = this.props;
     return (

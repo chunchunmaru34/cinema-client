@@ -3,6 +3,7 @@
 .container {
   max-width: 320px;
   cursor: pointer;
+  box-sizing: content-box;
   display: inline-block;
   margin: 10px;
   border: transparentize($dark, 0.3) 1px solid;
@@ -20,6 +21,10 @@
 }
 
 .poster {
+  overflow: hidden;
+  height: 430px;
+  width: 320px;
+
   img {
     width: 100%;
   }

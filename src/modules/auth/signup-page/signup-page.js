@@ -1,7 +1,8 @@
-/* eslint-disable no-useless-escape,no-return-assign */
 import React from 'react';
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
+
+import DismissibleError from '../../util-components/alerts/dismissable-alert';
 import { USER_ALREADY_EXIST, PASSWORDS_SHOULD_MATCH } from './constants/validation-alerts';
 import styles from './styles.scss';
 
@@ -16,7 +17,8 @@ export default class SignUpPage extends React.Component {
       city: '',
       passwordsDoesNotMatch: false,
     };
-    this.onCheckEmailDebounce = debounce(email => this.props.checkEmailOriginality(email), 500);
+    this.checkEmailOriginalityDebounced =
+      debounce(email => this.props.checkEmailOriginality(email), 500);
   }
 
   /*
@@ -41,7 +43,7 @@ export default class SignUpPage extends React.Component {
 
   handleEmailChange = (e) => {
     e.target.setCustomValidity('');
-    this.onCheckEmailDebounce(e.target.value);
+    this.checkEmailOriginalityDebounced(e.target.value);
     this.setState({ email: e.target.value });
   };
 
@@ -87,8 +89,10 @@ export default class SignUpPage extends React.Component {
     return (
       <div className={styles.container}>
         <h3>Sign Up</h3>
-        <form onSubmit={this.handleSubmit}
-              className={`${styles.signUpForm} was-validated`}>
+        <form
+          onSubmit={this.handleSubmit}
+          className={`${styles.signUpForm} was-validated`}
+        >
 
           {/* Email */}
           <div className="form-group">
@@ -99,7 +103,7 @@ export default class SignUpPage extends React.Component {
               className="form-control"
               required
               maxLength="50"
-              ref={element => this.email = element}
+              ref={(element) => { this.email = element; }}
               value={this.state.email}
               onChange={this.handleEmailChange}
             />
@@ -123,7 +127,7 @@ export default class SignUpPage extends React.Component {
               onChange={this.handlePasswordChange}
             />
             <small className="form-text text-muted">
-              Your password must be 8-20 characters long
+              Your password must be 8 or more characters long
               and contain letters and numbers.
             </small>
           </div>
@@ -136,7 +140,7 @@ export default class SignUpPage extends React.Component {
               type='password'
               className="form-control"
               required
-              ref={element => this.repeatedPassword = element}
+              ref={(element) => { this.repeatedPassword = element; }}
               pattern={this.passwordPattern}
               value={this.state.repeatedPassword}
               onChange={this.handleRepeatedPasswordChange}
@@ -179,9 +183,14 @@ export default class SignUpPage extends React.Component {
 
           {/* Submit */}
           <button className="btn btn-primary">Submit</button>
+
+          {/* Error alert */}
           { this.props.error &&
-            <div className="alert alert-danger mt-3">
-              {this.props.error}
+            <div className="mt-3">
+              <DismissibleError
+                message={this.props.error}
+                onDismiss={this.props.clearError}
+              />
             </div>
           }
         </form>
@@ -194,6 +203,7 @@ SignUpPage.propTypes = {
   validation: PropTypes.string,
   checkEmailOriginality: PropTypes.func,
   signUp: PropTypes.func,
+  clearError: PropTypes.func,
   error: PropTypes.string,
 };
 
