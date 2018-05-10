@@ -61,8 +61,7 @@ export function requestAndSelectMovieSession(movieSession) {
       .then((res) => {
         dispatch(movieSessionReceived(res.data));
         dispatch(selectMovieSession(res.data));
-      })
-      .catch(console.log);
+      });
   };
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { addSeat, removeSeat, refreshMovieSession } from '../../actions';
 import { ticketService } from '../../../../services';
 import { AVAILABLE, TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
@@ -17,6 +18,7 @@ class SeatContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // todo, check if it really necessary
     this.checkIfSeatAlreadySelected(nextProps);
     this.checkIfSeatExpired(nextProps);
   }

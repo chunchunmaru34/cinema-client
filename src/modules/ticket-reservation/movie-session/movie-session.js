@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { clearState, refreshMovieSession, requestAndSelectMovieSession } from '../actions';
 import SeatsArrangement from '../seats-arrangement/seats-arrangement-container';
 import OrderPayment from '../order-payment/order-payment-container';
 
 class MovieSession extends React.Component {
+  REFRESH_INTERVAL = 5000;
+
   constructor(props) {
     super(props);
     this.state = { timer: null };
@@ -16,13 +19,14 @@ class MovieSession extends React.Component {
       movieSession, isMovieSessionLoading, selectedMovieSession, dispatch,
     } = this.props;
 
-    setTimeout(() => {
-      if (!selectedMovieSession && !isMovieSessionLoading) {
-        dispatch(requestAndSelectMovieSession(movieSession));
-      }
-    }, 2000);
+    if (!selectedMovieSession && !isMovieSessionLoading) {
+      dispatch(requestAndSelectMovieSession(movieSession));
+    }
 
-    const timer = setInterval(() => dispatch(refreshMovieSession(movieSession)), 5000);
+    const timer = setInterval(
+      () => dispatch(refreshMovieSession(movieSession)),
+      this.REFRESH_INTERVAL,
+    );
     this.setState({ timer });
   }
 

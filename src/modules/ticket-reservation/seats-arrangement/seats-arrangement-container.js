@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { addSeat } from '../actions';
 import { authService } from '../../../services';
 import { TEMPORARY_OCCUPIED } from '../constants/seats-statuses';
@@ -15,6 +16,8 @@ class SeatsArrangementContainer extends React.Component {
 
   checkForAddedSeats(seats) {
     const userId = authService.getAuthenticatedUser().id;
+
+    // loop through seats and check if they reserved by user, but not added to order
     seats.forEach((row, rowNumber) => {
       row.forEach((seat, number) => {
         const isSeatNotListed =

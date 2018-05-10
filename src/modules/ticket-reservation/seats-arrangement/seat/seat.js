@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import styles from './styles.scss';
 import { authService } from '../../../../services';
 import { OCCUPIED, TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
 
 export default class Seat extends React.Component {
+  // todo move this to container
   handleSelect = () => {
     const {
       addSeat, removeSeat, data, index, rowIndex, selected,
