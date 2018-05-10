@@ -27,14 +27,14 @@ const movieSessions = (state = initialState, action) => {
     case CINEMAS_RECEIVED:
       return {
         ...state,
-        cinemas: action.cinemas,
+        cinemas: action.data,
         isCinemasLoading: false,
       };
 
     case CINEMA_SELECTED:
       return {
         ...state,
-        selectedCinema: action.cinema,
+        selectedCinema: action.data,
         data: null,
       };
 
@@ -53,13 +53,14 @@ const movieSessions = (state = initialState, action) => {
 
     case MOVIE_SESSIONS_RECEIVED: {
       // if data received, but user already selected another cinema
-      const isMovieSessionsActual =
+      const isDataNotActual =
         action.data.length &&
         state.selectedCinema &&
         action.data[0].cinema.id !== state.selectedCinema.id;
-      if (isMovieSessionsActual) {
+      if (isDataNotActual) {
         return state;
       }
+
       return {
         ...state,
         isMovieSessionsLoading: false,

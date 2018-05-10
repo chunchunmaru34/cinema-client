@@ -1,5 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
+
+import { filter } from './utils/paramsFilter';
 import { CINEMAS_URL } from '../../conf/api-endpoints';
 
 export function getAllCinemas() {
@@ -11,6 +13,6 @@ export function getCinemaById(id) {
 }
 
 export function getAllCinemasFor(params) {
-  const query = qs.stringify(params);
+  const query = qs.stringify(filter(params));
   return axios.get(`${CINEMAS_URL}?${query}`);
 }

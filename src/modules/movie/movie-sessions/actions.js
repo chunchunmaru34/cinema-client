@@ -18,10 +18,10 @@ export function requestMovieSessions() {
   };
 }
 
-export function receiveMovieSessions(json) {
+export function receiveMovieSessions(movieSessions) {
   return {
     type: MOVIE_SESSIONS_RECEIVED,
-    data: json,
+    data: movieSessions,
   };
 }
 
@@ -31,7 +31,7 @@ export function fetchMovieSessionsForCinema({ cinemaId, movieId }) {
     const params = {
       cinema: cinemaId,
       movie: movieId,
-      'sort-by': 'date',
+      sortBy: 'date',
       relevant: true,
     };
     return movieSessionService.getAllMovieSessionsFor(params)
@@ -46,21 +46,14 @@ export function searchMovieSessionsForCinema({ cinemaId, movieId }, criteria) {
     const params = {
       cinema: cinemaId,
       movie: movieId,
-      'sort-by': 'date',
+      sortBy: 'date',
       relevant: true,
       since: criteria.since,
       to: criteria.to,
-      'available-seats': criteria.availableSeats,
+      availableSeats: criteria.availableSeats,
     };
-    Object.keys(params).forEach((key) => {
-      if (!params[key]) {
-        delete params[key];
-      }
-    });
-
     return movieSessionService.getAllMovieSessionsFor(params)
-      .then(res => dispatch(receiveMovieSessions(res.data.data)))
-      .catch(err => console.log(err));
+      .then(res => dispatch(receiveMovieSessions(res.data.data)));
   };
 }
 
@@ -70,10 +63,10 @@ export function requestCinemas() {
   };
 }
 
-export function receiveCinemas(json) {
+export function receiveCinemas(cinemas) {
   return {
     type: CINEMAS_RECEIVED,
-    cinemas: json,
+    data: cinemas,
   };
 }
 
@@ -92,25 +85,18 @@ export function searchCinemasForMovie(id, criteria) {
 
     const params = {
       movie: id,
-      'match-name': criteria.name,
-      'match-city': criteria.city,
+      matchName: criteria.name,
+      matchCity: criteria.city,
     };
-    Object.keys(params).forEach((key) => {
-      if (!params[key]) {
-        delete params[key];
-      }
-    });
-
-    cinemaService.getAllCinemasFor(params)
-      .then(res => dispatch(receiveCinemas(res.data.data)))
-      .catch(err => console.log(err));
+    return cinemaService.getAllCinemasFor(params)
+      .then(res => dispatch(receiveCinemas(res.data.data)));
   };
 }
 
 export function selectCinema(cinema) {
   return {
     type: CINEMA_SELECTED,
-    cinema,
+    data: cinema,
   };
 }
 

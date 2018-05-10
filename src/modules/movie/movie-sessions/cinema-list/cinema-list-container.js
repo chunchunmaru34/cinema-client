@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
 import { fetchCinemasForMovie, clearState } from '../actions';
 import CinemaList from './cinema-list';
 

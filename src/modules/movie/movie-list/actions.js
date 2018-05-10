@@ -21,7 +21,10 @@ export function moviesReceived(movies) {
 export function fetchMovies() {
   return (dispatch) => {
     dispatch(moviesRequested());
-    return movieService.getAllMovies()
+    const params = {
+      relevant: true,
+    };
+    return movieService.getAllMoviesBy(params)
       .then(res => dispatch(moviesReceived(res.data.data)));
   };
 }
@@ -30,6 +33,7 @@ export function searchMovies(criteria) {
   return (dispatch) => {
     dispatch(moviesRequested());
     const params = {
+      relevant: true,
       matchTitle: criteria,
     };
     return movieService.getAllMoviesBy(params)
