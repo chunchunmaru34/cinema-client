@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import MovieList from './movie-list';
 import { fetchMovies, clearState, moviesReceived } from './actions';
 

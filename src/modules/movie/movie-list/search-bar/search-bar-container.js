@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { searchMovies } from '../actions';
 import SearchBar from './search-bar';
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
+
 import styles from './styles.scss';
 
 export default class SearchBar extends React.Component {

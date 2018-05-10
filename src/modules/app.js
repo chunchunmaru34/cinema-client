@@ -33,21 +33,30 @@ const App = () => (
       <Header/>
         <main className={`${styles.container} container`}>
           <Switch>
-            <Route exact path={HOME_ROUTE}
-                   key={HOME_ROUTE}
+            <Route
+              exact path={HOME_ROUTE}
+              key={HOME_ROUTE}
                    component={Home}/>
-            <Route path={LOGIN_ROUTE}
-                   key={LOGIN_ROUTE}
-                   component={LoginPage}/>
-            <Route path={SIGN_UP_ROUTE}
-                   key={SIGN_UP_ROUTE}
-                   component={SignUpPage}/>
-            <Route path={`${USERS_ROUTE}/:id`}
-                   key={USERS_ROUTE}
-                   component={UserProfile}/>
-            <Route path={`${MOVIES_ROUTE}/:id`}
-                   key={MOVIES_ROUTE}
-                   component={UserIsAuthenticated(MovieDetails)}/>
+            <Route
+              path={LOGIN_ROUTE}
+              key={LOGIN_ROUTE}
+              component={LoginPage}
+            />
+            <Route
+              path={SIGN_UP_ROUTE}
+              key={SIGN_UP_ROUTE}
+              component={SignUpPage}
+            />
+            <Route
+              path={`${USERS_ROUTE}/:id`}
+              key={USERS_ROUTE}
+              component={UserProfile}
+            />
+            <Route
+              path={`${MOVIES_ROUTE}/:id`}
+              key={MOVIES_ROUTE}
+              component={UserIsAuthenticated(MovieDetails)}
+            />
             <Route component={NoMatch}/>
           </Switch>
         </main>

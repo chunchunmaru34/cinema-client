@@ -1,0 +1,52 @@
+@import "../../../../css/variables.global.";
+
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 800px;
+  margin: 20px auto;
+  & > div {
+    display: inline-block;
+  }
+}
+
+.poster {
+  border: 2px solid $dark;
+  max-width: 320px;
+  img {
+    width: 100%;
+  }
+}
+
+.info {
+  & > div {
+    max-width: 300px;
+    margin: 10px auto;
+    background-color: lighten($primary, 5);
+    color: $text-color-light;
+    padding: 10px
+  }
+}
+
+.title {
+  text-align: center;
+  margin: 10px;
+}
+
+.description {
+  margin: 30px auto;
+  background-color: $primary;
+  color: $text-color-light;
+  p {
+    padding: 15px 20px 15px 20px;
+  }
+}
+
+.descriptionHeader {
+  padding: 15px 20px 15px 20px;
+  background-color: lighten($primary, 5);
+  span {
+    font-size: 1.1em;
+  }
+}

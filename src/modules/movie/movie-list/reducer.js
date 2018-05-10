@@ -20,7 +20,7 @@ const movieList = (state = initialState, action) => {
     case MOVIES_RECEIVED:
       return {
         ...state,
-        data: action.movies,
+        data: action.data,
         isLoading: false,
       };
 

@@ -12,10 +12,10 @@ export function requestMovieDetails() {
   };
 }
 
-export function movieDetailsReceived(json) {
+export function movieDetailsReceived(movie) {
   return {
     type: MOVIE_DETAILS_RECEIVED,
-    movieDetails: json,
+    data: movie,
   };
 }
 
@@ -30,7 +30,7 @@ export function fetchMovieDetails(id) {
 export function selectMovie(movie) {
   return {
     type: MOVIE_SELECTED,
-    movie,
+    data: movie,
   };
 }
 

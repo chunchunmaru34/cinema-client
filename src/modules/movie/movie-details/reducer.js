@@ -21,14 +21,14 @@ const movieDetails = (state = initialState, action) => {
     case MOVIE_DETAILS_RECEIVED:
       return {
         ...state,
-        data: action.movieDetails,
+        data: action.data,
         isLoading: false,
       };
 
     case MOVIE_SELECTED:
       return {
         ...state,
-        data: action.movie,
+        data: action.data,
       };
 
     case MOVIE_DETAILS_STATE_CLEARED:

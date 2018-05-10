@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import { selectMovie } from '../../movie-details/actions';
 import MovieCard from './movie-card';
 import { MOVIES_ROUTE } from '../../../../constants/routes';
@@ -39,7 +40,6 @@ MovieCard.propTypes = {
     posterUrl: PropTypes.string,
     rating: PropTypes.number,
     year: PropTypes.number,
-    movieSessions: PropTypes.array,
   }),
 };
 

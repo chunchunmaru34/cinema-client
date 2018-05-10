@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
-import LoadingBar from '../../util-components/loading-bar';
+
 import { fetchMovieDetails, movieDetailsReceived } from './actions';
 import MovieDetails from './movie-details';
 
@@ -19,9 +19,12 @@ class MovieDetailsContainer extends React.Component {
 
   render() {
     const { isLoading, movie } = this.props;
-    const component = <MovieDetails movie={movie}/>;
-    const loading = <LoadingBar isLoading={isLoading}/>;
-    return isLoading ? loading : component;
+    return (
+      <MovieDetails
+        movie={movie}
+        isLoading={isLoading}
+      />
+    );
   }
 }
 

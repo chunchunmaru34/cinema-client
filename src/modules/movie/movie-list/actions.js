@@ -11,10 +11,10 @@ export function moviesRequested() {
   };
 }
 
-export function moviesReceived(json) {
+export function moviesReceived(movies) {
   return {
     type: MOVIES_RECEIVED,
-    movies: json,
+    data: movies,
   };
 }
 
@@ -30,11 +30,10 @@ export function searchMovies(criteria) {
   return (dispatch) => {
     dispatch(moviesRequested());
     const params = {
-      'match-title': criteria,
+      matchTitle: criteria,
     };
     return movieService.getAllMoviesBy(params)
-      .then(res => dispatch(moviesReceived(res.data.data)))
-      .catch(console.log);
+      .then(res => dispatch(moviesReceived(res.data.data)));
   };
 }
 
