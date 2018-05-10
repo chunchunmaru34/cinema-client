@@ -5,7 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import 'normalize.css';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+// import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import history from '../utils/history/index';
 import Home from './home';
@@ -30,54 +30,41 @@ import styles from './app.scss';
 
 const App = () => (
   <Router history={history}>
-    <Route
-      render={({ location }) => (
-        <div className={styles.app}>
-          <Header/>
-          <main className={`${styles.container} container`}>
-            <TransitionGroup>
-              <CSSTransition
-                key={location.pathname}
-                classNames="fade"
-                timeout={200}
-              >
-                <Switch location={location}>
-                  <Route
-                    exact
-                    path={HOME_ROUTE}
-                    key={HOME_ROUTE}
-                    component={Home}
-                  />
-                  <Route
-                    path={LOGIN_ROUTE}
-                    key={LOGIN_ROUTE}
-                    component={LoginPage}
-                  />
-                  <Route
-                    path={SIGN_UP_ROUTE}
-                    key={SIGN_UP_ROUTE}
-                    component={SignUpPage}
-                  />
-                  <Route
-                    path={`${USERS_ROUTE}/:id`}
-                    key={USERS_ROUTE}
-                    component={UserProfile}
-                  />
-                  <Route
-                    path={`${MOVIES_ROUTE}/:id`}
-                    key={MOVIES_ROUTE}
-                    component={UserIsAuthenticated(MovieDetails)}
-                  />
-                  <Route component={NoMatch}/>
-                </Switch>
-              </CSSTransition>
-            </TransitionGroup>
-          </main>
-          <Footer/>
-        </div>
-      )}
-    >
-    </Route>
+    <div className={styles.app}>
+      <Header/>
+      <main className={`${styles.container} container`}>
+        <Switch>
+          <Route
+            exact
+            path={HOME_ROUTE}
+            key={HOME_ROUTE}
+            component={Home}
+          />
+          <Route
+            path={LOGIN_ROUTE}
+            key={LOGIN_ROUTE}
+            component={LoginPage}
+          />
+          <Route
+            path={SIGN_UP_ROUTE}
+            key={SIGN_UP_ROUTE}
+            component={SignUpPage}
+          />
+          <Route
+            path={`${USERS_ROUTE}/:id`}
+            key={USERS_ROUTE}
+            component={UserProfile}
+          />
+          <Route
+            path={`${MOVIES_ROUTE}/:id`}
+            key={MOVIES_ROUTE}
+            component={UserIsAuthenticated(MovieDetails)}
+          />
+          <Route component={NoMatch}/>
+        </Switch>
+      </main>
+      <Footer/>
+    </div>
   </Router>
 );
 

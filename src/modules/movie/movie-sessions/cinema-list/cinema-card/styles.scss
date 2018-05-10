@@ -1,6 +1,7 @@
 @import '../../../../../css/variables.global.';
 
 .container {
+  overflow: hidden;
   min-height: 30px;
   margin: 10px 0 10px;
   background-color: $primary;
@@ -15,3 +16,20 @@
   background-color: lighten($primary, 5);
 }
 
+.hoverEnter {
+  opacity: 0;
+}
+
+.hoverEnter.hoverEnterActive {
+  opacity: 1;
+  transition: opacity 300ms ease-out;
+}
+
+.hoverExit {
+  opacity: 1;
+}
+
+.hoverExit.hoverExitActive {
+  opacity: 0;
+  transition: opacity 300ms ease-out;
+}
