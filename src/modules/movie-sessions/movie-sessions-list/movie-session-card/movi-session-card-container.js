@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { requestAndSelectMovieSession, unselectMovieSession } from '../../../../ticket-reservation/actions';
+
+import { requestAndSelectMovieSession, unselectMovieSession } from '../../../ticket-reservation/actions';
 import MovieSessionCard from './movie-session-card';
 
 class MovieSessionCardContainer extends React.Component {
@@ -11,6 +12,7 @@ class MovieSessionCardContainer extends React.Component {
       history, match, movieSession, dispatch, selectedMovieSession,
     } = this.props;
 
+    // if user clicks on selected session
     if (selectedMovieSession && selectedMovieSession.id === movieSession.id) {
       dispatch(unselectMovieSession());
       history.push(match.url);
@@ -39,7 +41,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 MovieSessionCardContainer.propTypes = {
-  data: PropTypes.shape({
+  movieSession: PropTypes.shape({
     id: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     seats: PropTypes.array,

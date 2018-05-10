@@ -10,7 +10,7 @@ import {
 import {
   movieSessionService,
   cinemaService,
-} from '../../../services';
+} from '../../services';
 
 export function requestMovieSessions() {
   return {
@@ -74,7 +74,7 @@ export function fetchCinemasForMovie(id) {
   return (dispatch) => {
     dispatch(requestCinemas());
     const params = { movie: id };
-    cinemaService.getAllCinemasFor(params)
+    return cinemaService.getAllCinemasFor(params)
       .then(res => dispatch(receiveCinemas(res.data.data)));
   };
 }

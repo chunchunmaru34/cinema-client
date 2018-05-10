@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import MovieSessionCard from './movie-session-card/movi-session-card-container';
 import styles from './styles.scss';
-import LoadingBar from '../../../util-components/loading-bar/index';
+import LoadingBar from '../../util-components/loading-bar/index';
 import SearchBar from './search-bar/search-bar-container';
 
 const MovieSessionsList = ({ data, isLoading }) => {
@@ -24,9 +25,9 @@ MovieSessionsList.propTypes = {
     date: PropTypes.string.isRequired,
     seats: PropTypes.array,
     price: PropTypes.number,
-    freeSeatsCount: PropTypes.number,
     roomCodeName: PropTypes.string,
   })),
+  isLoading: PropTypes.bool,
 };
 
 export default MovieSessionsList;

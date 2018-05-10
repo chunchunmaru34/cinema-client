@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
 import { searchMovieSessionsForCinema } from '../../actions';
 import SearchBar from './search-bar';
 
 class SearchBarContainer extends React.Component {
   onSearch = (criteria) => {
     const { dispatch, movieId, cinemaId } = this.props;
+
     dispatch(searchMovieSessionsForCinema({ movieId, cinemaId }, criteria));
   };
 

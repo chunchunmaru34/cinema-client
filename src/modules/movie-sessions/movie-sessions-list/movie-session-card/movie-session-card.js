@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import styles from './styles.scss';
-import MovieSession from '../../../../ticket-reservation/movie-session/movie-session';
+import MovieSession from '../../../ticket-reservation/movie-session/movie-session';
 
 function getDate(data) {
   const options = {
@@ -19,8 +20,10 @@ function getDate(data) {
 
 const MovieSessionCard = ({ data, clickHandler, match }) => (
   <div className={styles.container}>
-    <div onClick={clickHandler}
-         className={styles.header}>
+    <div
+      onClick={clickHandler}
+      className={styles.header}
+    >
       <span>{getDate(data.date)}</span>
       <span>Available seats: {data.availableSeatsCount}</span>
     </div>

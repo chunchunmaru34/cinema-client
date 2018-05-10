@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import CinemaList from '../movie-sessions/cinema-list/cinema-list-container';
+import CinemaList from '../../movie-sessions/cinema-list/cinema-list-container';
 import MovieInfo from './movie-info/movie-info';
 import LoadingBar from '../../util-components/loading-bar';
 import styles from './styles.scss';
