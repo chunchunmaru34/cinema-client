@@ -6,15 +6,12 @@ import {
   MOVIE_SESSIONS_RECEIVED,
   CINEMA_UNSELECTED,
   MOVIE_SESSIONS_STATE_CLEARED,
-  MOVIE_SESSION_REFRESH_RECEIVED,
-  MOVIE_SESSION_REFRESH_REQUESTED,
 } from './action-types';
 
 const initialState = {
   data: null,
   isCinemasLoading: true,
   isMovieSessionsLoading: true,
-  isMovieSessionRefreshing: false,
   cinemas: null,
   selectedCinema: null,
 };
@@ -54,31 +51,19 @@ const movieSessions = (state = initialState, action) => {
         isMovieSessionsLoading: true,
       };
 
-    case MOVIE_SESSIONS_RECEIVED:
+    case MOVIE_SESSIONS_RECEIVED: {
       // if data received, but user already selected another cinema
-      if (action.data.length && action.data[0].cinema.id !== state.selectedCinema.id) {
+      const isMovieSessionsActual =
+        action.data.length &&
+        state.selectedCinema &&
+        action.data[0].cinema.id !== state.selectedCinema.id;
+      if (isMovieSessionsActual) {
         return state;
       }
       return {
         ...state,
         isMovieSessionsLoading: false,
         data: action.data,
-      };
-
-    case MOVIE_SESSION_REFRESH_REQUESTED:
-      return {
-        ...state,
-        isMovieSessionRefreshing: true,
-      };
-
-    case MOVIE_SESSION_REFRESH_RECEIVED: {
-      const data = [...state.data];
-      const index = data.findIndex(item => item.id === action.data.id);
-      data[index] = action.data;
-      return {
-        ...state,
-        isMovieSessionRefreshing: false,
-        data,
       };
     }
 

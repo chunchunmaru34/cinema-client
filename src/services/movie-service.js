@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { MOVIES_URL } from '../constants/api-endpoints';
+import { MOVIES_URL } from '../../conf/api-endpoints';
 
 export function getAllMovies() {
   return axios.get(MOVIES_URL);

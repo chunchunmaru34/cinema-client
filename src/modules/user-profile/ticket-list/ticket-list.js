@@ -29,8 +29,8 @@ const TicketList = ({
 
 Ticket.propTypes = {
   getTickets: PropTypes.func,
-  isTicketsRelevant: PropTypes.boolean,
-  isLoading: PropTypes.boolean,
+  isTicketsRelevant: PropTypes.bool,
+  isLoading: PropTypes.bool,
   tickets: PropTypes.arrayOf(PropTypes.shape({
     movieSession: PropTypes.shape({
       cinema: PropTypes.object,

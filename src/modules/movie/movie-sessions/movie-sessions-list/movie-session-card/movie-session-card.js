@@ -24,10 +24,9 @@ const MovieSessionCard = ({ data, clickHandler, match }) => (
       <span>{getDate(data.date)}</span>
       <span>Available seats: {data.availableSeatsCount}</span>
     </div>
-    <Route path={`${match.url}/movie-sessions/${data.id}`}
-           render={() => (
-             <MovieSession movieSession={data}/>
-           )}
+    <Route
+      path={`${match.url}/movie-sessions/${data.id}`}
+      render={() => <MovieSession movieSession={data}/>}
     />
   </div>
 );

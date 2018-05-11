@@ -1,10 +1,9 @@
-import { ticketService } from '../../services';
+import { ticketService, movieSessionService } from '../../services';
 import {
   SEAT_ADDED,
   SEAT_REMOVED,
   ADDITION_INCREMENTED,
   DECREMENT_ADDITION,
-  MOVIE_SESSION_SELECTED,
   PAYMENT_FAILED,
   PAYMENT_SUCCEED,
   TICKET_RECEIVED,
@@ -15,12 +14,63 @@ import {
   MOVIE_SESSION_UNSELECTED,
   RESERVATION_CLEAR_STATE,
   ORDER_CHECKING_OUT_CANCELED,
+  MOVIE_SESSION_RECEIVED,
+  MOVIE_SESSION_REQUESTED,
+  MOVIE_SESSION_REFRESH_REQUESTED,
+  MOVIE_SESSION_REFRESH_RECEIVED,
+  MOVIE_SESSION_SELECTED,
 } from './action-types';
+
+export function movieSessionRequested() {
+  return {
+    type: MOVIE_SESSION_REQUESTED,
+  };
+}
+
+export function movieSessionReceived(movieSession) {
+  return {
+    type: MOVIE_SESSION_RECEIVED,
+    data: movieSession,
+  };
+}
+
+export function movieSessionRefreshRequested() {
+  return {
+    type: MOVIE_SESSION_REFRESH_REQUESTED,
+  };
+}
+
+export function movieSessionRefreshReceived(movieSession) {
+  return {
+    type: MOVIE_SESSION_REFRESH_RECEIVED,
+    data: movieSession,
+  };
+}
 
 export function selectMovieSession(movieSession) {
   return {
     type: MOVIE_SESSION_SELECTED,
     data: movieSession,
+  };
+}
+
+export function requestAndSelectMovieSession(movieSession) {
+  return (dispatch) => {
+    dispatch(movieSessionRequested());
+    return movieSessionService.getMovieSessionById(movieSession.id)
+      .then((res) => {
+        dispatch(movieSessionReceived(res.data));
+        dispatch(selectMovieSession(res.data));
+      })
+      .catch(console.log);
+  };
+}
+
+export function refreshMovieSession(movieSession) {
+  return (dispatch) => {
+    dispatch(movieSessionRefreshRequested());
+    return movieSessionService.getMovieSessionById(movieSession.id)
+      .then(res => dispatch(movieSessionRefreshReceived(res.data)));
   };
 }
 
@@ -103,7 +153,7 @@ export function requestTicket(order) {
 export function payForOrder(paymentInfo) {
   return (dispatch) => {
     dispatch(paymentRequested());
-    ticketService.pay(paymentInfo)
+    return ticketService.pay(paymentInfo)
       .then(res => dispatch(paymentSucceed(res)))
       .catch((err) => {
         dispatch(paymentFailed(err.response ? err.response.data.message : err.message));

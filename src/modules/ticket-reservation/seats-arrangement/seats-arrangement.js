@@ -3,8 +3,17 @@ import PropTypes from 'prop-types';
 import Row from './row/row';
 import OrderSummary from '../order-summary/order-summary-container';
 import styles from './styles.scss';
+import LoadingBar from '../../util-components/loading-bar/index';
 
 const SeatsArrangements = ({ movieSession }) => {
+  if (!movieSession) {
+    return (
+      <div className={styles.container}>
+        <LoadingBar/>
+      </div>
+    );
+  }
+
   const rows = movieSession.seats
     .map((item, index) => (
       <Row

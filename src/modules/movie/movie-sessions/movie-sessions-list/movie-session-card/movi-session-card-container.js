@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { selectMovieSession, unselectMovieSession } from '../../../../ticket-reservation/actions';
+import { requestAndSelectMovieSession, unselectMovieSession } from '../../../../ticket-reservation/actions';
 import MovieSessionCard from './movie-session-card';
 
 class MovieSessionCardContainer extends React.Component {
@@ -15,7 +15,7 @@ class MovieSessionCardContainer extends React.Component {
       dispatch(unselectMovieSession());
       history.push(match.url);
     } else {
-      dispatch(selectMovieSession(movieSession));
+      dispatch(requestAndSelectMovieSession(movieSession));
       history.push(`${match.url}/movie-sessions/${movieSession.id}`);
     }
   };

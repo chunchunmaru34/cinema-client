@@ -18,10 +18,11 @@ class MovieCardContainer extends React.Component {
   render() {
     const { title, id, posterUrl } = this.props.movie;
     return (
-      <MovieCard posterUrl={posterUrl}
-                 id={id}
-                 title={title}
-                 clickHandler={this.clickHandler}
+      <MovieCard
+        posterUrl={posterUrl}
+        id={id}
+        title={title}
+        clickHandler={this.clickHandler}
       />
     );
   }

@@ -22,7 +22,7 @@ export function fetchMovies() {
   return (dispatch) => {
     dispatch(moviesRequested());
     return movieService.getAllMovies()
-      .then(res => dispatch(moviesReceived(res.data)));
+      .then(res => dispatch(moviesReceived(res.data.data)));
   };
 }
 
@@ -33,7 +33,7 @@ export function searchMovies(criteria) {
       'match-title': criteria,
     };
     return movieService.getAllMoviesBy(params)
-      .then(res => dispatch(moviesReceived(res.data)))
+      .then(res => dispatch(moviesReceived(res.data.data)))
       .catch(console.log);
   };
 }

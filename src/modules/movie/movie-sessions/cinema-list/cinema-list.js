@@ -8,7 +8,7 @@ const CinemaList = ({ cinemas, isLoading }) => {
   const cinemaList = cinemas && cinemas.map(item => (
     <CinemaCard data={item} key={item.id}/>
   ));
-  
+
   return (
     <div>
       <span>Choose cinema</span>

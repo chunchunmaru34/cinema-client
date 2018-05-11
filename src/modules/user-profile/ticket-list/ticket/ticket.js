@@ -18,7 +18,7 @@ function getDate(data) {
 const Ticket = ({ data }) => {
   const seats = data.addedSeats.map(item => (
     <div key={`${item.rowNumber}_${item.number}`}>
-      Row: {item.rowNumber} - Seat: {item.number}
+      Row: {item.rowNumber + 1} - Seat: {item.number + 1}
     </div>
   ));
   const additions = data.additions &&
