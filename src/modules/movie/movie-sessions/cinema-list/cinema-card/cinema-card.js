@@ -1,18 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Transition from 'react-transition-group/Transition';
 import PropTypes from 'prop-types';
 import styles from './styles.scss';
 import MovieSessionsList from '../../movie-sessions-list/movie-sessions-list-container';
 
-const transitionStyles = {
-  entering: { opacity: 0 },
-  entered: { opacity: 1 },
-};
-
 const CinemaCard = ({ data, clickHandler, match }) => (
-  <Transition timeout={300} in={true}>
-  <div className={styles.container} style={transitionStyles}>
+  <div className={styles.container}>
     <div className={styles.header}
          onClick={clickHandler}>
       <span>{data.name}</span>
@@ -23,7 +16,6 @@ const CinemaCard = ({ data, clickHandler, match }) => (
                                                   cinema={data}/>}
     />
   </div>
-  </Transition>
 );
 
 CinemaCard.propTypes = {
