@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import { payForOrder, requestTicket, finishOrdering, cancelCheckingOut, refreshMovieSession } from '../actions';
 import { PAYMENT_SUCCESS } from '../constants/payment-statuses';
 import OrderPayment from './order-payment';
@@ -9,12 +10,15 @@ class OrderPaymentContainer extends React.Component {
   onPayment = (e) => {
     e.preventDefault();
     const { dispatch, order, ticket } = this.props;
+
     if (ticket) return;
+
     dispatch(payForOrder(order));
   };
 
   onClosing = () => {
     const { dispatch, paymentStatus, ticket } = this.props;
+
     if (paymentStatus === PAYMENT_SUCCESS || ticket) {
       dispatch(finishOrdering());
     } else {
@@ -24,12 +28,17 @@ class OrderPaymentContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { dispatch, paymentStatus, selectedMovieSession } = this.props;
-    if (nextProps.paymentStatus !== paymentStatus && nextProps.paymentStatus === PAYMENT_SUCCESS) {
+
+    const isPaymentSuccessful =
+      nextProps.paymentStatus !== paymentStatus
+      && nextProps.paymentStatus === PAYMENT_SUCCESS;
+    if (isPaymentSuccessful) {
       const data = {
         ...nextProps.order,
         selectedMovieSession: nextProps.selectedMovieSession,
       };
       dispatch(requestTicket(data));
+
       setTimeout(() => dispatch(refreshMovieSession(selectedMovieSession)), 200);
     }
   }

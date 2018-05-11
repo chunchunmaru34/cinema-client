@@ -1,6 +1,7 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Addition from './addition/addition-container';
 import styles from './styles.scss';
 
@@ -45,9 +46,10 @@ export default class OrderSummary extends React.Component {
           <h4>Total price: {order.totalPrice}$</h4>
         </div>
         <div className="text-center mt-3">
-          <button disabled={isCheckingOut}
-                  className="btn btn-primary"
-                  onClick={checkout}
+          <button
+            disabled={isCheckingOut}
+            className="btn btn-primary"
+            onClick={checkout}
           >
             Checkout
           </button>

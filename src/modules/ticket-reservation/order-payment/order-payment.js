@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import styles from './styles.scss';
 import { PAYMENT_SUCCESS, PAYMENT_FAIL, PAYMENT_PENDING } from '../constants/payment-statuses';
 
@@ -26,10 +27,13 @@ export default class OrderPayment extends React.Component {
 
     return (
       <div className={styles.container}>
-        <button className="close"
-                onClick={finishOrder}>
+        <button
+          className="close"
+          onClick={finishOrder}
+        >
           &times;
         </button>
+
         <h4>Payment information</h4>
 
         <form className={styles.payForm}>
@@ -42,8 +46,9 @@ export default class OrderPayment extends React.Component {
             <input className="form-control"/>
           </div>
           <div>
-            <button onClick={pay}
-                    className="btn btn-primary mt-3">
+            <button
+              onClick={pay}
+              className="btn btn-primary mt-3">
               Pay
             </button>
           </div>
@@ -55,8 +60,7 @@ export default class OrderPayment extends React.Component {
             {error}
           </div>
         }
-        {
-         ticket &&
+        {ticket &&
           <div className="alert alert-secondary mt-3">
             <span>Your ticket id is:</span>
             <h4 className="mt-4 mb-4">{ticket.id}</h4>

@@ -3,6 +3,7 @@
 $seatWidth: 40px;
 
 .container {
+  cursor: pointer;
   text-align: center;
   border: 1px solid $light;
   margin: 5px;
@@ -18,6 +19,7 @@ $seatWidth: 40px;
 }
 
 .occupied {
+  cursor: auto;
   background-color: transparent;
 }
 
