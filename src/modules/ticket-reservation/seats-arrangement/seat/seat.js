@@ -2,54 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
-import { authService } from '../../../../services';
-import { OCCUPIED, TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
 
-export default class Seat extends React.Component {
-  // todo move this to container
-  handleSelect = () => {
-    const {
-      addSeat, removeSeat, data, index, rowIndex, selected,
-    } = this.props;
-
-    if (data.status === OCCUPIED) return;
-    if (data.status === TEMPORARY_OCCUPIED &&
-        data.occupiedBy !== authService.getAuthenticatedUser().id
-    ) {
-      return;
-    }
-
-    const seat = {
-      ...data,
-      number: index,
-      rowNumber: rowIndex,
-    };
-
-    if (selected) {
-      removeSeat(seat);
-    } else {
-      addSeat(seat);
-    }
-  };
-
-  render() {
-    const { index, data, selected } = this.props;
-    return (
-      <div className={`${styles.container} ${styles[data.status]} ${styles[data.kind.name]}
-        ${selected && styles.selected}`}
-           onClick={this.handleSelect}>
-        <div>{index + 1}</div>
-        <div>
-          <small>{data.kind.name !== 'common' && data.kind.displayName}</small>
-        </div>
-      </div>
-    );
-  }
-}
+const Seat = ({
+  index, data, selected, handleSelect,
+}) => (
+  <div
+    className={`
+      ${styles.container}
+      ${styles[data.status]}
+      ${styles[data.kind.name]}
+      ${selected && styles.selected}
+    `}
+    onClick={handleSelect}
+  >
+    <div>{index + 1}</div>
+    <div>
+      <small>{data.kind.name !== 'common' && data.kind.displayName}</small>
+    </div>
+  </div>
+);
 
 Seat.propTypes = {
-  addSeat: PropTypes.func,
-  removeSeat: PropTypes.func,
+  handleSelect: PropTypes.func,
   data: PropTypes.shape({
     kind: PropTypes.shape({
       name: PropTypes.string,
@@ -73,3 +47,5 @@ Seat.propTypes = {
   index: PropTypes.number,
   rowIndex: PropTypes.number,
 };
+
+export default Seat;

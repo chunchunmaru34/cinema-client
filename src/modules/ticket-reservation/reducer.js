@@ -89,6 +89,9 @@ function ticketReservation(state = initialState, action) {
       const seats = [...state.order.addedSeats];
       const i = seats.findIndex(item => item._id === action.data._id);
       const seatPrice = state.selectedMovieSession.price * (action.data.kind.priceMultiplier || 1);
+      if (i === -1) {
+        return state;
+      }
       seats.splice(i, 1);
       return {
         ...state,

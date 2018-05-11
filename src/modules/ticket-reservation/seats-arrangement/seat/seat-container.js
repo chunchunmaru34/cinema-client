@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { addSeat, removeSeat, refreshMovieSession } from '../../actions';
-import { ticketService } from '../../../../services';
-import { AVAILABLE, TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
+import { ticketService, authService } from '../../../../services';
+import { OCCUPIED, AVAILABLE, TEMPORARY_OCCUPIED } from '../../constants/seats-statuses';
 import Seat from './seat';
 
 class SeatContainer extends React.Component {
@@ -14,11 +14,11 @@ class SeatContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.checkIfSeatAlreadySelected(this.props);
+    const { addedSeats, data } = this.props;
+    this.checkIfSeatAlreadySelected({ addedSeats, data });
   }
 
   componentWillReceiveProps(nextProps) {
-    // todo, check if it really necessary
     this.checkIfSeatAlreadySelected(nextProps);
     this.checkIfSeatExpired(nextProps);
   }
@@ -68,6 +68,30 @@ class SeatContainer extends React.Component {
     setTimeout(() => dispatch(refreshMovieSession(movieSession)), 100);
   };
 
+  handleSelect = () => {
+    const { data, index, rowIndex } = this.props;
+
+    const isSeatOccupied = data.status === OCCUPIED;
+    const isSeatNotReservedByUser =
+      data.status === TEMPORARY_OCCUPIED
+      && data.occupiedBy !== authService.getAuthenticatedUser().id;
+    if (isSeatOccupied || isSeatNotReservedByUser) {
+      return;
+    }
+
+    const seat = {
+      ...data,
+      number: index,
+      rowNumber: rowIndex,
+    };
+
+    if (this.state.selected) {
+      this.onRemoveSeat(seat);
+    } else {
+      this.onAddSeat(seat);
+    }
+  };
+
   render() {
     const {
       data, index, rowIndex,
@@ -78,8 +102,7 @@ class SeatContainer extends React.Component {
         selected={this.state.selected}
         index={index}
         rowIndex={rowIndex}
-        addSeat={this.onAddSeat}
-        removeSeat={this.onRemoveSeat}
+        handleSelect={this.handleSelect}
       />
     );
   }
