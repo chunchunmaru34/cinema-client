@@ -1,9 +1,10 @@
-@import '../../../../css/variables.global.';
+@import '../../../../sass/variables.global.';
 
 $seatWidth: 40px;
 
 .container {
   cursor: pointer;
+  user-select: none;
   text-align: center;
   border: 1px solid $light;
   margin: 5px;

@@ -1,4 +1,4 @@
-@import '../../../../css/variables.global.';
+@import '../../../../sass/variables.global.';
 
 .container {
   min-height: 30px;
@@ -9,6 +9,7 @@
 
 .header {
   cursor: pointer;
+  user-select: none;
   display: flex;
   justify-content: space-between;
   padding: 15px;

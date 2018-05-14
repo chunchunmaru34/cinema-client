@@ -24,7 +24,7 @@ import {
   USERS_ROUTE,
 } from '../constants/routes';
 
-import '../css/.global.scss';
+import '../sass/.global.scss';
 import styles from './app.scss';
 
 const App = () => (

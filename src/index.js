@@ -2,6 +2,7 @@ import { AppContainer } from 'react-hot-loader';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import configureAxios from './utils/axios/axios-config';
 import App from './modules/app';
 import store from './redux/store';
