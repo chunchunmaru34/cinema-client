@@ -7,9 +7,13 @@ import {
   ERROR_CLEARED,
   USER_PROFILE_CLEAR_STATE,
   TICKETS_REQUESTED,
-  ALL_TICKETS_RECEIVED,
-  RELEVANT_TICKETS_RECEIVED,
+  TICKETS_ALL_RECEIVED,
+  TICKETS_RELEVANT_RECEIVED,
 } from './action-types';
+import {
+  USER_UPDATE_SUCCESS_MESSAGE,
+  USER_UPDATE_FAILURE_MESSAGE,
+} from './constants/alert-messages';
 
 const initialState = {
   userDetails: null,
@@ -40,14 +44,14 @@ export default function profile(state = initialState, action) {
         ...state,
         isLoading: false,
         isTicketsLoading: false,
-        error: action.data,
+        error: action.data || USER_UPDATE_FAILURE_MESSAGE,
       };
 
     case USER_UPDATE_SUCCEED:
       return {
         ...state,
         userDetails: action.data,
-        info: 'User was updated successfully',
+        info: USER_UPDATE_SUCCESS_MESSAGE,
       };
 
     case INFO_CLEARED:
@@ -68,7 +72,7 @@ export default function profile(state = initialState, action) {
         isTicketsLoading: true,
       };
 
-    case ALL_TICKETS_RECEIVED:
+    case TICKETS_ALL_RECEIVED:
       return {
         ...state,
         tickets: action.data,
@@ -76,7 +80,7 @@ export default function profile(state = initialState, action) {
         isTicketsLoading: false,
       };
 
-    case RELEVANT_TICKETS_RECEIVED:
+    case TICKETS_RELEVANT_RECEIVED:
       return {
         ...state,
         tickets: action.data,

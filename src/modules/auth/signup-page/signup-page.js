@@ -188,6 +188,7 @@ export default class SignUpPage extends React.Component {
           { this.props.error &&
             <div className="mt-3">
               <DismissibleError
+                type="danger"
                 message={this.props.error}
                 onDismiss={this.props.clearError}
               />

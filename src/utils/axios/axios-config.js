@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
+
 import { authService } from '../../services/index';
 import { AUTH_TOKEN_NAME } from '../../constants/auth';
 import store from '../../redux/store';
@@ -21,10 +22,12 @@ function handleTokenExpiration() {
 
 export default function configureAxios() {
   axios.defaults.headers.post['Content-Type'] = 'application/json';
+
   axios.interceptors.request.use((request) => {
     attachToken(request);
     return request;
   });
+
   axios.interceptors.response.use(
     response => response,
     (error) => {

@@ -1,24 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import {
   fetchUser,
   updateUser,
   clearError,
   clearInfo,
   clearState,
-} from './actions';
-import UserProfile from './user-profile';
-import LoadingBar from '../util-components/loading-bar';
+} from '../actions';
+import UserInfo from './user-info';
+import LoadingBar from '../../util-components/loading-bar/index';
+import { LOGIN_ROUTE } from '../../../constants/routes';
 
-class UserProfileContainer extends React.Component {
+class UserInfoContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { timer: null };
   }
 
   componentDidMount() {
-    const { user, dispatch } = this.props;
+    const { user, dispatch, history } = this.props;
+
+    if (!user) {
+      history.push(LOGIN_ROUTE);
+      return;
+    }
+
     dispatch(fetchUser(user.id));
   }
 
@@ -28,39 +36,46 @@ class UserProfileContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { dispatch } = this.props;
+
     if (nextProps.error) {
       dispatch(clearInfo());
-      clearTimeout(this.state.timer);
-      const timer = setTimeout(() => dispatch(clearError()), 5000);
-      this.setState({ timer });
       return;
     }
+
     if (nextProps.info) {
-      clearTimeout(this.state.timer);
-      this.props.dispatch(clearError());
-      const timer = setTimeout(() => dispatch(clearInfo()), 5000);
-      this.setState({ timer });
+      dispatch(clearError());
     }
   }
 
-  handleSubmit = (user) => {
+  handleUpdate = (user) => {
     this.props.dispatch(updateUser(user));
+  };
+
+  onClearError = () => {
+    this.props.dispatch(clearError());
+  };
+
+  onClearInfo = () => {
+    this.props.dispatch(clearInfo());
   };
 
   render() {
     const {
       userDetails, info, error, isLoading,
     } = this.props;
+
     const component = (
-      <UserProfile
+      <UserInfo
         user={userDetails}
         info={info}
         error={error}
-        updateUser={this.handleSubmit}
+        clearInfo={this.onClearInfo}
+        clearError={this.onClearError}
+        updateUser={this.handleUpdate}
       />
     );
-    const loading = <LoadingBar isLoading={isLoading}/>;
-    return isLoading ? loading : component;
+
+    return isLoading ? <LoadingBar/> : component;
   }
 }
 
@@ -72,7 +87,7 @@ const mapStateToProps = state => ({
   isLoading: state.profile.isLoading,
 });
 
-UserProfileContainer.propTypes = {
+UserInfoContainer.propTypes = {
   info: PropTypes.string,
   error: PropTypes.string,
   user: PropTypes.shape({
@@ -89,4 +104,4 @@ UserProfileContainer.propTypes = {
   }),
 };
 
-export default connect(mapStateToProps)(UserProfileContainer);
+export default connect(mapStateToProps)(UserInfoContainer);

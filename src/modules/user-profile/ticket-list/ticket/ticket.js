@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import styles from './styles.scss';
 
 function getDate(data) {
@@ -21,12 +22,15 @@ const Ticket = ({ data }) => {
       Row: {item.rowNumber + 1} - Seat: {item.number + 1}
     </div>
   ));
+
   const additions = data.additions &&
     Object.entries(data.additions).map(([key, value]) => (
       <div key={key}>{key} : {value}</div>
     ));
+
   return (
     <div className={styles.container}>
+
       <div className={styles.header}>
         <h5>{getDate(data.movieSession.date)}</h5>
       </div>
@@ -44,7 +48,9 @@ const Ticket = ({ data }) => {
             {additions}
           </div>
         </div>
-        <div className="text-center">Price: {data.totalPrice}$</div>
+        <div className="text-center">
+          Price: {data.totalPrice}$
+        </div>
       </div>
     </div>
   );

@@ -60,6 +60,7 @@ export default class LoginPage extends React.Component {
           { this.props.error &&
             <div className="mt-3">
               <DismissibleAlert
+                type="danger"
                 message={this.props.error}
                 onDismiss={this.props.clearError}
               />

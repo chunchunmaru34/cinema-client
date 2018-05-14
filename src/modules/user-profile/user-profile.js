@@ -1,116 +1,41 @@
 import React from 'react';
-import gravatar from 'gravatar';
+import { connect } from 'react-redux';
+
+import history from '../../utils/history';
+import UserInfo from './user-info/user-info-container';
 import TicketList from './ticket-list/ticket-list-container';
 import styles from './styles.scss';
+import { LOGIN_ROUTE } from '../../constants/routes';
 
-export default class UserProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: this.props.user,
-      isEditingName: false,
-      isEditingCity: false,
-    };
+class UserProfile extends React.Component {
+  componentDidMount() {
+    if (!this.props.user) {
+      history.push(LOGIN_ROUTE);
+    }
   }
 
-  toggleEdit = (e) => {
-    const { name } = e.target;
-    this.setState({ [`isEditing${name}`]: !this.state[`isEditing${name}`] });
-  };
-
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    const { user } = this.state;
-    user[name] = value;
-    this.setState({
-      user,
-    });
-  };
-
-  onSubmit = () => {
-    this.props.updateUser(this.state.user);
-  };
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.user) {
+      history.push(LOGIN_ROUTE);
+    }
+  }
 
   render() {
-    const { user, isEditingCity, isEditingName } = this.state;
-    const { error, info } = this.props;
+    if (!this.props.user) {
+      return null;
+    }
 
     return (
       <div className={styles.container}>
-        <div>
-          <div className={styles.info}>
-
-            {/* Profile pic */}
-            <div className={styles.profilePic}>
-              <img src={gravatar.url(user.email, { s: '220', r: 'pg' })}/>
-            </div>
-
-            <div className={styles.details}>
-              {/* Name */}
-              <div className={`${styles.infoLine} input-group`}>
-                <label>Name: </label>
-                { this.state.isEditingName ?
-                  <input className="form-control"
-                         value={user.name}
-                         onChange={this.handleChange}
-                         maxLength="30"
-                         name="name"/>
-                  :
-                  <span>{user.name}</span>
-                }
-                <button className="btn btn-sm btn-outline-primary"
-                        onClick={this.toggleEdit}
-                        name="Name">
-                  {isEditingName ? 'Save' : 'Edit'}
-                </button>
-              </div>
-
-              {/* City */}
-              <div className={`${styles.infoLine} input-group`}>
-                <label>City: </label>
-                { this.state.isEditingCity ?
-                  <input className="form-control"
-                         value={user.city}
-                         onChange={this.handleChange}
-                         maxLength="30"
-                         name="city"/>
-                  :
-                  <span>{user.city}</span>
-                }
-                <button onClick={this.toggleEdit}
-                        className="btn btn-sm btn-outline-primary"
-                        name="City">
-                  {isEditingCity ? 'Save' : 'Edit'}
-                </button>
-              </div>
-              {/* Email */}
-              <div>Email: {user.email}</div>
-            </div>
-          </div>
-
-          <div className="text-center mt-5">
-            <button onClick={this.onSubmit}
-                    className="btn btn-primary"
-            >
-              Update Info
-            </button>
-          </div>
-        </div>
-
-        {/* After-action info */}
-        { error &&
-            <div className="alert-danger alert mt-3">
-              {error}
-            </div>
-        }
-        { info &&
-            <div className="alert alert-success mt-3">
-              {info}
-            </div>
-        }
-
+        <UserInfo/>
         <TicketList/>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps)(UserProfile);

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Ticket from './ticket/ticket';
 import styles from './styles.scss';
 import LoadingBar from '../../util-components/loading-bar';
@@ -12,17 +13,24 @@ const TicketList = ({
       <h4>Your tickets</h4>
     </div>
     <div className={styles.picker}>
-      <span onClick={() => getTickets(false)}
-            className={!isTicketsRelevant ? styles.selected : ''}>All</span>
+      <span
+        onClick={() => getTickets(false)}
+        className={!isTicketsRelevant ? styles.selected : ''}
+      >
+        All
+      </span>
       <span>|</span>
-      <span onClick={() => getTickets(true)}
-            className={isTicketsRelevant ? styles.selected : ''}>Relevant</span>
+      <span
+        onClick={() => getTickets(true)}
+        className={isTicketsRelevant ? styles.selected : ''}
+      >
+        Relevant
+      </span>
     </div>
-    {
-      isLoading ?
-      <LoadingBar/>
-        :
-      tickets.map(ticket => <Ticket key={ticket.id} data={ticket}/>)
+    {isLoading ?
+        <LoadingBar/>
+      :
+        tickets.map(ticket => <Ticket key={ticket.id} data={ticket}/>)
     }
   </div>
 );
@@ -40,7 +48,7 @@ Ticket.propTypes = {
     }),
     addedSeats: PropTypes.arrayOf(PropTypes.shape({
       number: PropTypes.number,
-      rowNumber: PropTypes.rowNumber,
+      rowNumber: PropTypes.number,
     })),
     transactionId: PropTypes.string,
     user: PropTypes.string,

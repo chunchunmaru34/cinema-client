@@ -8,8 +8,8 @@ import {
   INFO_CLEARED,
   USER_PROFILE_CLEAR_STATE,
   TICKETS_REQUESTED,
-  ALL_TICKETS_RECEIVED,
-  RELEVANT_TICKETS_RECEIVED,
+  TICKETS_ALL_RECEIVED,
+  TICKETS_RELEVANT_RECEIVED,
 } from './action-types';
 
 export function requestUser() {
@@ -39,16 +39,16 @@ export function ticketsRequested() {
   };
 }
 
-export function gotRelevantTickets(tickets) {
+export function receiveRelevantTickets(tickets) {
   return {
-    type: RELEVANT_TICKETS_RECEIVED,
+    type: TICKETS_RELEVANT_RECEIVED,
     data: tickets,
   };
 }
 
-export function gotAllTickets(tickets) {
+export function receiveAllTickets(tickets) {
   return {
-    type: ALL_TICKETS_RECEIVED,
+    type: TICKETS_ALL_RECEIVED,
     data: tickets,
   };
 }
@@ -59,9 +59,9 @@ export function fetchTickets({ user, relevant }) {
     return ticketService.getTickets({ user, relevant })
       .then((res) => {
         if (relevant) {
-          dispatch(gotRelevantTickets(res.data.data));
+          dispatch(receiveRelevantTickets(res.data.data));
         } else {
-          dispatch(gotAllTickets(res.data.data));
+          dispatch(receiveAllTickets(res.data.data));
         }
       });
   };
@@ -83,7 +83,7 @@ export function updateFailed(err) {
 
 export function updateUser(user) {
   return dispatch => userService.updateUser(user)
-    .then(res => dispatch(updateSucceed(res.data.data)))
+    .then(res => dispatch(updateSucceed(res.data)))
     .catch((err) => {
       updateFailed(err.response ? err.response.data.message : err.message);
     });

@@ -8,6 +8,7 @@ export function login(credentials) {
     ...credentials,
     app: APP_NAME,
   };
+
   return axios.post(SIGN_IN_URL, payload)
     .then((res) => {
       localStorage.setItem(AUTH_TOKEN_NAME, res.data.token);

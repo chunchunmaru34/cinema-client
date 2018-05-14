@@ -1,7 +1,7 @@
 import React from 'react';
 
-const DismissibleAlert = ({ message, onDismiss }) => (
-  <div className="alert alert-danger alert-dismissible">
+const DismissibleAlert = ({ message, onDismiss, type }) => (
+  <div className={`alert alert-${type} alert-dismissible`}>
     <span>{message}</span>
     <button
       onClick={onDismiss}

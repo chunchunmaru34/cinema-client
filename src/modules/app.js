@@ -14,7 +14,7 @@ import Header from './header/header-container';
 import Footer from './footer';
 import MovieDetails from './movie/movie-details/movie-details-container';
 import SignUpPage from './auth/signup-page/signup-page-container';
-import UserProfile from './user-profile/user-profile-container';
+import UserProfile from './user-profile/user-profile';
 import NoMatch from './util-components/no-match/no-match';
 import {
   LOGIN_ROUTE,
@@ -36,7 +36,7 @@ const App = () => (
             <Route
               exact path={HOME_ROUTE}
               key={HOME_ROUTE}
-                   component={Home}/>
+              component={Home}/>
             <Route
               path={LOGIN_ROUTE}
               key={LOGIN_ROUTE}
