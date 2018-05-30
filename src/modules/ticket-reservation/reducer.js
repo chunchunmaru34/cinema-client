@@ -52,7 +52,7 @@ function ticketReservation(state = initialState, action) {
 
     case MOVIE_SESSION_SELECTED:
       return {
-        ...state,
+        ...initialState,
         selectedMovieSession: action.data,
       };
 
