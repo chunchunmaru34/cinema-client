@@ -6,33 +6,38 @@ import Addition from './addition';
 
 class AdditionContainer extends React.Component {
   onIncrement = () => {
-    const { dispatch, data } = this.props;
-    dispatch(incrementAddition(data));
+    const { dispatch, data, ticket } = this.props;
+    dispatch(incrementAddition({ movieSessionAddition: data, ticket }));
   };
 
   onDecrement = () => {
-    const { dispatch, data, count } = this.props;
-    if (count === 0) return;
-    dispatch(decrementAddition(data));
+    const { dispatch, data, ticket } = this.props;
+    dispatch(decrementAddition({ movieSessionAddition: data, ticket }));
   };
 
   render() {
-    const { data, count } = this.props;
-    return <Addition data={data}
-                     count={count}
-                     increment={this.onIncrement}
-                     decrement={this.onDecrement}/>;
+    const { data, ticket } = this.props;
+    const ticketAddition = ticket.ticketAdditions
+      .find(item => item.movieSessionAdditionId === data.id);
+    return (
+      <Addition
+        data={data}
+        ticketAddition={ticketAddition}
+        increment={this.onIncrement}
+        decrement={this.onDecrement}
+      />
+    );
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   data: ownProps.data,
-  count: state.ticketReservation.order.additions[ownProps.data.addition.name],
+  ticket: ownProps.ticket,
 });
 
 AdditionContainer.propTypes = {
   data: PropTypes.shape({
-    addition: PropTypes.shape({
+    additionalService: PropTypes.shape({
       name: PropTypes.string,
     }),
     price: PropTypes.number,

@@ -1,16 +1,11 @@
 import { ticketService, movieSessionService } from '../../services';
 import {
-  SEAT_ADDED,
-  SEAT_REMOVED,
   ADDITION_INCREMENTED,
   DECREMENT_ADDITION,
-  PAYMENT_FAILED,
-  PAYMENT_SUCCEED,
   TICKET_RECEIVED,
   TICKET_RECEIVING_FAILED,
   ORDER_CHECKOUT,
   ORDER_FINISH,
-  PAYMENT_REQUESTED,
   MOVIE_SESSION_UNSELECTED,
   RESERVATION_CLEAR_STATE,
   ORDER_CHECKING_OUT_CANCELED,
@@ -19,6 +14,9 @@ import {
   MOVIE_SESSION_REFRESH_REQUESTED,
   MOVIE_SESSION_REFRESH_RECEIVED,
   MOVIE_SESSION_SELECTED,
+  TICKET_CREATE,
+  TICKET_DELETE,
+  TICKETS_CHECK_FOR_EXPIRATION,
 } from './action-types';
 
 export function movieSessionRequested() {
@@ -65,11 +63,20 @@ export function requestAndSelectMovieSession(movieSession) {
   };
 }
 
+export function checkTicketsForExpiration() {
+  return {
+    type: TICKETS_CHECK_FOR_EXPIRATION,
+  };
+}
+
 export function refreshMovieSession(movieSession) {
   return (dispatch) => {
     dispatch(movieSessionRefreshRequested());
     return movieSessionService.getMovieSessionById(movieSession.id)
-      .then(res => dispatch(movieSessionRefreshReceived(res.data)));
+      .then((res) => {
+        dispatch(movieSessionRefreshReceived(res.data));
+        dispatch(checkTicketsForExpiration());
+      });
   };
 }
 
@@ -79,52 +86,25 @@ export function unselectMovieSession() {
   };
 }
 
-export function addSeat(seat) {
-  return {
-    type: SEAT_ADDED,
-    data: seat,
-  };
-}
-
-export function removeSeat(seat) {
-  return {
-    type: SEAT_REMOVED,
-    data: seat,
-  };
-}
-
-export function incrementAddition(addition) {
+export function incrementAddition({ movieSessionAddition, ticket }) {
   return {
     type: ADDITION_INCREMENTED,
-    data: addition,
+    data: { movieSessionAddition, ticket },
   };
 }
 
-export function decrementAddition(addition) {
+export function decrementAddition({ movieSessionAddition, ticket }) {
   return {
     type: DECREMENT_ADDITION,
-    data: addition,
+    data: { movieSessionAddition, ticket },
   };
 }
 
-export function paymentSucceed(transactionId) {
-  return {
-    type: PAYMENT_SUCCEED,
-    data: transactionId,
-  };
-}
-
-export function paymentFailed(err) {
-  return {
-    type: PAYMENT_FAILED,
-    data: err,
-  };
-}
-
-export function ticketReceived(ticket) {
+// todo: rename
+export function ticketsReceived(tickets) {
   return {
     type: TICKET_RECEIVED,
-    data: ticket,
+    data: tickets,
   };
 }
 
@@ -132,31 +112,6 @@ export function ticketReceivingFailed(err) {
   return {
     type: TICKET_RECEIVING_FAILED,
     data: err,
-  };
-}
-
-export function paymentRequested() {
-  return {
-    type: PAYMENT_REQUESTED,
-  };
-}
-
-export function requestTicket(order) {
-  return dispatch => ticketService.requestTicket(order)
-    .then(res => dispatch(ticketReceived(res.data)))
-    .catch((err) => {
-      dispatch(ticketReceivingFailed(err.response ? err.response.data.message : err.message));
-    });
-}
-
-export function payForOrder(paymentInfo) {
-  return (dispatch) => {
-    dispatch(paymentRequested());
-    return ticketService.pay(paymentInfo)
-      .then(res => dispatch(paymentSucceed(res)))
-      .catch((err) => {
-        dispatch(paymentFailed(err.response ? err.response.data.message : err.message));
-      });
   };
 }
 
@@ -172,6 +127,13 @@ export function finishOrdering() {
   };
 }
 
+export function confirmOrder(tickets) {
+  return dispatch => ticketService.updateTickets(tickets)
+    .then(res => dispatch(ticketsReceived(res.data)))
+    .catch(err =>
+      dispatch(ticketReceivingFailed(err.response ? err.response.data.message : err.message)));
+}
+
 export function cancelCheckingOut() {
   return {
     type: ORDER_CHECKING_OUT_CANCELED,
@@ -184,3 +146,30 @@ export function clearState(movieSession) {
     data: movieSession,
   };
 }
+
+export function insertTicketToState(ticket) {
+  return {
+    type: TICKET_CREATE,
+    data: ticket,
+  };
+}
+
+export function removeTicketFromState(seatId) {
+  return {
+    type: TICKET_DELETE,
+    data: {
+      seatId,
+    },
+  };
+}
+
+export function createTicket(ticket) {
+  return dispatch => ticketService.createTicket(ticket)
+    .then(res => dispatch(insertTicketToState(res.data)));
+}
+
+export function deleteTicket(ticket) {
+  return dispatch => ticketService.deleteTicket(ticket.id)
+    .then(res => dispatch(removeTicketFromState(res.data)));
+}
+

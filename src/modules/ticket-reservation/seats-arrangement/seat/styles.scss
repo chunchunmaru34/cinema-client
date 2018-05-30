@@ -4,6 +4,8 @@ $seatWidth: 40px;
 
 .container {
   cursor: pointer;
+  background-color: $light;
+  color: $dark;
   user-select: none;
   text-align: center;
   border: 1px solid $light;
@@ -14,18 +16,14 @@ $seatWidth: 40px;
   overflow: hidden;
 }
 
-.available {
-  background-color: $light;
-  color: $dark;
-}
-
-.occupied {
+.paid {
   cursor: auto;
   background-color: transparent;
+  color: $light;
 }
 
-.temporaryOccupied {
-  background-color: transparentize($light, 0.75);
+.waiting_for_payment {
+  background-color: transparentize($light, 0.5);
 }
 
 .selected {

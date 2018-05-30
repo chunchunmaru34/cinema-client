@@ -56,7 +56,7 @@ const movieSessions = (state = initialState, action) => {
       const isDataNotActual =
         action.data.length &&
         state.selectedCinema &&
-        action.data[0].cinema.id !== state.selectedCinema.id;
+        action.data[0].room.cinemaId !== state.selectedCinema.id;
       if (isDataNotActual) {
         return state;
       }

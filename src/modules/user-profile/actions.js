@@ -53,12 +53,12 @@ export function receiveAllTickets(tickets) {
   };
 }
 
-export function fetchTickets({ user, relevant }) {
+export function fetchTickets(params) {
   return (dispatch) => {
     dispatch(ticketsRequested());
-    return ticketService.getTickets({ user, relevant })
+    return ticketService.getTickets(params)
       .then((res) => {
-        if (relevant) {
+        if (params.relevant) {
           dispatch(receiveRelevantTickets(res.data.data));
         } else {
           dispatch(receiveAllTickets(res.data.data));

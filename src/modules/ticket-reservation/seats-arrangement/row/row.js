@@ -5,7 +5,7 @@ import Seat from '../seat/seat-container';
 import styles from './styles.scss';
 
 const Row = ({ data, rowIndex }) => {
-  const seats = data
+  const seats = data.seats
     .map((item, index) => (
       <Seat
         data={item}

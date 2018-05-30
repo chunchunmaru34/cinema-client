@@ -2,6 +2,7 @@
   "parser": "babel-eslint",
   "plugins": ["react"],
   "rules": {
+    "no-param-reassign": "off",
     "linebreak-style": "off",
     "no-prototype-builtins": "off",
     "no-undef": "off",

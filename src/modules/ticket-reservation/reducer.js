@@ -1,16 +1,11 @@
 import {
-  SEAT_ADDED,
-  SEAT_REMOVED,
   ADDITION_INCREMENTED,
   DECREMENT_ADDITION,
   MOVIE_SESSION_UNSELECTED,
-  PAYMENT_FAILED,
   TICKET_RECEIVED,
   TICKET_RECEIVING_FAILED,
-  PAYMENT_SUCCEED,
   ORDER_CHECKOUT,
   ORDER_FINISH,
-  PAYMENT_REQUESTED,
   RESERVATION_CLEAR_STATE,
   ORDER_CHECKING_OUT_CANCELED,
   MOVIE_SESSION_RECEIVED,
@@ -18,26 +13,44 @@ import {
   MOVIE_SESSION_SELECTED,
   MOVIE_SESSION_REFRESH_RECEIVED,
   MOVIE_SESSION_REFRESH_REQUESTED,
+  TICKET_CREATE,
+  TICKET_DELETE,
+  TICKETS_CHECK_FOR_EXPIRATION,
 } from './action-types';
-import { PAYMENT_SUCCESS, PAYMENT_FAIL, PAYMENT_PENDING } from './constants/payment-statuses';
 
 const initialState = {
-  order: {
-    addedSeats: [],
-    additions: {},
-    totalPrice: 0,
-    transactionId: null,
-  },
+  userTickets: [],
+  totalPrice: 0,
+  confirmedTickets: null,
   selectedMovieSession: null,
   isMovieSessionLoading: false,
-  paymentStatus: null,
-  ticket: null,
   error: null,
   isCheckingOut: false,
 };
 
 function ticketReservation(state = initialState, action) {
   switch (action.type) {
+    case TICKET_CREATE: {
+      const tickets = [...state.userTickets];
+      tickets.push(action.data);
+
+      return {
+        ...state,
+        userTickets: tickets,
+      };
+    }
+
+    case TICKET_DELETE: {
+      const tickets = [...state.userTickets];
+      const ticketIndex = tickets.findIndex(ticket => ticket.seatId === action.data.seatId);
+      tickets.splice(ticketIndex, 1);
+
+      return {
+        ...state,
+        userTickets: tickets,
+      };
+    }
+
     case MOVIE_SESSION_REQUESTED:
       return {
         ...state,
@@ -71,92 +84,72 @@ function ticketReservation(state = initialState, action) {
     case MOVIE_SESSION_UNSELECTED:
       return initialState;
 
-    case SEAT_ADDED: {
-      const seats = [...state.order.addedSeats];
-      const seatPrice = state.selectedMovieSession.price * (action.data.kind.priceMultiplier || 1);
-      seats.push(action.data);
-      return {
-        ...state,
-        order: {
-          ...state.order,
-          addedSeats: seats,
-          totalPrice: state.order.totalPrice + seatPrice,
-        },
-      };
-    }
-
-    case SEAT_REMOVED: {
-      const seats = [...state.order.addedSeats];
-      const i = seats.findIndex(item => item._id === action.data._id);
-      const seatPrice = state.selectedMovieSession.price * (action.data.kind.priceMultiplier || 1);
-      if (i === -1) {
-        return state;
-      }
-      seats.splice(i, 1);
-      return {
-        ...state,
-        order: {
-          ...state.order,
-          addedSeats: seats,
-          totalPrice: state.order.totalPrice - seatPrice,
-        },
-      };
-    }
-
     case ADDITION_INCREMENTED: {
-      const additions = { ...state.order.additions };
-      const { name } = action.data.addition;
-      if (!additions[name]) {
-        additions[name] = 1;
-      } else {
-        additions[name] += 1;
+      const tickets = [...state.userTickets];
+      const ticketIndex = tickets.findIndex(ticket => ticket.id === action.data.ticket.id);
+      const ticket = { ...tickets[ticketIndex] };
+
+      const { ticketAdditions = [] } = ticket;
+      let additionIndex = -1;
+
+      if (ticketAdditions.length) {
+        additionIndex = ticketAdditions
+          .findIndex(addition =>
+            addition.movieSessionAdditionId === action.data.movieSessionAddition.id);
       }
+
+      if (additionIndex === -1) {
+        const ticketAddition = {
+          movieSessionAddition: action.data.movieSessionAddition,
+          movieSessionAdditionId: action.data.movieSessionAddition.id,
+          count: 1,
+        };
+        ticketAdditions.push(ticketAddition);
+      } else {
+        ticketAdditions[additionIndex].count += 1;
+      }
+
+      ticket.totalPrice += action.data.movieSessionAddition.price;
+
+      ticket.ticketAdditions = ticketAdditions;
+      tickets[ticketIndex] = ticket;
+
       return {
         ...state,
-        order: {
-          ...state.order,
-          additions,
-          totalPrice: state.order.totalPrice + action.data.price,
-        },
+        userTickets: tickets,
       };
     }
 
     case DECREMENT_ADDITION: {
-      const additions = { ...state.order.additions };
-      const { name } = action.data.addition;
-      additions[name] -= 1;
+      const tickets = [...state.userTickets];
+      const ticketIndex = tickets.findIndex(ticket => ticket.id === action.data.ticket.id);
+      const ticket = { ...tickets[ticketIndex] };
+
+      const { ticketAdditions = [] } = ticket;
+      const additionIndex = ticket.ticketAdditions
+        .findIndex(addition =>
+          addition.movieSessionAdditionId === action.data.movieSessionAddition.id);
+
+      if (additionIndex === -1) {
+        const ticketAddition = {
+          movieSessionAddition: action.data.movieSessionAddition,
+          movieSessionAdditionId: action.data.movieSessionAddition.id,
+          count: 0,
+        };
+        ticketAdditions.push(ticketAddition);
+      } else {
+        ticketAdditions[additionIndex].count -= 1;
+      }
+
+      ticket.totalPrice -= action.data.movieSessionAddition.price;
+
+      tickets[ticketIndex] = ticket;
+
       return {
         ...state,
-        order: {
-          ...state.order,
-          additions,
-          totalPrice: state.order.totalPrice - action.data.price,
-        },
+        userTickets: tickets,
       };
     }
-
-    case PAYMENT_REQUESTED:
-      return {
-        ...state,
-        paymentStatus: PAYMENT_PENDING,
-      };
-
-    case PAYMENT_SUCCEED:
-      return {
-        ...state,
-        order: {
-          ...state.order,
-          transactionId: action.data,
-        },
-        paymentStatus: PAYMENT_SUCCESS,
-      };
-
-    case PAYMENT_FAILED:
-      return {
-        ...state,
-        error: action.data,
-        paymentStatus: PAYMENT_FAIL,
-      };
 
     case TICKET_RECEIVED:
       if (!state.isCheckingOut) {
@@ -166,20 +159,45 @@ function ticketReservation(state = initialState, action) {
           selectedMovieSession: state.selectedMovieSession,
         };
       }
+
       return {
         ...initialState,
+        confirmedTickets: action.data,
         isCheckingOut: state.isCheckingOut,
         selectedMovieSession: state.selectedMovieSession,
-        ticket: action.data,
       };
 
     case TICKET_RECEIVING_FAILED:
       return {
-        ...initialState,
-        isCheckingOut: state.isCheckingOut,
-        selectedMovieSession: state.selectedMovieSession,
+        ...state,
         error: action.data,
       };
+
+    case TICKETS_CHECK_FOR_EXPIRATION: {
+      if (!state.selectedMovieSession) {
+        return { ...state };
+      }
+
+      const userTickets = [...state.userTickets];
+      const { rows } = state.selectedMovieSession.room;
+      const tickets = [];
+
+      userTickets.forEach((ticket) => {
+        const seat = rows
+          .find(item => item.id === ticket.seat.rowId)
+          .seats
+          .find(item => item.id === ticket.seatId);
+
+        if (seat.ticket) {
+          tickets.push(ticket);
+        }
+      });
+
+      return {
+        ...state,
+        userTickets: tickets,
+      };
+    }
 
     case ORDER_CHECKOUT:
       return {
@@ -196,6 +214,7 @@ function ticketReservation(state = initialState, action) {
     case ORDER_CHECKING_OUT_CANCELED:
       return {
         ...state,
+        error: null,
         isCheckingOut: false,
       };
 

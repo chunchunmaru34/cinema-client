@@ -9,13 +9,23 @@ class TicketListContainer extends React.Component {
   componentDidMount() {
     const { userId, dispatch } = this.props;
 
-    dispatch(fetchTickets({ user: userId, relevant: true }));
+    dispatch(fetchTickets({
+      user: userId,
+      relevant: true,
+      sortBy: 'date',
+      sortOrder: 1,
+    }));
   }
 
   onGetTickets = (isRelevant) => {
     const { dispatch, userId } = this.props;
 
-    dispatch(fetchTickets({ user: userId, isRelevant }));
+    dispatch(fetchTickets({
+      user: userId,
+      relevant: isRelevant,
+      sortBy: 'date',
+      sortOrder: 1,
+    }));
   };
 
   render() {

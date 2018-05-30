@@ -4,20 +4,20 @@ import PropTypes from 'prop-types';
 import styles from './styles.scss';
 
 const Seat = ({
-  index, data, selected, handleSelect,
+  data, selected, handleSelect,
 }) => (
   <div
     className={`
       ${styles.container}
-      ${styles[data.status]}
-      ${styles[data.kind.name]}
+      ${styles[data.ticket && data.ticket.status]}
+      ${styles[data.seatType.name]}
       ${selected && styles.selected}
     `}
     onClick={handleSelect}
   >
-    <div>{index + 1}</div>
+    <div>{data.number}</div>
     <div>
-      <small>{data.kind.name !== 'common' && data.kind.displayName}</small>
+      <small>{data.seatType.name !== 'common' && data.seatType.displayName}</small>
     </div>
   </div>
 );
@@ -25,15 +25,17 @@ const Seat = ({
 Seat.propTypes = {
   handleSelect: PropTypes.func,
   data: PropTypes.shape({
-    kind: PropTypes.shape({
+    seatType: PropTypes.shape({
       name: PropTypes.string,
       displayName: PropTypes.string,
-      space: PropTypes.number,
       priceMultiplier: PropTypes.number,
     }),
-    status: PropTypes.string,
-    occupiedUntil: PropTypes.string,
-    occupiedBy: PropTypes.string,
+    ticket: PropTypes.shape({
+      status: PropTypes.string,
+      occupiedUntil: PropTypes.string,
+      occupiedBy: PropTypes.string,
+    }),
+    number: PropTypes.number,
   }),
   movieSession: PropTypes.shape({
     roomCodeName: PropTypes.string,

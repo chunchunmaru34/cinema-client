@@ -17,16 +17,11 @@ function getDate(data) {
 }
 
 const Ticket = ({ data }) => {
-  const seats = data.addedSeats.map(item => (
-    <div key={`${item.rowNumber}_${item.number}`}>
-      Row: {item.rowNumber + 1} - Seat: {item.number + 1}
+  const additions = data.ticketAdditions && data.ticketAdditions.map(ticketAddition => (
+    <div key={ticketAddition.id}>
+      {ticketAddition.movieSessionAddition.additionalService.name} - x{ticketAddition.count}
     </div>
   ));
-
-  const additions = data.additions &&
-    Object.entries(data.additions).map(([key, value]) => (
-      <div key={key}>{key} : {value}</div>
-    ));
 
   return (
     <div className={styles.container}>
@@ -36,13 +31,18 @@ const Ticket = ({ data }) => {
       </div>
 
       <div className={styles.info}>
+        <div className="mb-3">
+          <span>Movie: {data.movieSession.movie.title}</span>
+        </div>
         <div className={styles.cinemaInfo}>
-          <div>Cinema: {data.movieSession.cinema.name}</div>
-          <div>Room: {data.movieSession.roomCodeName}</div>
+          <div>Cinema: {data.movieSession.room.cinema.name}</div>
+          <div>Room: {data.movieSession.room.name}</div>
         </div>
         <div className={styles.order}>
           <div>
-            {seats}
+            <div>Seat: {data.seat.number}</div>
+            <div>Row: {data.seat.row.number}</div>
+            <div>Seat type: {data.seat.seatType.name}</div>
           </div>
           <div>
             {additions}
@@ -59,18 +59,41 @@ const Ticket = ({ data }) => {
 Ticket.propTypes = {
   data: PropTypes.shape({
     movieSession: PropTypes.shape({
-      cinema: PropTypes.object,
-      movie: PropTypes.object,
+      room: PropTypes.shape({
+        name: PropTypes.string,
+        cinema: PropTypes.shape({
+          name: PropTypes.string,
+          city: PropTypes.string,
+        }),
+      }),
+      movie: PropTypes.shape({
+        title: PropTypes.string,
+        description: PropTypes.string,
+        actors: PropTypes.arrayOf(PropTypes.string),
+        rating: PropTypes.number,
+        director: PropTypes.string,
+        startShowDate: PropTypes.date,
+        endShowDate: PropTypes.date,
+      }),
       date: PropTypes.string,
       roomCodeName: PropTypes.string,
     }),
-    addedSeats: PropTypes.arrayOf(PropTypes.shape({
+    seat: PropTypes.shape({
       number: PropTypes.number,
-      rowNumber: PropTypes.rowNumber,
-    })),
-    transactionId: PropTypes.string,
+      row: PropTypes.shape({
+        number: PropTypes.number,
+      }),
+    }),
     user: PropTypes.string,
-    additions: PropTypes.object,
+    ticketAdditions: PropTypes.arrayOf(PropTypes.shape({
+      movieSessionAddition: PropTypes.shape({
+        additionalService: PropTypes.shape({
+          name: PropTypes.string,
+        }),
+        price: PropTypes.number,
+      }),
+      count: PropTypes.number,
+    })),
   }),
 };
 

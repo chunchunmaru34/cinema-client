@@ -15,14 +15,14 @@ const TicketList = ({
     <div className={styles.picker}>
       <span
         onClick={() => getTickets(false)}
-        className={!isTicketsRelevant ? styles.selected : ''}
+        className={isTicketsRelevant ? styles.selected : ''}
       >
         All
       </span>
       <span>|</span>
       <span
         onClick={() => getTickets(true)}
-        className={isTicketsRelevant ? styles.selected : ''}
+        className={!isTicketsRelevant ? styles.selected : ''}
       >
         Relevant
       </span>

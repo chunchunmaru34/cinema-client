@@ -1,19 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { addSeat, removeSeat } from '../actions';
+import { insertTicketToState } from '../actions';
 import { authService } from '../../../services';
-import { TEMPORARY_OCCUPIED } from '../constants/seats-statuses';
+import { WAITING_FOR_PAYMENT } from '../constants/ticket-statuses';
 import SeatsArrangement from './seats-arrangement';
 
 class SeatsArrangementContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
-    if (!this.props.selectedMovieSession && nextProps.selectedMovieSession) {
-      // Check only after session was initially loaded
-      this.checkForAddedSeats(nextProps.selectedMovieSession.seats);
-    } else {
-      // Check only after session refresh
-      this.checkForUnavailableSeats(nextProps.selectedMovieSession.seats);
+    if (nextProps.selectedMovieSession && !this.props.selectedMovieSession) {
+      this.checkForAddedSeats(nextProps.selectedMovieSession.room.rows);
     }
   }
 
@@ -21,44 +17,25 @@ class SeatsArrangementContainer extends React.Component {
   checkForAddedSeats(seats) {
     const userId = authService.getAuthenticatedUser().id;
 
-    seats.forEach((row, rowNumber) => {
-      row.forEach((seat, number) => {
-        const isSeatNotListed =
-          seat.status === TEMPORARY_OCCUPIED &&
-          seat.occupiedBy === userId &&
-          !this.props.addedSeats.find(item => item._id === seat._id);
+    seats.forEach((row) => {
+      row.seats.forEach((seat) => {
+        if (seat.ticket) {
+          const isSeatNotListed =
+            seat.ticket.status === WAITING_FOR_PAYMENT &&
+            seat.ticket.userId === userId &&
+            !this.props.tickets.find(ticket => ticket.seatId === seat.id);
 
-        if (isSeatNotListed) {
-          const payload = {
-            ...seat,
-            number,
-            rowNumber,
-          };
-          this.props.dispatch(addSeat(payload));
-        }
-      });
-    });
-  }
+          if (isSeatNotListed) {
+            const { ticket } = seat;
+            delete seat.ticket;
 
-  // loop through seats and check if they added to order by user,
-  // but were already reserved by other users in refresh interval
-  checkForUnavailableSeats(seats) {
-    const userId = authService.getAuthenticatedUser().id;
+            const payload = {
+              ...ticket,
+              seat,
+            };
 
-    seats.forEach((row, rowNumber) => {
-      row.forEach((seat, number) => {
-        const isSeatListed =
-          seat.status === TEMPORARY_OCCUPIED &&
-          seat.occupiedBy !== userId &&
-          this.props.addedSeats.find(item => item._id === seat._id);
-
-        if (isSeatListed) {
-          const payload = {
-            ...seat,
-            number,
-            rowNumber,
-          };
-          this.props.dispatch(removeSeat(payload));
+            this.props.dispatch(insertTicketToState(payload));
+          }
         }
       });
     });
@@ -66,13 +43,13 @@ class SeatsArrangementContainer extends React.Component {
 
   render() {
     const { selectedMovieSession } = this.props;
-    return <SeatsArrangement movieSession={selectedMovieSession}/>;
+    return <SeatsArrangement movieSession={selectedMovieSession} />;
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
   movieSession: ownProps.movieSession,
-  addedSeats: state.ticketReservation.order.addedSeats,
+  tickets: state.ticketReservation.userTickets,
   selectedMovieSession: state.ticketReservation.selectedMovieSession,
 });
 

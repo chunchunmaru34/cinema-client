@@ -2,21 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { checkout } from '../actions';
+import { checkout, refreshMovieSession, confirmOrder } from '../actions';
 import OrderSummary from './order-summary';
 
 class OrderSummaryContainer extends React.Component {
   onCheckout = () => {
-    this.props.dispatch(checkout());
+    const { tickets, dispatch, selectedMovieSession } = this.props;
+
+    dispatch(checkout());
+    dispatch(confirmOrder(tickets));
+
+    setTimeout(() => dispatch(refreshMovieSession(selectedMovieSession)), 200);
   };
 
   render() {
     const {
-      movieSession, order, isCheckingOut,
+      movieSession, isCheckingOut, tickets,
     } = this.props;
-    return order.addedSeats.length
+    return tickets.length
       ? <OrderSummary
-           order={order}
+           tickets={tickets}
            checkout={this.onCheckout}
            isCheckingOut={isCheckingOut}
            movieSession={movieSession}
@@ -26,8 +31,9 @@ class OrderSummaryContainer extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  order: state.ticketReservation.order,
+  tickets: state.ticketReservation.userTickets,
   isCheckingOut: state.ticketReservation.isCheckingOut,
+  selectedMovieSession: state.ticketReservation.selectedMovieSession,
   movieSession: ownProps.movieSession,
 });
 

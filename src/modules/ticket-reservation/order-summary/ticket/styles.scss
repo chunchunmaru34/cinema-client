@@ -1,0 +1,17 @@
+@import '../../../../sass/variables.global.';
+
+.container {
+  color: $light;
+  margin: 10px;
+  background-color: lighten($primary, 10);
+}
+
+.header {
+  padding: 8px;
+}
+
+.additionsList {
+  background-color: $primary;
+  margin: 0 auto;
+  padding: 10px;
+}

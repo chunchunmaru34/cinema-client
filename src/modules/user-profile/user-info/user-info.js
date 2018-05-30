@@ -11,7 +11,6 @@ class UserInfo extends React.Component {
     this.state = {
       user: this.props.user,
       isEditingName: false,
-      isEditingCity: false,
     };
   }
 
@@ -37,7 +36,7 @@ class UserInfo extends React.Component {
 
   render() {
     const {
-      user, isEditingCity, isEditingName,
+      user, isEditingName,
     } = this.state;
     const {
       error, info, clearError, clearInfo,
@@ -75,29 +74,6 @@ class UserInfo extends React.Component {
                   name="Name"
                 >
                   {isEditingName ? 'Save' : 'Edit'}
-                </button>
-              </div>
-
-              {/* City */}
-              <div className={`${styles.infoLine} input-group`}>
-                <label>City: </label>
-                { this.state.isEditingCity ?
-                    <input
-                      className="form-control"
-                      value={user.city}
-                      onChange={this.handleChange}
-                      maxLength="30"
-                      name="city"
-                    />
-                  :
-                    <span>{user.city}</span>
-                }
-                <button
-                  onClick={this.toggleEdit}
-                  className="btn btn-sm btn-outline-primary"
-                  name="City"
-                >
-                  {isEditingCity ? 'Save' : 'Edit'}
                 </button>
               </div>
 
@@ -143,6 +119,10 @@ class UserInfo extends React.Component {
 }
 
 UserInfo.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+  }),
   error: PropTypes.string,
   info: PropTypes.string,
   clearError: PropTypes.func,

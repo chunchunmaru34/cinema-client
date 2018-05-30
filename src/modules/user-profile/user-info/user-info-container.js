@@ -91,13 +91,11 @@ UserInfoContainer.propTypes = {
   info: PropTypes.string,
   error: PropTypes.string,
   user: PropTypes.shape({
-    id: PropTypes.string,
     email: PropTypes.string,
     role: PropTypes.string,
     exp: Number,
   }),
   userDetails: PropTypes.shape({
-    id: PropTypes.string,
     role: PropTypes.string,
     email: PropTypes.string,
     name: PropTypes.string,

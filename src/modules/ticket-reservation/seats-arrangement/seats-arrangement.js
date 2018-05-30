@@ -15,7 +15,7 @@ const SeatsArrangements = ({ movieSession }) => {
     );
   }
 
-  const rows = movieSession.seats
+  const rows = movieSession.room.rows
     .map((item, index) => (
       <Row
         data={item}
